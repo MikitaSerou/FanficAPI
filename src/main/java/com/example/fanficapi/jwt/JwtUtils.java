@@ -20,8 +20,8 @@ public class JwtUtils {
     @Value("${jwtExpirationMs}")
     private int jwtExpirationMs;
 
-    public String generateToken(@AuthenticationPrincipal UserDetailsImpl userPrincipal, //TODO check this
-                                Authentication authentication){
+    public String generateToken(Authentication authentication){
+        UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
         return Jwts.builder()
                 .setSubject(userPrincipal.getUsername())
                 .setIssuedAt(new Date())
