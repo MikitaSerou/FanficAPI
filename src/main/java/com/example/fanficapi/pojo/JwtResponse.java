@@ -1,6 +1,5 @@
-package pojo;
+package com.example.fanficapi.pojo;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.List;

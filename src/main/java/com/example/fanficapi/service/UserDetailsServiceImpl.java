@@ -1,7 +1,6 @@
 package com.example.fanficapi.service;
 
 import com.example.fanficapi.model.User;
-import com.example.fanficapi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,12 +11,11 @@ import org.springframework.stereotype.Service;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    UserRepository userRepository;
+    UserService userService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Can not find user with this username: " + username));
+        User user = userService.findByUsername(username);
         return UserDetailsImpl.build(user);
     }
 }

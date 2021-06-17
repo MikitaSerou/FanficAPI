@@ -1,4 +1,4 @@
-package pojo;
+package com.example.fanficapi.pojo;
 
 import lombok.Data;
 

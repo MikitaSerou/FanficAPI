@@ -4,9 +4,13 @@ import com.example.fanficapi.enums.RoleName;
 import com.example.fanficapi.jwt.JwtUtils;
 import com.example.fanficapi.model.Role;
 import com.example.fanficapi.model.User;
-import com.example.fanficapi.repository.RoleRepository;
-import com.example.fanficapi.repository.UserRepository;
+import com.example.fanficapi.pojo.JwtResponse;
+import com.example.fanficapi.pojo.MessageResponse;
+import com.example.fanficapi.pojo.SignInRequest;
+import com.example.fanficapi.pojo.SignUpRequest;
+import com.example.fanficapi.service.RoleService;
 import com.example.fanficapi.service.UserDetailsImpl;
+import com.example.fanficapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,16 +20,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import pojo.JwtResponse;
-import pojo.MessageResponse;
-import pojo.SignInRequest;
-import pojo.SignUpRequest;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.List;
@@ -40,10 +37,10 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private UserRepository userRepository; // TODO rebase to UserService
+    private UserService userService;
 
     @Autowired
-    RoleRepository roleRepository; // TODO rebase to RoleService
+    RoleService roleService;
 
     @Autowired
     private PasswordEncoder encoder;
@@ -73,19 +70,19 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
-        if (userRepository.existsByUsername(signUpRequest.getUsername())) {
+        if (userService.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Username is already taken!"));
         }
 
-        if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+        if (userService.existsByEmail(signUpRequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Email is already in use!"));
         }
 
-        // Create new user's account
+        // TODO move this to service:
         User user = new User(signUpRequest.getUsername(),
                 signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()));
@@ -94,29 +91,19 @@ public class AuthController {
         Set<Role> roles = new HashSet<>();
 
         if (strRoles == null) {
-            Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+            Role userRole = roleService.findByName(RoleName.ROLE_USER);
             roles.add(userRole);
         } else {
             strRoles.forEach(role -> {
-                switch (role) {
-                    case "admin":
-                        Role adminRole = roleRepository.findByName(RoleName.ROLE_ADMIN)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(adminRole);
-
-                        break;
-                    case "mod":
-                    default:
-                        Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(userRole);
+                if ("admin".equals(role)) {
+                    Role adminRole = roleService.findByName(RoleName.ROLE_ADMIN);
+                    roles.add(adminRole);
                 }
             });
         }
 
         user.setRoles(roles);
-        userRepository.save(user);
+        userService.saveToStorage(user);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
