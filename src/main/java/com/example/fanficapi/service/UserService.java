@@ -1,6 +1,7 @@
 package com.example.fanficapi.service;
 
 import com.example.fanficapi.enums.RoleName;
+import com.example.fanficapi.exceptions.UserNotFoundException;
 import com.example.fanficapi.model.Role;
 import com.example.fanficapi.model.User;
 import com.example.fanficapi.pojo.SignUpRequest;
@@ -10,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -25,9 +27,44 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public User findByID(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("User with this id " + id + "was not found"));
+    }
+
     public User findByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Can not find user with this username: " + username));
+    }
+
+    public User updateUser(User user) {
+
+//
+//        User userExist = userRepository.findOne(user.getId());
+//        userExist.setEmail(user.getEmail());
+
+//or using
+//BeanUtil.copyProprty(formDto,modle)
+
+        //crutch but idk how
+        User userForUpdate = findByID(user.getId());
+        if (user.getUsername() != null &
+                !userForUpdate.getUsername().equals(user.getUsername()) & !existsByUsername(user.getUsername())) {
+            userForUpdate.setUsername(user.getUsername());
+        }
+        if (user.getEmail() != null
+                & !userForUpdate.getEmail().equals(user.getEmail()) & !existsByEmail(user.getEmail())) {
+            userForUpdate.setEmail(user.getEmail());
+        }
+        return userRepository.save(userForUpdate);
+    }
+
+    public void deleteUserById(Long id) {
+        userRepository.deleteById(id);
+    }
+
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 
     public Boolean existsByUsername(String username) {
@@ -39,7 +76,7 @@ public class UserService {
     }
 
     public User getUserFromSignUpRequest(SignUpRequest request) {
-        User user =  new User(request.getUsername(), request.getEmail());
+        User user = new User(request.getUsername(), request.getEmail());
         Set<String> requestRoleNames = request.getRoles();
         Set<Role> roles = new HashSet<>();
         if (requestRoleNames == null) {
@@ -48,7 +85,7 @@ public class UserService {
             requestRoleNames.forEach(role -> {
                 if (role.equals("admin")) {
                     roles.add(roleService.findByName(RoleName.ROLE_ADMIN));
-                }else{
+                } else {
                     roles.add(roleService.findByName(RoleName.ROLE_USER));
                 }
             });
