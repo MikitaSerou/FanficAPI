@@ -9,10 +9,10 @@ create table role
 alter table role
     owner to "user";
 
-INSERT INTO public.role (id, name)
-VALUES (1, 'ROLE_USER');
-INSERT INTO public.role (id, name)
-VALUES (2, 'ROLE_ADMIN');
+INSERT INTO public.role (name)
+VALUES ('ROLE_USER');
+INSERT INTO public.role (name)
+VALUES ('ROLE_ADMIN');
 create table users
 (
     id       bigserial not null
@@ -30,8 +30,8 @@ create table users
 alter table users
     owner to "user";
 
-INSERT INTO public.users (id, email, password, username)
-VALUES (1, 'miita.serou@gmail.com', '$2a$10$OWTmnPjs4sDbJIEmId57ferf9incJ3J5OWlS3eBPWjkPvfJB2vBbO', 'Mikita');
+INSERT INTO public.users (email, password, username)
+VALUES ('miita.serou@gmail.com', '$2a$10$OWTmnPjs4sDbJIEmId57ferf9incJ3J5OWlS3eBPWjkPvfJB2vBbO', 'Mikita');
 
 create table user_roles
 (
