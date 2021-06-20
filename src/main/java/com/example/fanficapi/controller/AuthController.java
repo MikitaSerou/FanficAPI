@@ -8,7 +8,7 @@ import com.example.fanficapi.pojo.SignInRequest;
 import com.example.fanficapi.pojo.SignUpRequest;
 import com.example.fanficapi.service.AuthenticationService;
 import com.example.fanficapi.service.RoleService;
-import com.example.fanficapi.service.UserDetailsImpl;
+import com.example.fanficapi.pojo.UserDetailsImpl;
 import com.example.fanficapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
