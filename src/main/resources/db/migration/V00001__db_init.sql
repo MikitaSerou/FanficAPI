@@ -141,3 +141,22 @@ VALUES ('miita.serou@gmail.com', '$2a$10$OWTmnPjs4sDbJIEmId57ferf9incJ3J5OWlS3eB
 
 INSERT INTO public.user_roles (user_id, role_id)
 VALUES (1, 1);
+
+INSERT INTO TAG (name) VALUES('scary');
+
+INSERT INTO theme (name) VALUES ('IT and Stephen King Universe');
+
+INSERT INTO publication (description, name, user_id, theme_id)
+VALUES('Another one story about st.Mann', 'Small talk on the bus station', 1, 1);
+
+INSERT INTO publication_tag (tag_id, publication_id) VALUES (1, 1);
+
+INSERT INTO bookmarks (user_id, publication_id) VALUES (1,1);
+
+INSERT INTO likes (user_id, publication_id) VALUES (1,1);
+
+INSERT INTO preferences (user_id, theme_id) VALUES (1,1);
+
+INSERT INTO chapter (image_reference, name, text, publication_id)
+VALUES (null, 'Sometimes i liked to take a nap in public places',
+        'Once I, passing by the diner that was next to the fair ...',1);

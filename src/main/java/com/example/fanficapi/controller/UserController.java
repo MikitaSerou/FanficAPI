@@ -2,6 +2,7 @@ package com.example.fanficapi.controller;
 
 import com.example.fanficapi.model.User;
 import com.example.fanficapi.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 //@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/user")
+@Slf4j
 public class UserController {
 
     @Autowired
@@ -27,7 +29,7 @@ public class UserController {
 
     @GetMapping("/find/{id}")
     public ResponseEntity<User> getUserById(@PathVariable("id") Long id){
-       User user = userService.findByID(id);
+       User user = userService.findById(id);
        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 

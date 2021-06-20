@@ -1,7 +1,7 @@
 package com.example.fanficapi.service;
 
 import com.example.fanficapi.enums.RoleName;
-import com.example.fanficapi.exceptions.UserNotFoundException;
+import com.example.fanficapi.exception.UserNotFoundException;
 import com.example.fanficapi.model.Role;
 import com.example.fanficapi.model.User;
 import com.example.fanficapi.pojo.SignUpRequest;
@@ -27,9 +27,9 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public User findByID(Long id) {
+    public User findById(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("User with this id " + id + "was not found"));
+                .orElseThrow(() -> new UserNotFoundException("User with this id (" + id + ") was not found"));
     }
 
     public User findByUsername(String username) throws UsernameNotFoundException {
@@ -38,16 +38,8 @@ public class UserService {
     }
 
     public User updateUser(User user) {
-
-//
-//        User userExist = userRepository.findOne(user.getId());
-//        userExist.setEmail(user.getEmail());
-
-//or using
-//BeanUtil.copyProprty(formDto,modle)
-
         //crutch but idk how
-        User userForUpdate = findByID(user.getId());
+        User userForUpdate = findById(user.getId());
         if (user.getUsername() != null &
                 !userForUpdate.getUsername().equals(user.getUsername()) & !existsByUsername(user.getUsername())) {
             userForUpdate.setUsername(user.getUsername());

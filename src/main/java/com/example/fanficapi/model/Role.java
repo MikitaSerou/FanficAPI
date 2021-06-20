@@ -1,12 +1,14 @@
 package com.example.fanficapi.model;
 
 import com.example.fanficapi.enums.RoleName;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
-@Data
+@NoArgsConstructor
+@Getter
+@Setter
 public class Role {
 
     @Id
@@ -17,4 +19,26 @@ public class Role {
     @Column(nullable = false)
     private RoleName name;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Role role = (Role) o;
+
+        return name == role.name;
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "id=" + id +
+                ", name=" + name +
+                '}';
+    }
 }
