@@ -4,11 +4,10 @@ import lombok.*;
 
 import java.util.Set;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ThemeDto {
+public class SimpleThemeDto {
 
     private Integer id;
 
@@ -16,7 +15,6 @@ public class ThemeDto {
 
     private String imageUrl;
 
-    private Set<PublicationDto> publications;
+   // private Set<SimplePublicationDto> publications;
 
-    private Set<UserDto> usersWhoPreference;
 }

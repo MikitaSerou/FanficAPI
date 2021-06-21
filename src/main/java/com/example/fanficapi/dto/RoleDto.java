@@ -1,15 +1,14 @@
 package com.example.fanficapi.dto;
 
+import com.example.fanficapi.enums.RoleName;
 import lombok.*;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class RoleDto {
 
     private Short id;
 
-    private String name; //TODO it's enum!
-
+    private RoleName name; //TODO it's enum!
 }

@@ -1,7 +1,9 @@
 package com.example.fanficapi.service;
 
-import com.example.fanficapi.dto.PublicationDto;
+
+import com.example.fanficapi.dto.simple.PreviewPublicationDto;
 import com.example.fanficapi.exception.PublicationNotFoundException;
+import com.example.fanficapi.mapper.Mapper;
 import com.example.fanficapi.model.Publication;
 import com.example.fanficapi.model.Tag;
 import com.example.fanficapi.model.User;
@@ -12,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -23,15 +26,20 @@ public class PublicationService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private Mapper mapper;
+
     @Transactional
     public List<Publication> findAll(){
         return publicationRepository.findAll();
     }
 
-    public Publication findById(Long id){
-        return publicationRepository.findById(id)
-                .orElseThrow(() ->
-                        new PublicationNotFoundException("Publication with this id (" + id + ") was not found"));
+    public PreviewPublicationDto getSimpleById(Long id){
+        Optional<Publication> publication = publicationRepository.findById(id);
+       return mapper.publicationToSimpleDto(publication.get());
+//        return publicationRepository.findById(id)
+//                .orElseThrow(() ->
+//                        new PublicationNotFoundException("Publication with this id (" + id + ") was not found"));
     }
 
 //    public Publication findByName(String name){

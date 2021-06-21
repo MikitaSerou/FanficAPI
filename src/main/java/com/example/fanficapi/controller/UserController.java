@@ -1,5 +1,6 @@
 package com.example.fanficapi.controller;
 
+import com.example.fanficapi.mapper.Mapper;
 import com.example.fanficapi.model.User;
 import com.example.fanficapi.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private Mapper mapper;
 
     @GetMapping("/all")
    // @PreAuthorize("hasRole('ADMIN')")

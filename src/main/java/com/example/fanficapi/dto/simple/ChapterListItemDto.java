@@ -1,20 +1,15 @@
-package com.example.fanficapi.dto;
+package com.example.fanficapi.dto.simple;
 
 import lombok.*;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ChapterDto {
+public class ChapterListItemDto {
 
     private Long id;
 
     private String name;
 
-    private String text;
-
     private String imageReference;
-
-    private Long publicationId;
 }
