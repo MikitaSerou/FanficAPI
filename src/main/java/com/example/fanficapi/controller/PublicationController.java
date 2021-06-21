@@ -1,8 +1,8 @@
 package com.example.fanficapi.controller;
 
 
+import com.example.fanficapi.dto.PublicationDto;
 import com.example.fanficapi.dto.simple.PreviewPublicationDto;
-import com.example.fanficapi.model.Publication;
 import com.example.fanficapi.service.PublicationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,16 +23,24 @@ public class PublicationController {
     @Autowired
     private PublicationService publicationService;
 
+
     @GetMapping("/all")
     // @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<Publication>> getPublications() {
-        List<Publication> publications = publicationService.findAll();
+    public ResponseEntity<List<PublicationDto>> getPublications() {
+        List<PublicationDto> publications = publicationService.getAllDto();
         return new ResponseEntity<>(publications, HttpStatus.OK);
     }
 
-    @GetMapping("/find/{id}")
-    public ResponseEntity<PreviewPublicationDto> getSimplePublicationById(@PathVariable("id") Long id){
-        PreviewPublicationDto publication = publicationService.getSimpleById(id);
+    @GetMapping("/preview/{id}")
+    public ResponseEntity<PreviewPublicationDto> getSimplePublicationById(@PathVariable("id") Long id) {
+        PreviewPublicationDto publication = publicationService.getSimpleDtoById(id);
+        System.err.println(publication.toString());
+        return new ResponseEntity<>(publication, HttpStatus.OK);
+    }
+
+    @GetMapping("/page/{id}")
+    public ResponseEntity<PublicationDto> getPublicationById(@PathVariable("id") Long id) {
+        PublicationDto publication = publicationService.getDtoById(id);
         System.err.println(publication.toString());
         return new ResponseEntity<>(publication, HttpStatus.OK);
     }

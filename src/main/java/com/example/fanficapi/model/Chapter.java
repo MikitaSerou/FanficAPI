@@ -1,6 +1,8 @@
 package com.example.fanficapi.model;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -24,6 +26,7 @@ public class Chapter {
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "publication_id")
     private Publication publication;
+
 
     @Override
     public boolean equals(Object o) {

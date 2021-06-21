@@ -1,8 +1,8 @@
-package com.example.fanficapi.dto;
+package com.example.fanficapi.dto.simple;
 
-import lombok.*;
-
-import java.util.Set;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
@@ -14,7 +14,4 @@ public class SimpleThemeDto {
     private String name;
 
     private String imageUrl;
-
-   // private Set<SimplePublicationDto> publications;
-
 }

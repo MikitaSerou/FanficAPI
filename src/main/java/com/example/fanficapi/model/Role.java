@@ -1,9 +1,12 @@
 package com.example.fanficapi.model;
 
 import com.example.fanficapi.enums.RoleName;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -18,6 +21,13 @@ public class Role {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private RoleName name;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private Set<User> users;
+
 
     @Override
     public boolean equals(Object o) {

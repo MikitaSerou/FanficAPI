@@ -1,7 +1,6 @@
 package com.example.fanficapi.dto;
 
-import com.example.fanficapi.enums.RoleName;
-import com.example.fanficapi.model.User;
+import com.example.fanficapi.dto.simple.PreviewPublicationDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,11 +10,11 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RoleDto {
+public class TagDto {
 
-    private Short id;
+    private Long id;
 
-    private RoleName name;
+    private String name;
 
-    private Set<User> users;
+    private Set<PreviewPublicationDto> publications;
 }

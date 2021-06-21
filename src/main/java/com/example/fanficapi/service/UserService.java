@@ -1,7 +1,10 @@
 package com.example.fanficapi.service;
 
+import com.example.fanficapi.dto.UserDto;
+import com.example.fanficapi.dto.simple.UserShortInfoDto;
 import com.example.fanficapi.enums.RoleName;
 import com.example.fanficapi.exception.UserNotFoundException;
+import com.example.fanficapi.mapper.Mapper;
 import com.example.fanficapi.model.Role;
 import com.example.fanficapi.model.User;
 import com.example.fanficapi.pojo.SignUpRequest;
@@ -12,10 +15,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
-public class UserService {
+public class UserService extends AbstractService<User, Long, UserShortInfoDto, UserDto> {
 
     @Autowired
     private UserRepository userRepository;
@@ -23,21 +27,45 @@ public class UserService {
     @Autowired
     private RoleService roleService;
 
-    public void saveToStorage(User user) {
+    @Autowired
+    private Mapper mapper;
+
+
+    @Override
+    public void saveToDB(User user) {
         userRepository.save(user);
     }
 
+    @Override
     public User findById(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("User with this id (" + id + ") was not found"));
+                .orElseThrow(() -> new UserNotFoundException("Can not find user with this id: " + id));
     }
 
-    public User findByUsername(String username) throws UsernameNotFoundException {
+    @Override
+    public List<UserDto> getAllDto() {
+        return null;
+    }
+
+    @Override
+    public UserShortInfoDto getSimpleDtoById(Long id) {
+        return null;
+    }
+
+    public UserDto getDtoById(Long id) {
+        Optional<User> user = userRepository.findById(id);
+        System.err.println(user.get().toString());
+        return mapper.userToDto(userRepository.findById(id).get());
+    }
+
+    @Override
+    public User findByName(String username) throws UsernameNotFoundException {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Can not find user with this username: " + username));
     }
 
-    public User updateUser(User user) {
+    @Override
+    public User update(User user) {
         //crutch but idk how
         User userForUpdate = findById(user.getId());
         if (user.getUsername() != null &
@@ -51,10 +79,12 @@ public class UserService {
         return userRepository.save(userForUpdate);
     }
 
-    public void deleteUserById(Long id) {
+    @Override
+    public void deleteById(Long id) {
         userRepository.deleteById(id);
     }
 
+    @Override
     public List<User> findAll() {
         return userRepository.findAll();
     }
@@ -72,13 +102,13 @@ public class UserService {
         Set<String> requestRoleNames = request.getRoles();
         Set<Role> roles = new HashSet<>();
         if (requestRoleNames == null) {
-            roles.add(roleService.findByName(RoleName.ROLE_USER));
+            roles.add(roleService.findByRoleName(RoleName.ROLE_USER));
         } else {
             requestRoleNames.forEach(role -> {
                 if (role.equals("admin")) {
-                    roles.add(roleService.findByName(RoleName.ROLE_ADMIN));
+                    roles.add(roleService.findByRoleName(RoleName.ROLE_ADMIN));
                 } else {
-                    roles.add(roleService.findByName(RoleName.ROLE_USER));
+                    roles.add(roleService.findByRoleName(RoleName.ROLE_USER));
                 }
             });
         }

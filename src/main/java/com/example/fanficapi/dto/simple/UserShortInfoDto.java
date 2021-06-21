@@ -1,14 +1,13 @@
 package com.example.fanficapi.dto.simple;
 
-import com.example.fanficapi.model.Publication;
-import lombok.*;
-
-import java.util.Set;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UseShortInformationUserDto {
+public class UserShortInfoDto {
 
     private Long id;
 

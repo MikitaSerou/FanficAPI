@@ -1,6 +1,8 @@
 package com.example.fanficapi.model;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -10,7 +12,7 @@ import java.util.Set;
 
 
 @Entity
-@Table(name="users") //bcs user - keyword for Postgres
+@Table(name = "users") //bcs user - keyword for Postgres
 @NoArgsConstructor
 @Getter
 @Setter
@@ -58,6 +60,7 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "publication_id"))
     private Set<Publication> bookmarks;
+
 
     public User(@Size(max = 20) String username, @Size(max = 50) @Email String email) {
         this.username = username;

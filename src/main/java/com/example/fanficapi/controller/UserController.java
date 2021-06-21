@@ -1,6 +1,6 @@
 package com.example.fanficapi.controller;
 
-import com.example.fanficapi.mapper.Mapper;
+import com.example.fanficapi.dto.UserDto;
 import com.example.fanficapi.model.User;
 import com.example.fanficapi.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -21,31 +21,31 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private Mapper mapper;
 
     @GetMapping("/all")
-   // @PreAuthorize("hasRole('ADMIN')")
+    // @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userService.findAll();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @GetMapping("/find/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable("id") Long id){
-       User user = userService.findById(id);
-       return new ResponseEntity<>(user, HttpStatus.OK);
+    @GetMapping("/page/{id}")
+    public ResponseEntity<UserDto> getUserDtoById(@PathVariable("id") Long id) {
+        UserDto user = userService.getDtoById(id);
+        System.err.println(user.toString());
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
+
     @PatchMapping("/update")                                              //TODO Save new user, resolve this
-    public ResponseEntity<User> updateUser(@RequestBody User user){
-        User updateUser = userService.updateUser(user);
+    public ResponseEntity<User> updateUser(@RequestBody User user) {
+        User updateUser = userService.update(user);
         return new ResponseEntity<>(updateUser, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public void delete(@PathVariable("id") Long id){
-        userService.deleteUserById(id);
+    public void delete(@PathVariable("id") Long id) {
+        userService.deleteById(id);
     }
 }

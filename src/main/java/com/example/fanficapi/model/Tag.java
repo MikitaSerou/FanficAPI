@@ -1,7 +1,9 @@
 package com.example.fanficapi.model;
 
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -23,6 +25,7 @@ public class Tag {
             joinColumns = @JoinColumn(name = "tag_id"),
             inverseJoinColumns = @JoinColumn(name = "publication_id"))
     private Set<Publication> publications;
+
 
     @Override
     public boolean equals(Object o) {

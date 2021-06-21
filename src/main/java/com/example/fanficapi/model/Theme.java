@@ -1,6 +1,8 @@
 package com.example.fanficapi.model;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -28,7 +30,8 @@ public class Theme {
     @JoinTable(name = "preferences",
             joinColumns = @JoinColumn(name = "theme_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private Set<User> usersWhoPreference;
+    private Set<User> subscribers;
+
 
     @Override
     public boolean equals(Object o) {

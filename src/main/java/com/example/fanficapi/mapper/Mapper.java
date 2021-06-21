@@ -1,51 +1,40 @@
 package com.example.fanficapi.mapper;
 
-import com.example.fanficapi.dto.*;
-import com.example.fanficapi.dto.simple.ChapterListItemDto;
-import com.example.fanficapi.dto.simple.PreviewPublicationDto;
-import com.example.fanficapi.dto.simple.SimpleTagDto;
-import com.example.fanficapi.dto.simple.UseShortInformationUserDto;
+import com.example.fanficapi.dto.PublicationDto;
+import com.example.fanficapi.dto.RoleDto;
+import com.example.fanficapi.dto.ThemeDto;
+import com.example.fanficapi.dto.UserDto;
+import com.example.fanficapi.dto.simple.*;
 import com.example.fanficapi.model.*;
-import org.mapstruct.Mapping;
+
+import java.util.List;
 
 @org.mapstruct.Mapper(componentModel = "spring"/*, unmappedTargetPolicy = ReportingPolicy.IGNORE*/)
 public interface Mapper {
 
-//    SimpleTagDto tagToDto(Tag tag);
-//
-//    @Mapping(target = "publications", ignore = true)
-//    Tag tagDtoToTag(SimpleTagDto dto);
+    PreviewPublicationDto publicationToPreviewDto(Publication publication);
 
- //   @Mapping(target = "publication", ignore = true)
-    ChapterListItemDto chapterToDto(Chapter chapter);
+    PublicationDto publicationToDto(Publication publication);
 
-    @Mapping(target = "publication", ignore = true)
-    Chapter chapterDtoToChapter(ChapterListItemDto dto);
+    List<PublicationDto> publicationsListToDto(List<Publication> publications);
 
-    RoleDto roleToDto(Role role);
+    List<PreviewPublicationDto> publicationsListPreviewToDto(List<PreviewPublicationDto> publications);
 
-    Role roleDtoToRole(RoleDto dto);
-
-    PreviewPublicationDto publicationToSimpleDto(Publication publication);
-
-    @Mapping(target = "usersWhoDidBookmark", ignore = true)
-    @Mapping(target = "usersWhoLiked", ignore = true)
-    Publication simplePublicationDtoToPublication(PreviewPublicationDto dto);
-
-   //@Mapping(target = "publications", ignore = true)
-    SimpleTagDto tagToSimpleDto(Tag tag);
-
-    @Mapping(target = "publications", ignore = true)
-    Tag simpleTagDtoToTag(SimpleTagDto dto);
-
-    //@Mapping(target = "usersWhoPreference", ignore = true)
     SimpleThemeDto themeToSimpleDto(Theme theme);
 
-    @Mapping(target = "usersWhoPreference", ignore = true)
-    Theme simpleThemeDtoToTheme(SimpleThemeDto dto);
+    ThemeDto themeToDto(Theme theme);
 
+    List<ThemeDto> themesListToto(List<Theme> themes);
 
-    UseShortInformationUserDto userToDto(User user);
+    List<SimpleThemeDto> themeListToSimpleDto(List<Theme> themes);
 
-    User userDtoToUser(User user);
+    SimpleTagDto tagToSimpleDto(Tag tag);
+
+    UserShortInfoDto userToShortInfoDto(User user);
+
+    UserDto userToDto(User user);
+
+    SimpleRoleDto roleToSimpleDto(Role role);
+
+    RoleDto toRoleDto(Role role);
 }

@@ -19,8 +19,9 @@ public class TagController {
     @Autowired
     private TagService tagService;
 
+
     @GetMapping("/find/{id}")
-    public ResponseEntity<Tag> getUserById(@PathVariable("id") Long id){
+    public ResponseEntity<Tag> getUserById(@PathVariable("id") Long id) {
         Tag tag = tagService.findById(id);
         return new ResponseEntity<>(tag, HttpStatus.OK);
     }

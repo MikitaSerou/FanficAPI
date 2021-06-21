@@ -19,7 +19,8 @@ public class JwtUtils {
     @Value("${jwtExpirationMs}")
     private int jwtExpirationMs;
 
-    public String generateToken(Authentication authentication){
+
+    public String generateToken(Authentication authentication) {
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
         return Jwts.builder()
                 .setSubject(userPrincipal.getUsername())
@@ -29,28 +30,23 @@ public class JwtUtils {
                 .compact();
     }
 
-    public String getUsernameFromToken(String token){
+    public String getUsernameFromToken(String token) {
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
     }
 
-    public boolean validateToken(String token){
-        try{
+    public boolean validateToken(String token) {
+        try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
             return true;
-        }
-        catch(SignatureException signatureException){
-            log.error("Invalid JWT signature: {}",  signatureException.getMessage());
-        }
-        catch (MalformedJwtException malformedJwtException){
+        } catch (SignatureException signatureException) {
+            log.error("Invalid JWT signature: {}", signatureException.getMessage());
+        } catch (MalformedJwtException malformedJwtException) {
             log.error("Invalid JWT token: {}", malformedJwtException.getMessage());
-        }
-        catch (ExpiredJwtException expiredJwtException){
+        } catch (ExpiredJwtException expiredJwtException) {
             log.error("JWT token is expired: {}", expiredJwtException.getMessage());
-        }
-        catch (UnsupportedJwtException unsupportedJwtException){
+        } catch (UnsupportedJwtException unsupportedJwtException) {
             log.error("JWT token is unsupported: {}", unsupportedJwtException.getMessage());
-        }
-        catch (IllegalArgumentException illegalArgumentException){
+        } catch (IllegalArgumentException illegalArgumentException) {
             log.error("JWT claims string is empty: {}", illegalArgumentException.getMessage());
         }
         return false;
