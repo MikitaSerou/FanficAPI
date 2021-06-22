@@ -1,0 +1,2 @@
+1 - toStrings and Equals/Hashcode for entities
+2 - IN queries

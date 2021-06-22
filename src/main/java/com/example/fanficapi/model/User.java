@@ -1,7 +1,6 @@
 package com.example.fanficapi.model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -11,25 +10,32 @@ import java.util.Set;
 
 
 @Entity
-@Table(name="users") //bcs user - keyword for Postgres
-@Data
+@Table(name = "users") //bcs user - keyword for Postgres
+@Getter
+@Setter
 @NoArgsConstructor
+@ToString(of = {"id", "username", "email", "password"})
+@EqualsAndHashCode(of = {"username", "email", "password"})
+@RequiredArgsConstructor
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @Size(max = 20)
     @Column(unique = true)
+    @NonNull
     private String username;
 
     @Size(max = 50)
     @Email
     @Column(unique = true)
+    @NonNull
     private String email;
 
     @Size(max = 120)
+    @NonNull
     private String password;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -59,14 +65,8 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "publication_id"))
     private Set<Publication> bookmarks;
 
-    public User(@Size(max = 20) String username, @Size(max = 50) @Email String email) {
+    public User(@Size(max = 20) @NonNull String username, @Size(max = 50) @Email @NonNull String email) {
         this.username = username;
         this.email = email;
-    }
-
-    public User(String username, String email, String password) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
     }
 }

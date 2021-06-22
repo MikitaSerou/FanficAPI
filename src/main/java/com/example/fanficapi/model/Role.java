@@ -1,12 +1,17 @@
 package com.example.fanficapi.model;
 
 import com.example.fanficapi.enums.RoleName;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString(exclude = {"users"})
+@EqualsAndHashCode(exclude = {"id", "users"})
 public class Role {
 
     @Id
@@ -17,4 +22,9 @@ public class Role {
     @Column(nullable = false)
     private RoleName name;
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private Set<User> users;
 }

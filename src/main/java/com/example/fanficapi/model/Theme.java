@@ -1,14 +1,16 @@
 package com.example.fanficapi.model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
+@ToString(exclude = {"publications", "subscribers"})
+@EqualsAndHashCode(of = {"name", "imageUrl"})
 public class Theme {
 
     @Id
@@ -20,10 +22,6 @@ public class Theme {
 
     private String imageUrl;
 
-    public Theme(String name) {
-        this.name = name;
-    }
-
     @OneToMany(mappedBy = "theme", fetch = FetchType.LAZY,
             cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     private Set<Publication> publications;
@@ -32,5 +30,5 @@ public class Theme {
     @JoinTable(name = "preferences",
             joinColumns = @JoinColumn(name = "theme_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private Set<User> usersWhoPreference;
+    private Set<User> subscribers;
 }

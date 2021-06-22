@@ -1,15 +1,17 @@
 package com.example.fanficapi.model;
 
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@Getter
+@Setter
 @NoArgsConstructor
-@Data
+@ToString(exclude = {"publications"})
+@EqualsAndHashCode(exclude = {"id", "publications"})
 public class Tag {
 
     @Id
@@ -23,5 +25,4 @@ public class Tag {
             joinColumns = @JoinColumn(name = "tag_id"),
             inverseJoinColumns = @JoinColumn(name = "publication_id"))
     private Set<Publication> publications;
-
 }

@@ -19,13 +19,14 @@ public class AuthenticationService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    public Authentication getAuthenticationBySignInRequest(SignInRequest signInRequest){
+
+    public Authentication getAuthenticationBySignInRequest(SignInRequest signInRequest) {
         return authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(signInRequest.getUsername(), signInRequest.getPassword()));
 
     }
 
-    public void setAuthenticationInContext(Authentication authentication){
+    public void setAuthenticationInContext(Authentication authentication) {
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 

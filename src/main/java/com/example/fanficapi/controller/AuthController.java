@@ -2,13 +2,8 @@ package com.example.fanficapi.controller;
 
 import com.example.fanficapi.jwt.JwtUtils;
 import com.example.fanficapi.model.User;
-import com.example.fanficapi.pojo.JwtResponse;
-import com.example.fanficapi.pojo.MessageResponse;
-import com.example.fanficapi.pojo.SignInRequest;
-import com.example.fanficapi.pojo.SignUpRequest;
+import com.example.fanficapi.pojo.*;
 import com.example.fanficapi.service.AuthenticationService;
-import com.example.fanficapi.service.RoleService;
-import com.example.fanficapi.pojo.UserDetailsImpl;
 import com.example.fanficapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,9 +24,6 @@ public class AuthController {
     private UserService userService;
 
     @Autowired
-    private RoleService roleService;
-
-    @Autowired
     private AuthenticationService authenticationService;
 
     @Autowired
@@ -39,6 +31,7 @@ public class AuthController {
 
     @Autowired
     private JwtUtils jwtUtils;
+
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody SignInRequest signInRequest) {
@@ -61,7 +54,7 @@ public class AuthController {
         }
         User userForSave = userService.getUserFromSignUpRequest(signUpRequest);
         userForSave.setPassword(encoder.encode(signUpRequest.getPassword()));
-        userService.saveToStorage(userForSave);
+        userService.saveToDB(userForSave);
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 }

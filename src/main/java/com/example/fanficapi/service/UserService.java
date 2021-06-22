@@ -1,11 +1,15 @@
 package com.example.fanficapi.service;
 
+import com.example.fanficapi.dto.UserDto;
+import com.example.fanficapi.dto.simple.UserShortInfoDto;
 import com.example.fanficapi.enums.RoleName;
-import com.example.fanficapi.exceptions.UserNotFoundException;
+import com.example.fanficapi.exception.UserException;
+import com.example.fanficapi.mapper.Mapper;
 import com.example.fanficapi.model.Role;
 import com.example.fanficapi.model.User;
 import com.example.fanficapi.pojo.SignUpRequest;
 import com.example.fanficapi.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -15,7 +19,8 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class UserService {
+@Slf4j
+public class UserService extends AbstractService<User, Long, UserShortInfoDto, UserDto> {
 
     @Autowired
     private UserRepository userRepository;
@@ -23,46 +28,74 @@ public class UserService {
     @Autowired
     private RoleService roleService;
 
-    public void saveToStorage(User user) {
+    @Autowired
+    private Mapper mapper;
+
+
+    @Override
+    public void saveToDB(User user) {
         userRepository.save(user);
     }
 
-    public User findByID(Long id) {
+    @Override
+    public User findById(Long id) throws UserException {
         return userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("User with this id " + id + "was not found"));
+                .orElseThrow(() -> new UserException("Can not find user with this id: " + id));
     }
 
-    public User findByUsername(String username) throws UsernameNotFoundException {
+    @Override
+    public List<UserDto> getAllDto() {
+        return null;
+    }
+
+    @Override
+    public UserShortInfoDto getSimpleDtoById(Long id) {
+        return null;
+    }
+
+    public UserDto getDtoById(Long id) {
+        return mapper.userToDto(userRepository.findById(id).orElse(null));
+    }
+
+    @Override
+    public User findByName(String username) throws UsernameNotFoundException {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Can not find user with this username: " + username));
     }
 
-    public User updateUser(User user) {
-
-//
-//        User userExist = userRepository.findOne(user.getId());
-//        userExist.setEmail(user.getEmail());
-
-//or using
-//BeanUtil.copyProprty(formDto,modle)
-
-        //crutch but idk how
-        User userForUpdate = findByID(user.getId());
-        if (user.getUsername() != null &
-                !userForUpdate.getUsername().equals(user.getUsername()) & !existsByUsername(user.getUsername())) {
-            userForUpdate.setUsername(user.getUsername());
-        }
-        if (user.getEmail() != null
-                & !userForUpdate.getEmail().equals(user.getEmail()) & !existsByEmail(user.getEmail())) {
-            userForUpdate.setEmail(user.getEmail());
-        }
-        return userRepository.save(userForUpdate);
+    @Override
+    public User update(User user) {
+        return userRepository.save(user);
     }
 
-    public void deleteUserById(Long id) {
+    public UserDto updateUserFromDto(UserDto dto) {
+        try {
+            User user = findById(dto.getId());
+            if (checkUserDtoForUpdate(dto, user)) {
+                mapper.updateUserFromUserDto(dto, user);
+                return mapper.userToDto(update(user));
+            }
+        } catch (UserException exception) {
+            exception.printStackTrace();
+        }
+        return null;
+    }
+
+    public Boolean checkUserDtoForUpdate(UserDto dto, User user) {
+        if (existsByUsername(dto.getUsername()) & !user.getUsername().equals(dto.getUsername())
+                | existsByEmail(dto.getEmail()) & !user.getEmail().equals(dto.getEmail())) {
+            log.error("Username (" + dto.getUsername() + " or email (" + dto.getEmail() + ") already used");
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void deleteById(Long id) {
         userRepository.deleteById(id);
     }
 
+    @Override
     public List<User> findAll() {
         return userRepository.findAll();
     }
@@ -80,13 +113,13 @@ public class UserService {
         Set<String> requestRoleNames = request.getRoles();
         Set<Role> roles = new HashSet<>();
         if (requestRoleNames == null) {
-            roles.add(roleService.findByName(RoleName.ROLE_USER));
+            roles.add(roleService.findByRoleName(RoleName.ROLE_USER));
         } else {
             requestRoleNames.forEach(role -> {
                 if (role.equals("admin")) {
-                    roles.add(roleService.findByName(RoleName.ROLE_ADMIN));
+                    roles.add(roleService.findByRoleName(RoleName.ROLE_ADMIN));
                 } else {
-                    roles.add(roleService.findByName(RoleName.ROLE_USER));
+                    roles.add(roleService.findByRoleName(RoleName.ROLE_USER));
                 }
             });
         }

@@ -1,13 +1,15 @@
 package com.example.fanficapi.model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
+@Getter
+@Setter
 @NoArgsConstructor
-@Data
+@ToString(exclude = {"publication"})
+@EqualsAndHashCode(exclude = {"id", "publication"})
 public class Chapter {
 
     @Id
@@ -24,5 +26,4 @@ public class Chapter {
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "publication_id")
     private Publication publication;
-
 }
