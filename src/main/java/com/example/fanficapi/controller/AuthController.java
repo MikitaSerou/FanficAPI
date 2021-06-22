@@ -4,7 +4,6 @@ import com.example.fanficapi.jwt.JwtUtils;
 import com.example.fanficapi.model.User;
 import com.example.fanficapi.pojo.*;
 import com.example.fanficapi.service.AuthenticationService;
-import com.example.fanficapi.service.RoleService;
 import com.example.fanficapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,9 +22,6 @@ public class AuthController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private RoleService roleService;
 
     @Autowired
     private AuthenticationService authenticationService;

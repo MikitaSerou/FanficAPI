@@ -2,7 +2,7 @@ package com.example.fanficapi.service;
 
 import com.example.fanficapi.dto.TagDto;
 import com.example.fanficapi.dto.simple.SimpleTagDto;
-import com.example.fanficapi.exception.TagNotFoundException;
+import com.example.fanficapi.exception.TagException;
 import com.example.fanficapi.model.Tag;
 import com.example.fanficapi.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +41,7 @@ public class TagService extends AbstractService<Tag, Long, SimpleTagDto, TagDto>
     public Tag findById(Long id) {
         return tagRepository.findById(id)
                 .orElseThrow(() ->
-                        new TagNotFoundException("Teg with this id (" + id + ") was not found"));
+                        new TagException("Teg with this id (" + id + ") was not found"));
     }
 
     @Override

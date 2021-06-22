@@ -6,12 +6,10 @@ import com.example.fanficapi.dto.simple.SimpleThemeDto;
 import com.example.fanficapi.dto.simple.UserShortInfoDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.Set;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 public class PublicationDto {
 

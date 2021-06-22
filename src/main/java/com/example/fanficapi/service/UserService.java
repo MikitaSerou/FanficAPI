@@ -3,22 +3,23 @@ package com.example.fanficapi.service;
 import com.example.fanficapi.dto.UserDto;
 import com.example.fanficapi.dto.simple.UserShortInfoDto;
 import com.example.fanficapi.enums.RoleName;
-import com.example.fanficapi.exception.UserNotFoundException;
+import com.example.fanficapi.exception.UserException;
 import com.example.fanficapi.mapper.Mapper;
 import com.example.fanficapi.model.Role;
 import com.example.fanficapi.model.User;
 import com.example.fanficapi.pojo.SignUpRequest;
 import com.example.fanficapi.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @Service
+@Slf4j
 public class UserService extends AbstractService<User, Long, UserShortInfoDto, UserDto> {
 
     @Autowired
@@ -37,9 +38,9 @@ public class UserService extends AbstractService<User, Long, UserShortInfoDto, U
     }
 
     @Override
-    public User findById(Long id) {
+    public User findById(Long id) throws UserException {
         return userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("Can not find user with this id: " + id));
+                .orElseThrow(() -> new UserException("Can not find user with this id: " + id));
     }
 
     @Override
@@ -53,9 +54,7 @@ public class UserService extends AbstractService<User, Long, UserShortInfoDto, U
     }
 
     public UserDto getDtoById(Long id) {
-        Optional<User> user = userRepository.findById(id);
-        System.err.println(user.get().toString());
-        return mapper.userToDto(userRepository.findById(id).get());
+        return mapper.userToDto(userRepository.findById(id).orElse(null));
     }
 
     @Override
@@ -66,17 +65,29 @@ public class UserService extends AbstractService<User, Long, UserShortInfoDto, U
 
     @Override
     public User update(User user) {
-        //crutch but idk how
-        User userForUpdate = findById(user.getId());
-        if (user.getUsername() != null &
-                !userForUpdate.getUsername().equals(user.getUsername()) & !existsByUsername(user.getUsername())) {
-            userForUpdate.setUsername(user.getUsername());
+        return userRepository.save(user);
+    }
+
+    public UserDto updateUserFromDto(UserDto dto) {
+        try {
+            User user = findById(dto.getId());
+            if (checkUserDtoForUpdate(dto, user)) {
+                mapper.updateUserFromUserDto(dto, user);
+                return mapper.userToDto(update(user));
+            }
+        } catch (UserException exception) {
+            exception.printStackTrace();
         }
-        if (user.getEmail() != null
-                & !userForUpdate.getEmail().equals(user.getEmail()) & !existsByEmail(user.getEmail())) {
-            userForUpdate.setEmail(user.getEmail());
+        return null;
+    }
+
+    public Boolean checkUserDtoForUpdate(UserDto dto, User user) {
+        if (existsByUsername(dto.getUsername()) & !user.getUsername().equals(dto.getUsername())
+                | existsByEmail(dto.getEmail()) & !user.getEmail().equals(dto.getEmail())) {
+            log.error("Username (" + dto.getUsername() + " or email (" + dto.getEmail() + ") already used");
+            return false;
         }
-        return userRepository.save(userForUpdate);
+        return true;
     }
 
     @Override

@@ -3,7 +3,7 @@ package com.example.fanficapi.service;
 
 import com.example.fanficapi.dto.PublicationDto;
 import com.example.fanficapi.dto.simple.PreviewPublicationDto;
-import com.example.fanficapi.exception.PublicationNotFoundException;
+import com.example.fanficapi.exception.PublicationException;
 import com.example.fanficapi.model.Publication;
 import com.example.fanficapi.repository.PublicationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,14 +34,14 @@ public class PublicationService extends AbstractService<Publication, Long, Previ
     public Publication findById(Long id) {
         return publicationRepository.findById(id)
                 .orElseThrow(
-                        () -> new PublicationNotFoundException("Publication with this id (" + id + ") was not found"));
+                        () -> new PublicationException("Publication with this id (" + id + ") was not found"));
     }
 
     @Override
     public Publication findByName(String name) {
         return publicationRepository.findByName(name)
                 .orElseThrow(
-                        () -> new PublicationNotFoundException("Publication with this name (" + name + ") was not found"));
+                        () -> new PublicationException("Publication with this name (" + name + ") was not found"));
     }
 
     @Override

@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,7 +20,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-
     @GetMapping("/all")
     // @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<User>> getAllUsers() {
@@ -32,19 +30,25 @@ public class UserController {
     @GetMapping("/page/{id}")
     public ResponseEntity<UserDto> getUserDtoById(@PathVariable("id") Long id) {
         UserDto user = userService.getDtoById(id);
-        System.err.println(user.toString());
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(userService.getDtoById(id), HttpStatus.OK);
     }
 
 
-    @PatchMapping("/update")                                              //TODO Save new user, resolve this
-    public ResponseEntity<User> updateUser(@RequestBody User user) {
-        User updateUser = userService.update(user);
-        return new ResponseEntity<>(updateUser, HttpStatus.OK);
+    @PutMapping("/update")
+    public ResponseEntity<?> updateUser(@RequestBody UserDto userDto) {
+        UserDto updatedUser = userService.updateUserFromDto(userDto);
+        if (updatedUser != null) {
+            return new ResponseEntity<>(userService.updateUserFromDto(userDto), HttpStatus.OK);
+        }
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body("Username (" + userDto.getUsername() + " or email (" + userDto.getEmail() + ") already used");
     }
 
     @DeleteMapping("/delete/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     public void delete(@PathVariable("id") Long id) {
         userService.deleteById(id);
     }

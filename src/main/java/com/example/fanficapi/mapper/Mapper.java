@@ -6,10 +6,14 @@ import com.example.fanficapi.dto.ThemeDto;
 import com.example.fanficapi.dto.UserDto;
 import com.example.fanficapi.dto.simple.*;
 import com.example.fanficapi.model.*;
+import org.mapstruct.BeanMapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
 
-@org.mapstruct.Mapper(componentModel = "spring"/*, unmappedTargetPolicy = ReportingPolicy.IGNORE*/)
+@org.mapstruct.Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface Mapper {
 
     PreviewPublicationDto publicationToPreviewDto(Publication publication);
@@ -37,4 +41,12 @@ public interface Mapper {
     SimpleRoleDto roleToSimpleDto(Role role);
 
     RoleDto toRoleDto(Role role);
+
+    User userDtoToUser(UserDto user);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void updateUserFromUserSimpleDto(UserShortInfoDto dto, @MappingTarget User entity);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void updateUserFromUserDto(UserDto dto, @MappingTarget User entity);
 }

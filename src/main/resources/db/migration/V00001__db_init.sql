@@ -139,8 +139,13 @@ VALUES ('ROLE_ADMIN');
 INSERT INTO public.users (email, password, username)
 VALUES ('miita.serou@gmail.com', '$2a$10$OWTmnPjs4sDbJIEmId57ferf9incJ3J5OWlS3eBPWjkPvfJB2vBbO', 'Mikita');
 
+INSERT INTO public.users (email, password, username)
+VALUES ('Evgeny@gmail.com', '$2a$10$OWTmnPjs4sDbJIEmId57ferf9incJ3J5OWlS3eBPWjkPvfJB2vBbO', 'Evgeny');
+
 INSERT INTO public.user_roles (user_id, role_id)
 VALUES (1, 1);
+INSERT INTO public.user_roles (user_id, role_id)
+VALUES (2, 1);
 
 INSERT INTO TAG (name) VALUES('scary');
 
@@ -152,6 +157,7 @@ VALUES('Another one story about st.Mann', 'Small talk on the bus station', 1, 1)
 INSERT INTO publication_tag (tag_id, publication_id) VALUES (1, 1);
 
 INSERT INTO bookmarks (user_id, publication_id) VALUES (1,1);
+INSERT INTO bookmarks (user_id, publication_id) VALUES (2,1);
 
 INSERT INTO likes (user_id, publication_id) VALUES (1,1);
 

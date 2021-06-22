@@ -2,7 +2,7 @@ package com.example.fanficapi.service;
 
 import com.example.fanficapi.dto.ThemeDto;
 import com.example.fanficapi.dto.simple.SimpleThemeDto;
-import com.example.fanficapi.exception.ThemeNotFoundException;
+import com.example.fanficapi.exception.ThemeException;
 import com.example.fanficapi.model.Theme;
 import com.example.fanficapi.repository.ThemeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +39,7 @@ public class ThemeService extends AbstractService<Theme, Integer, SimpleThemeDto
 
     public Theme findById(Integer id) {
         return themeRepository.findById(id)
-                .orElseThrow(() -> new ThemeNotFoundException("Can not find theme with this id: " + id));
+                .orElseThrow(() -> new ThemeException("Can not find theme with this id: " + id));
     }
 
     @Override

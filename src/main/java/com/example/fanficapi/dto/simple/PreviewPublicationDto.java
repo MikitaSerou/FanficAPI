@@ -2,12 +2,10 @@ package com.example.fanficapi.dto.simple;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.Set;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 public class PreviewPublicationDto { //view to main page
 
