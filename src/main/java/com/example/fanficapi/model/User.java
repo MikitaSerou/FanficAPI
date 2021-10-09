@@ -15,7 +15,6 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @ToString(of = {"id", "username", "email", "password"})
-@EqualsAndHashCode(of = {"username", "email", "password"})
 @RequiredArgsConstructor
 public class User {
 
@@ -42,12 +41,14 @@ public class User {
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @ToString.Exclude
     private Set<Role> roles = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "preferences",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "theme_id"))
+    @ToString.Exclude
     private Set<Theme> preferences = new HashSet<>();
 
     @OneToMany(mappedBy = "author", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REMOVE})
@@ -57,12 +58,14 @@ public class User {
     @JoinTable(name = "likes",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "publication_id"))
+    @ToString.Exclude
     private Set<Publication> likes;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "bookmarks",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "publication_id"))
+    @ToString.Exclude
     private Set<Publication> bookmarks;
 
     public User(@Size(max = 20) @NonNull String username, @Size(max = 50) @Email @NonNull String email) {

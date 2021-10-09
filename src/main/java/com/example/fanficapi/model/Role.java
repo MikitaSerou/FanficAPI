@@ -1,17 +1,20 @@
 package com.example.fanficapi.model;
 
 import com.example.fanficapi.enums.RoleName;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@Table(name = "role")
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString(exclude = {"users"})
-@EqualsAndHashCode(exclude = {"id", "users"})
 public class Role {
 
     @Id

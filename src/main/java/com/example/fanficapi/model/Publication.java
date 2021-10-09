@@ -1,16 +1,19 @@
 package com.example.fanficapi.model;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@Table(name = "publication")
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString(of = {"id", "name", "description"})
-@EqualsAndHashCode(of = {"name", "description"})
 public class Publication {
 
     @Id
@@ -32,6 +35,7 @@ public class Publication {
 
     @OneToMany(mappedBy = "publication", fetch = FetchType.LAZY,
             cascade = {CascadeType.MERGE, CascadeType.REMOVE})
+    @ToString.Exclude
     private Set<Chapter> chapters;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
