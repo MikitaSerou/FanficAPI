@@ -1,15 +1,18 @@
 package com.example.fanficapi.model;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Entity
+@Table(name = "chapter")
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString(exclude = {"publication"})
-@EqualsAndHashCode(exclude = {"id", "publication"})
 public class Chapter {
 
     @Id
