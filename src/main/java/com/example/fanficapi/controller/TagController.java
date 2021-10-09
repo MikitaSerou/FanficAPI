@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/tag")
+@RequestMapping("/api/tag")
 @Slf4j
 public class TagController {
 

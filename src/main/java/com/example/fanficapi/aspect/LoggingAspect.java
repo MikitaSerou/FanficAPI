@@ -24,8 +24,8 @@ public class LoggingAspect {
         stopWatch.start();
         Object result = proceedingJoinPoint.proceed();
         stopWatch.stop();
-        log.info("Execute " + className + methodName + Arrays.toString(methodSignature.getParameterTypes()) +
-                Arrays.toString(methodSignature.getParameterNames()) +
+        log.info("Execute " + className + methodName + "(" + Arrays.toString(methodSignature.getParameterTypes()) +
+                Arrays.toString(methodSignature.getParameterNames()) + ")" +
                 ", return: " + methodSignature.getReturnType().getSimpleName() + " - " +
                 stopWatch.getTotalTimeMillis() + " ms");
         return result;

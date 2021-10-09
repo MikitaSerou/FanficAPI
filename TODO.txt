@@ -1,2 +1,3 @@
 1 - toStrings and Equals/Hashcode for entities
 2 - IN queries
+3 - check all ToString lombok realizations for entities

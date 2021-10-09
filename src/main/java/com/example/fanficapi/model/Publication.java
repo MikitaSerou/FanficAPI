@@ -13,7 +13,8 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString(of = {"id", "name", "description"})
+@ToString
+
 public class Publication {
 
     @Id

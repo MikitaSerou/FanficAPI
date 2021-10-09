@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/publication")
+@RequestMapping("/api/publication")
 @Slf4j
 public class PublicationController {
 

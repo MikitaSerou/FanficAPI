@@ -14,7 +14,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString(of = {"id", "username", "email", "password"})
+@ToString
 @RequiredArgsConstructor
 public class User {
 
