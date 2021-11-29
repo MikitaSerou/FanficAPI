@@ -6,7 +6,6 @@ create table if not exists role
     name varchar(255) not null
     );
 
-alter table role owner to "user";
 
 create table if not exists tag
 (
@@ -16,7 +15,6 @@ create table if not exists tag
     name varchar(255)
     );
 
-alter table tag owner to "user";
 
 create table if not exists theme
 (
@@ -26,7 +24,6 @@ create table if not exists theme
     name varchar(255) not null	unique
     );
 
-alter table theme owner to "user";
 
 create table if not exists users
 (
@@ -40,7 +37,6 @@ create table if not exists users
     unique
     );
 
-alter table users owner to "user";
 
 create table if not exists preferences
 (
@@ -52,7 +48,7 @@ create table if not exists preferences
     primary key (theme_id, user_id)
     );
 
-alter table preferences owner to "user";
+
 
 create table if not exists publication
 (
@@ -67,7 +63,6 @@ create table if not exists publication
     references theme
     );
 
-alter table publication owner to "user";
 
 create table if not exists bookmarks
 (
@@ -79,7 +74,7 @@ create table if not exists bookmarks
     primary key (publication_id, user_id)
     );
 
-alter table bookmarks owner to "user";
+
 
 create table if not exists chapter
 (
@@ -93,7 +88,6 @@ create table if not exists chapter
     references publication
     );
 
-alter table chapter owner to "user";
 
 create table if not exists likes
 (
@@ -105,7 +99,6 @@ create table if not exists likes
     primary key (publication_id, user_id)
     );
 
-alter table likes owner to "user";
 
 create table if not exists publication_tag
 (
@@ -117,7 +110,7 @@ create table if not exists publication_tag
     primary key (publication_id, tag_id)
     );
 
-alter table publication_tag owner to "user";
+
 
 create table if not exists user_roles
 (
@@ -128,8 +121,6 @@ create table if not exists user_roles
     constraint user_roles_pkey
     primary key (user_id, role_id)
     );
-
-alter table user_roles owner to "user";
 
 INSERT INTO public.role (name)
 VALUES ('ROLE_USER');
