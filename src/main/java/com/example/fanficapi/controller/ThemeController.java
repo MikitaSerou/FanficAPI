@@ -3,8 +3,8 @@ package com.example.fanficapi.controller;
 import com.example.fanficapi.dto.ThemeDto;
 import com.example.fanficapi.dto.simple.SimpleThemeDto;
 import com.example.fanficapi.service.ThemeService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,13 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/theme")
 @Slf4j
 public class ThemeController {
 
-    @Autowired
-    private ThemeService themeService;
-
+    private final ThemeService themeService;
 
     @GetMapping("/preview/{id}")
     public ResponseEntity<SimpleThemeDto> getSimplePublicationById(@PathVariable("id") Integer id) {
