@@ -1,12 +1,13 @@
 package com.example.fanficapi.controller;
 
 import com.example.fanficapi.service.ChaptersService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 
 @Controller
+@RequiredArgsConstructor
 public class ChapterController {
 
-    @Autowired
-    private ChaptersService chaptersService;
+    private final ChaptersService chaptersService;
+
 }
