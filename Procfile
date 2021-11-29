@@ -1,1 +1,1 @@
-web: java -jar target/task4itr-0.0.1-SNAPSHOT.jar
+web: java -jar target/fanficapi-0.0.1-SNAPSHOT.jar
