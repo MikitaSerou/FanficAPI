@@ -1,10 +1,8 @@
 package com.example.fanficapi.model;
 
 import com.example.fanficapi.enums.RoleName;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -15,19 +13,20 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @ToString(exclude = {"users"})
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Short id;
+    Short id;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private RoleName name;
+    RoleName name;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private Set<User> users;
+    Set<User> users;
 }

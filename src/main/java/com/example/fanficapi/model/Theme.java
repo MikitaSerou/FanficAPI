@@ -1,9 +1,7 @@
 package com.example.fanficapi.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -14,25 +12,26 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @ToString
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Theme {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    Integer id;
 
     @Column(unique = true, nullable = false)
-    private String name;
+    String name;
 
-    private String imageUrl;
+    String imageUrl;
 
     @OneToMany(mappedBy = "theme", fetch = FetchType.LAZY,
             cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     @ToString.Exclude
-    private Set<Publication> publications;
+    Set<Publication> publications;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "preferences",
             joinColumns = @JoinColumn(name = "theme_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private Set<User> subscribers;
+    Set<User> subscribers;
 }

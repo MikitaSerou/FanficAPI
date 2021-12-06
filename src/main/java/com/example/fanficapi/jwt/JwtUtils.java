@@ -1,6 +1,6 @@
 package com.example.fanficapi.jwt;
 
-import com.example.fanficapi.pojo.UserDetailsImpl;
+import com.example.fanficapi.payload.UserDetailsImpl;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,22 +19,32 @@ public class JwtUtils {
     @Value("${jwtExpirationMs}")
     private int jwtExpirationMs;
 
+    public String generateJwtToken(UserDetailsImpl userPrincipal){
+        return generateTokenFromUserName(userPrincipal.getUsername());
+    }
 
-    public String generateToken(Authentication authentication) {
-        UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
+    public String generateTokenFromUserName(String userName) {
         return Jwts.builder()
-                .setSubject(userPrincipal.getUsername())
+                .setSubject(userName)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(new Date().getTime() + jwtExpirationMs))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }
 
+    public String getUserNameFromJwtToken(String token) {
+        return Jwts.parser()
+                .setSigningKey(jwtSecret)
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
+    }
+
     public String getUsernameFromToken(String token) {
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
     }
 
-    public boolean validateToken(String token) {
+    public boolean validateJwtToken(String token) {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
             return true;

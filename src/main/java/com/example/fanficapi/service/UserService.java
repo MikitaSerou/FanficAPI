@@ -7,8 +7,9 @@ import com.example.fanficapi.exception.UserException;
 import com.example.fanficapi.mapper.Mapper;
 import com.example.fanficapi.model.Role;
 import com.example.fanficapi.model.User;
-import com.example.fanficapi.pojo.SignUpRequest;
+import com.example.fanficapi.payload.SignUpRequest;
 import com.example.fanficapi.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,18 +20,13 @@ import java.util.List;
 import java.util.Set;
 
 @Service
+@RequiredArgsConstructor
 @Slf4j
 public class UserService extends AbstractService<User, Long, UserShortInfoDto, UserDto> {
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private RoleService roleService;
-
-    @Autowired
-    private Mapper mapper;
-
+    private final UserRepository userRepository;
+    private final RoleService roleService;
+    private final Mapper mapper;
 
     @Override
     public void saveToDB(User user) {
