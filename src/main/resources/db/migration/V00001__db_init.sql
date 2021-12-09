@@ -18,11 +18,12 @@ create table if not exists tag
 
 create table if not exists theme
 (
-    id serial not null
-    constraint theme_pkey
-    primary key,
-    name varchar(255) not null	unique
-    );
+    id        serial       not null
+        constraint theme_pkey
+            primary key,
+    name      varchar(255) not null unique,
+    image_url varchar(255)
+);
 
 
 create table if not exists users
@@ -122,20 +123,20 @@ create table if not exists user_roles
     primary key (user_id, role_id)
     );
 
-INSERT INTO public.role (name)
+INSERT INTO role (name)
 VALUES ('ROLE_USER');
-INSERT INTO public.role (name)
+INSERT INTO role (name)
 VALUES ('ROLE_ADMIN');
 
-INSERT INTO public.users (email, password, username)
+INSERT INTO users (email, password, username)
 VALUES ('miita.serou@gmail.com', '$2a$10$OWTmnPjs4sDbJIEmId57ferf9incJ3J5OWlS3eBPWjkPvfJB2vBbO', 'Mikita');
 
-INSERT INTO public.users (email, password, username)
+INSERT INTO users (email, password, username)
 VALUES ('Evgeny@gmail.com', '$2a$10$OWTmnPjs4sDbJIEmId57ferf9incJ3J5OWlS3eBPWjkPvfJB2vBbO', 'Evgeny');
 
-INSERT INTO public.user_roles (user_id, role_id)
+INSERT INTO user_roles (user_id, role_id)
 VALUES (1, 1);
-INSERT INTO public.user_roles (user_id, role_id)
+INSERT INTO user_roles (user_id, role_id)
 VALUES (2, 1);
 
 INSERT INTO TAG (name) VALUES('scary');

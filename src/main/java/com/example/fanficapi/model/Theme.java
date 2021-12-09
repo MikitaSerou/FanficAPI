@@ -22,6 +22,7 @@ public class Theme {
     @Column(unique = true, nullable = false)
     String name;
 
+    @Column(name = "image_url")
     String imageUrl;
 
     @OneToMany(mappedBy = "theme", fetch = FetchType.LAZY,
