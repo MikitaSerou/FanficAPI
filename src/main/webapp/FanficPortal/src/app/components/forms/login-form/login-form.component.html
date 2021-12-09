@@ -1,0 +1,30 @@
+<form class="center" [formGroup]="myForm" novalidate (ngSubmit)="submit()">
+  <div class="form-group">
+    <label>Username</label>
+    <input class="form-control" name="username" formControlName="username">
+<!--    <div class="alert alert-danger"
+         *ngIf="myForm.controls['username'].invalid && myForm.controls['username'].touched">
+      Name is required.
+    </div>-->
+    <div class="alert alert-danger"
+         *ngIf="myForm.controls['username'].hasError('taken') && myForm.controls['username'].touched">
+      Name is taken.
+    </div>
+<!--    <button class="btn btn-default" (click)="checkByUsername(myForm.controls['username'].value)">
+      Проверить
+    </button>-->
+  </div>
+  <div class="form-group">
+    <label>Password</label>
+    <input class="form-control" name="password" formControlName="password">
+    <div class="alert alert-danger"
+         *ngIf="myForm.controls['password'].invalid && myForm.controls['password'].touched">
+      Incorrect password.
+    </div>
+  </div>
+  <div class="form-group">
+    <button class="btn btn-default" [disabled]="myForm.invalid">
+      Отправить
+    </button>
+  </div>
+</form>
