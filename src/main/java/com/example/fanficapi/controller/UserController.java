@@ -53,9 +53,13 @@ public class UserController {
         userService.deleteById(id);
     }
 
-    //Exist by username post
-    @GetMapping("/exist/{username}")
+    @GetMapping("/exist/username/{username}")
     public ResponseEntity<Boolean> existByUsername(@PathVariable String username) {
         return new ResponseEntity<>(userService.existsByUsername(username), HttpStatus.OK);
+    }
+
+    @GetMapping("/exist/email/{email}")
+    public ResponseEntity<Boolean> existByEmail(@PathVariable String email) {
+        return new ResponseEntity<>(userService.existsByEmail(email), HttpStatus.OK);
     }
 }

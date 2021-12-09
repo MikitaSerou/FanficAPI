@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
 import {AuthService} from "../../../services/auth.service";
 import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Validation} from "../../../utils/validation";
 import {UserService} from "../../../services/user.service";
+import Validation from "../../../utils/validation";
 
 
 @Component({
@@ -10,7 +10,7 @@ import {UserService} from "../../../services/user.service";
   templateUrl: './registration-form.component.html',
   styleUrls: ['./registration-form.component.css']
 })
-export class RegistrationFormComponent{
+export class RegistrationFormComponent {
 
   form: FormGroup;
   submitted: boolean = false;
@@ -26,14 +26,17 @@ export class RegistrationFormComponent{
       confirmPassword: ['', Validators.required],
       acceptTerms: [false, Validators.requiredTrue]
     }, {
-      validators: [Validation.match('password', 'passwordConfirm')]
+      validators: [Validation.match('password', 'confirmPassword')]
     });
   }
+
   get formControls(): { [key: string]: AbstractControl } {
     return this.form.controls;
   }
 
   onSubmit(): void {
+    this.checkUserNameBeforeRegistration(this.formControls['username'].value);
+    this.checkEmailBeforeRegistration(this.formControls['email'].value);
     this.submitted = true;
     if (this.form.invalid) {
       return;
@@ -46,11 +49,23 @@ export class RegistrationFormComponent{
     this.form.reset();
   }
 
-  //check user by username
-  checkUserName(username: string): void {
+  checkUserNameBeforeRegistration(username: string): void {
     this.userService.existByUsername(username).subscribe(
       data => {
-        console.log(data);
+        data ? this.formControls['username'].setErrors({'usernameIsTaken': true}) :
+          this.formControls['username'].setErrors(null);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  checkEmailBeforeRegistration(email: string): void {
+    this.userService.existByEmail(email).subscribe(
+      data => {
+        data ? this.formControls['email'].setErrors({'emailIsTaken': true}) :
+          this.formControls['email'].setErrors(null);
       },
       error => {
         console.log(error);

@@ -1,6 +1,6 @@
 import {AbstractControl, ValidatorFn} from "@angular/forms";
 
-export class Validation {
+export default class Validation {
   static match(controlName: string, checkControlName: string): ValidatorFn {
     return (controls: AbstractControl) => {
       const control = controls.get(controlName);
