@@ -30,10 +30,10 @@ create table if not exists users
     id bigserial not null
     constraint users_pkey
     primary key,
-    email varchar(50)
+    email varchar(50) not null
     unique,
-    password varchar(120),
-    username varchar(20)
+    password varchar(120) not null,
+    username varchar(20) not null
     unique
     );
 

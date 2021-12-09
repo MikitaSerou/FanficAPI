@@ -24,18 +24,18 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Size(max = 20)
-    @Column(unique = true)
+    @Size(min = 3, max = 20)
+    @Column(unique = true, nullable = false)
     @NonNull
     String username;
 
-    @Size(max = 50)
     @Email
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     @NonNull
     String email;
 
-    @Size(max = 120)
+    @Size(min = 8,max = 40)
+    @Column(nullable = false)
     @NonNull
     String password;
 

@@ -15,4 +15,8 @@ export class UserService {
   public getUserById(id: number): Observable<User> {
     return this.http.get<User>(`${environment.baseUrl}/user/page/${id}`);
   }
+
+  public existByUsername(username: string): Observable<boolean> {
+    return this.http.get<boolean>(`${environment.baseUrl}/user/exist/${username}`);
+  }
 }

@@ -52,4 +52,10 @@ public class UserController {
     public void delete(@PathVariable("id") Long id) {
         userService.deleteById(id);
     }
+
+    //Exist by username post
+    @GetMapping("/exist/{username}")
+    public ResponseEntity<Boolean> existByUsername(@PathVariable String username) {
+        return new ResponseEntity<>(userService.existsByUsername(username), HttpStatus.OK);
+    }
 }

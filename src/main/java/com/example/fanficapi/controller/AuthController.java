@@ -32,7 +32,7 @@ public class AuthController {
     private final JwtUtils jwtUtils;
     private final RefreshTokenService refreshTokenService;
 
-    @PostMapping("/signin")
+    @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody SignInRequest signInRequest) {
         Authentication authentication = authenticationService.getAuthenticationBySignInRequest(signInRequest);
         authenticationService.setAuthenticationInContext(authentication);
@@ -44,7 +44,7 @@ public class AuthController {
                 userDetails.getEmail(), roleNames));
     }
 
-    @PostMapping("/refreshtokens")
+    @PostMapping("/refresh")
     public ResponseEntity<?> refreshToken(@Valid @RequestBody TokenRefreshRequest request) throws TokenRefreshException {
         String requestRefreshToken = request.getRefreshToken();
 
