@@ -1,9 +1,8 @@
 import {Component} from '@angular/core';
 import {AuthService} from "../../../services/auth.service";
-import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../../services/user.service";
 import Validation from "../../../utils/validation";
-
 
 @Component({
   selector: 'app-registration-form',
@@ -12,33 +11,46 @@ import Validation from "../../../utils/validation";
 })
 export class RegistrationFormComponent {
 
+  hide = true;
   form: FormGroup;
   submitted: boolean = false;
+  username: FormControl = new FormControl('', [Validators.required, Validators.maxLength(20)]);
+  email: FormControl = new FormControl('', [Validators.required, Validators.email]);
+  password: FormControl = new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(40)]);
+  confirmPassword: FormControl = new FormControl('', Validators.required);
+  acceptTerms: FormControl = new FormControl(false, Validators.requiredTrue);
 
   constructor(private authService: AuthService,
               private userService: UserService,
               private formBuilder: FormBuilder) {
 
     this.form = this.formBuilder.group({
-      username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(40)]],
-      confirmPassword: ['', Validators.required],
-      acceptTerms: [false, Validators.requiredTrue]
+      username: this.username,
+      email: this.email,
+      password: this.password,
+      confirmPassword: this.confirmPassword,
+      acceptTerms: this.acceptTerms,
     }, {
       validators: [Validation.match('password', 'confirmPassword')]
     });
   }
 
-  get formControls(): { [key: string]: AbstractControl } {
-    return this.form.controls;
-  }
-
   onSubmit(): void {
-    this.checkUserNameBeforeRegistration(this.formControls['username'].value);
-    this.checkEmailBeforeRegistration(this.formControls['email'].value);
+    this.checkUserNameBeforeRegistration(this.username.value);
+    this.checkEmailBeforeRegistration(this.email.value);
     this.submitted = true;
     if (this.form.invalid) {
+      /*      console.log('username');
+            console.log( this.username.errors);
+            console.log("email");
+            console.log( this.email.errors);
+            console.log("password" );
+            console.log( this.password.errors);
+            console.log("confirmPassword");
+            console.log(this.confirmPassword.errors);
+            console.log("acceptTerms");
+            console.log(this.acceptTerms.errors);
+            console.log('invalid');*/
       return;
     }
     console.log(JSON.stringify(this.form.value, null, 2));
@@ -54,9 +66,9 @@ export class RegistrationFormComponent {
       this.userService.existByUsername(username).subscribe(
         data => {
           if (data) {
-            this.formControls['username'].setErrors({'usernameIsTaken': true})
+            this.username.setErrors({'usernameIsTaken': true})
           } else {
-            this.formControls['username'].setErrors(null);
+            this.username.setErrors(null);
           }
         },
         error => {
@@ -70,8 +82,8 @@ export class RegistrationFormComponent {
     if (email) {
       this.userService.existByEmail(email).subscribe(
         data => {
-          data ? this.formControls['email'].setErrors({'emailIsTaken': true}) :
-            this.formControls['email'].setErrors(null);
+          data ? this.email.setErrors({'emailIsTaken': true}) :
+            this.email.setErrors(null);
         },
         error => {
           console.log(error);

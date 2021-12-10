@@ -10,6 +10,7 @@ import { LoginFormComponent } from './components/forms/login-form/login-form.com
 import { RegistrationFormComponent } from './components/forms/registration-form/registration-form.component';
 import {AngularMaterialModule} from "./angular-material.module";
 import {AppRoutingModule} from "./app-routing.module";
+import {FlexLayoutModule} from "@angular/flex-layout";
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import {AppRoutingModule} from "./app-routing.module";
     BrowserAnimationsModule,
     ReactiveFormsModule,
     AngularMaterialModule,
+    FlexLayoutModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
