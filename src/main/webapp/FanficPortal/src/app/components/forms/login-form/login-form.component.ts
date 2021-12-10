@@ -1,7 +1,16 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostBinding} from '@angular/core';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+  // ...
+} from '@angular/animations';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../../services/user.service";
 import {AuthService} from "../../../services/auth.service";
+
 
 @Component({
   selector: 'login-form',

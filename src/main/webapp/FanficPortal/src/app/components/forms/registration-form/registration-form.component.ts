@@ -50,26 +50,33 @@ export class RegistrationFormComponent {
   }
 
   checkUserNameBeforeRegistration(username: string): void {
-    this.userService.existByUsername(username).subscribe(
-      data => {
-        data ? this.formControls['username'].setErrors({'usernameIsTaken': true}) :
-          this.formControls['username'].setErrors(null);
-      },
-      error => {
-        console.log(error);
-      }
-    );
+    if (username) {
+      this.userService.existByUsername(username).subscribe(
+        data => {
+          if (data) {
+            this.formControls['username'].setErrors({'usernameIsTaken': true})
+          } else {
+            this.formControls['username'].setErrors(null);
+          }
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
   }
 
   checkEmailBeforeRegistration(email: string): void {
-    this.userService.existByEmail(email).subscribe(
-      data => {
-        data ? this.formControls['email'].setErrors({'emailIsTaken': true}) :
-          this.formControls['email'].setErrors(null);
-      },
-      error => {
-        console.log(error);
-      }
-    );
+    if (email) {
+      this.userService.existByEmail(email).subscribe(
+        data => {
+          data ? this.formControls['email'].setErrors({'emailIsTaken': true}) :
+            this.formControls['email'].setErrors(null);
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
   }
 }

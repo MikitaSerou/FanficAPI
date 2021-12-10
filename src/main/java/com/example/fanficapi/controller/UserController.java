@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @RestController
@@ -54,12 +55,12 @@ public class UserController {
     }
 
     @GetMapping("/exist/username/{username}")
-    public ResponseEntity<Boolean> existByUsername(@PathVariable String username) {
+    public ResponseEntity<Boolean> existByUsername(@PathVariable @NotBlank String username) {
         return new ResponseEntity<>(userService.existsByUsername(username), HttpStatus.OK);
     }
 
     @GetMapping("/exist/email/{email}")
-    public ResponseEntity<Boolean> existByEmail(@PathVariable String email) {
+    public ResponseEntity<Boolean> existByEmail(@PathVariable @NotBlank String email) {
         return new ResponseEntity<>(userService.existsByEmail(email), HttpStatus.OK);
     }
 }
