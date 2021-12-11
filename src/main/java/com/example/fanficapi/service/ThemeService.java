@@ -5,17 +5,17 @@ import com.example.fanficapi.dto.simple.SimpleThemeDto;
 import com.example.fanficapi.exception.ThemeException;
 import com.example.fanficapi.model.Theme;
 import com.example.fanficapi.repository.ThemeRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ThemeService extends AbstractService<Theme, Integer, SimpleThemeDto, ThemeDto> {
 
-    @Autowired
-    private ThemeRepository themeRepository;
-
+    private final ThemeRepository themeRepository;
 
     @Override
     public void saveToDB(Theme object) {

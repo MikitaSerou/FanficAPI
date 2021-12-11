@@ -1,6 +1,7 @@
 package com.example.fanficapi.service;
 
-import com.example.fanficapi.pojo.SignInRequest;
+import com.example.fanficapi.payload.SignInRequest;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,11 +15,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class AuthenticationService {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
+    private final AuthenticationManager authenticationManager;
 
     public Authentication getAuthenticationBySignInRequest(SignInRequest signInRequest) {
         return authenticationManager.authenticate(

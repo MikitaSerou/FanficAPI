@@ -1,10 +1,8 @@
 package com.example.fanficapi.model;
 
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -15,17 +13,18 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @ToString(exclude = {"publications"})
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Tag {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
 
-    private String name;
+    String name;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "publication_tag",
             joinColumns = @JoinColumn(name = "tag_id"),
             inverseJoinColumns = @JoinColumn(name = "publication_id"))
-    private Set<Publication> publications;
+    Set<Publication> publications;
 }

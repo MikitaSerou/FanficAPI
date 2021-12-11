@@ -6,6 +6,7 @@ import com.example.fanficapi.dto.simple.PreviewPublicationDto;
 import com.example.fanficapi.exception.PublicationException;
 import com.example.fanficapi.model.Publication;
 import com.example.fanficapi.repository.PublicationRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class PublicationService extends AbstractService<Publication, Long, PreviewPublicationDto, PublicationDto> {
 
-    @Autowired
-    private PublicationRepository publicationRepository;
+    private final PublicationRepository publicationRepository;
 
 
     @Override

@@ -6,7 +6,6 @@ create table if not exists role
     name varchar(255) not null
     );
 
-alter table role owner to "user";
 
 create table if not exists tag
 (
@@ -16,31 +15,29 @@ create table if not exists tag
     name varchar(255)
     );
 
-alter table tag owner to "user";
 
 create table if not exists theme
 (
-    id serial not null
-    constraint theme_pkey
-    primary key,
-    name varchar(255) not null	unique
-    );
+    id        serial       not null
+        constraint theme_pkey
+            primary key,
+    name      varchar(255) not null unique,
+    image_url varchar(255)
+);
 
-alter table theme owner to "user";
 
 create table if not exists users
 (
     id bigserial not null
     constraint users_pkey
     primary key,
-    email varchar(50)
+    email varchar(50) not null
     unique,
-    password varchar(120),
-    username varchar(20)
+    password varchar(120) not null,
+    username varchar(20) not null
     unique
     );
 
-alter table users owner to "user";
 
 create table if not exists preferences
 (
@@ -52,7 +49,7 @@ create table if not exists preferences
     primary key (theme_id, user_id)
     );
 
-alter table preferences owner to "user";
+
 
 create table if not exists publication
 (
@@ -67,7 +64,6 @@ create table if not exists publication
     references theme
     );
 
-alter table publication owner to "user";
 
 create table if not exists bookmarks
 (
@@ -79,7 +75,7 @@ create table if not exists bookmarks
     primary key (publication_id, user_id)
     );
 
-alter table bookmarks owner to "user";
+
 
 create table if not exists chapter
 (
@@ -93,7 +89,6 @@ create table if not exists chapter
     references publication
     );
 
-alter table chapter owner to "user";
 
 create table if not exists likes
 (
@@ -105,7 +100,6 @@ create table if not exists likes
     primary key (publication_id, user_id)
     );
 
-alter table likes owner to "user";
 
 create table if not exists publication_tag
 (
@@ -117,7 +111,7 @@ create table if not exists publication_tag
     primary key (publication_id, tag_id)
     );
 
-alter table publication_tag owner to "user";
+
 
 create table if not exists user_roles
 (
@@ -129,22 +123,20 @@ create table if not exists user_roles
     primary key (user_id, role_id)
     );
 
-alter table user_roles owner to "user";
-
-INSERT INTO public.role (name)
+INSERT INTO role (name)
 VALUES ('ROLE_USER');
-INSERT INTO public.role (name)
+INSERT INTO role (name)
 VALUES ('ROLE_ADMIN');
 
-INSERT INTO public.users (email, password, username)
+INSERT INTO users (email, password, username)
 VALUES ('miita.serou@gmail.com', '$2a$10$OWTmnPjs4sDbJIEmId57ferf9incJ3J5OWlS3eBPWjkPvfJB2vBbO', 'Mikita');
 
-INSERT INTO public.users (email, password, username)
+INSERT INTO users (email, password, username)
 VALUES ('Evgeny@gmail.com', '$2a$10$OWTmnPjs4sDbJIEmId57ferf9incJ3J5OWlS3eBPWjkPvfJB2vBbO', 'Evgeny');
 
-INSERT INTO public.user_roles (user_id, role_id)
+INSERT INTO user_roles (user_id, role_id)
 VALUES (1, 1);
-INSERT INTO public.user_roles (user_id, role_id)
+INSERT INTO user_roles (user_id, role_id)
 VALUES (2, 1);
 
 INSERT INTO TAG (name) VALUES('scary');

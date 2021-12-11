@@ -4,17 +4,17 @@ import com.example.fanficapi.dto.ChapterDto;
 import com.example.fanficapi.dto.simple.SimpleChapterDto;
 import com.example.fanficapi.model.Chapter;
 import com.example.fanficapi.repository.ChapterRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ChaptersService extends AbstractService<Chapter, Long, SimpleChapterDto, ChapterDto> {
 
-    @Autowired
-    private ChapterRepository chapterRepository;
-
+    private final ChapterRepository chapterRepository;
 
     @Override
     public void saveToDB(Chapter object) {

@@ -1,9 +1,7 @@
 package com.example.fanficapi.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 
@@ -13,20 +11,21 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @ToString(exclude = {"publication"})
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Chapter {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
 
     @Column(nullable = false)
-    private String name;
+    String name;
 
-    private String text;
+    String text;
 
-    private String imageReference;
+    String imageReference;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "publication_id")
-    private Publication publication;
+    Publication publication;
 }

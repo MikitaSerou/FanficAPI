@@ -4,16 +4,17 @@ import com.example.fanficapi.dto.RoleDto;
 import com.example.fanficapi.enums.RoleName;
 import com.example.fanficapi.model.Role;
 import com.example.fanficapi.repository.RoleRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class RoleService extends AbstractService<Role, Short, RoleDto, RoleDto> {
 
-    @Autowired
-    private RoleRepository roleRepository;
+    private final RoleRepository roleRepository;
 
 
     public Role findByRoleName(RoleName roleName) throws RuntimeException {

@@ -3,22 +3,23 @@ package com.example.fanficapi.controller;
 import com.example.fanficapi.dto.UserDto;
 import com.example.fanficapi.model.User;
 import com.example.fanficapi.service.UserService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 //@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/api/user")
 @Slf4j
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
     @GetMapping("/all")
     // @PreAuthorize("hasRole('ADMIN')")
@@ -51,5 +52,15 @@ public class UserController {
     //@PreAuthorize("hasRole('ADMIN')")
     public void delete(@PathVariable("id") Long id) {
         userService.deleteById(id);
+    }
+
+    @GetMapping("/exist/username/{username}")
+    public ResponseEntity<Boolean> existByUsername(@PathVariable @NotBlank String username) {
+        return new ResponseEntity<>(userService.existsByUsername(username), HttpStatus.OK);
+    }
+
+    @GetMapping("/exist/email/{email}")
+    public ResponseEntity<Boolean> existByEmail(@PathVariable @NotBlank String email) {
+        return new ResponseEntity<>(userService.existsByEmail(email), HttpStatus.OK);
     }
 }

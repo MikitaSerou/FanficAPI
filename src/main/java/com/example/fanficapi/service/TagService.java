@@ -5,17 +5,17 @@ import com.example.fanficapi.dto.simple.SimpleTagDto;
 import com.example.fanficapi.exception.TagException;
 import com.example.fanficapi.model.Tag;
 import com.example.fanficapi.repository.TagRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class TagService extends AbstractService<Tag, Long, SimpleTagDto, TagDto> {
 
-    @Autowired
-    private TagRepository tagRepository;
-
+    private final TagRepository tagRepository;
 
     @Override
     public void saveToDB(Tag object) {
