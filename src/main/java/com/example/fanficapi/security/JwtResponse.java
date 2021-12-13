@@ -1,4 +1,4 @@
-package com.example.fanficapi.payload;
+package com.example.fanficapi.security;
 
 import lombok.AccessLevel;
 import lombok.Data;

@@ -1,12 +1,12 @@
 package com.example.fanficapi.controller;
 
 import com.example.fanficapi.exception.TokenRefreshException;
-import com.example.fanficapi.jwt.JwtUtils;
-import com.example.fanficapi.model.RefreshToken;
+import com.example.fanficapi.security.*;
 import com.example.fanficapi.model.User;
 import com.example.fanficapi.payload.*;
-import com.example.fanficapi.service.AuthenticationService;
-import com.example.fanficapi.service.RefreshTokenService;
+import com.example.fanficapi.security.model.RefreshToken;
+import com.example.fanficapi.security.service.AuthenticationService;
+import com.example.fanficapi.security.service.RefreshTokenService;
 import com.example.fanficapi.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

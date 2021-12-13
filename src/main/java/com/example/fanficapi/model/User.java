@@ -6,6 +6,7 @@ import lombok.experimental.FieldDefaults;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -38,6 +39,16 @@ public class User {
     @Column(nullable = false)
     @NonNull
     String password;
+
+    @Column(name="birth_date", nullable = false)
+    @Temporal(TemporalType.DATE)
+    @NonNull
+    private Date birthDate;
+
+    @Column(name="registration_date", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @NonNull
+    private Date registrationDate;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",

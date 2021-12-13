@@ -7,7 +7,7 @@ import Validation from "../../../utils/validation";
 @Component({
   selector: 'app-registration-form',
   templateUrl: './registration-form.component.html',
-  styleUrls: ['./registration-form.component.css']
+  styleUrls: ['./registration-form.component.sass']
 })
 export class RegistrationFormComponent {
 
@@ -16,6 +16,7 @@ export class RegistrationFormComponent {
   submitted: boolean = false;
   username: FormControl = new FormControl('', [Validators.required, Validators.maxLength(20)]);
   email: FormControl = new FormControl('', [Validators.required, Validators.email]);
+  birthDate: FormControl = new FormControl('', [Validators.required]);
   password: FormControl = new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(40)]);
   confirmPassword: FormControl = new FormControl('', Validators.required);
   acceptTerms: FormControl = new FormControl(false, Validators.requiredTrue);
@@ -28,19 +29,24 @@ export class RegistrationFormComponent {
       username: this.username,
       email: this.email,
       password: this.password,
+      birthDate: this.birthDate,
       confirmPassword: this.confirmPassword,
       acceptTerms: this.acceptTerms,
     }, {
-      validators: [Validation.match('password', 'confirmPassword')]
+      validators: [Validation.match('password', 'confirmPassword')],
     });
   }
 
   onSubmit(): void {
+
     this.checkUserNameBeforeRegistration(this.username.value);
     this.checkEmailBeforeRegistration(this.email.value);
+    if (!this.birthDate.errors){this.checkDateBeforeregistration(this.birthDate.value);}
+
     this.submitted = true;
+    console.log(this.birthDate.value)
     if (this.form.invalid) {
-      /*      console.log('username');
+            console.log('username');
             console.log( this.username.errors);
             console.log("email");
             console.log( this.email.errors);
@@ -50,7 +56,10 @@ export class RegistrationFormComponent {
             console.log(this.confirmPassword.errors);
             console.log("acceptTerms");
             console.log(this.acceptTerms.errors);
-            console.log('invalid');*/
+            console.log("birthDate");
+            console.log(this.birthDate.errors);
+            console.log('invalid');
+
       return;
     }
     console.log(JSON.stringify(this.form.value, null, 2));
@@ -60,6 +69,15 @@ export class RegistrationFormComponent {
     this.submitted = false;
     this.form.reset();
   }
+
+
+
+  checkDateBeforeregistration(date: Date): void {
+    date.getTime() > new Date().getTime() ?
+      this.birthDate.setErrors({'birthDateMoreThanNow': true}) :
+      this.birthDate.setErrors(null);
+  }
+
 
   checkUserNameBeforeRegistration(username: string): void {
     if (username) {

@@ -1,8 +1,8 @@
-package com.example.fanficapi.service;
+package com.example.fanficapi.security.service;
 
-import com.example.fanficapi.exception.TokenRefreshException;
-import com.example.fanficapi.model.RefreshToken;
-import com.example.fanficapi.repository.RefreshTokenRepository;
+import com.example.fanficapi.security.model.RefreshToken;
+import com.example.fanficapi.security.repository.RefreshTokenRepository;
+import com.example.fanficapi.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

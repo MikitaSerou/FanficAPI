@@ -1,4 +1,4 @@
-package com.example.fanficapi.jwt;
+package com.example.fanficapi.security;
 
 
 import com.example.fanficapi.service.UserDetailsServiceImpl;

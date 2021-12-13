@@ -1,4 +1,4 @@
-package com.example.fanficapi.jwt;
+package com.example.fanficapi.security;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;

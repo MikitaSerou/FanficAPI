@@ -1,5 +1,6 @@
-package com.example.fanficapi.model;
+package com.example.fanficapi.security.model;
 
+import com.example.fanficapi.model.User;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
