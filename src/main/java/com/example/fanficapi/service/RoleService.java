@@ -63,7 +63,7 @@ public class RoleService extends AbstractService<Role, Short, RoleDto, RoleDto> 
     }
 
     @Override
-    public Role findByName(String name) {
+    public Role findByUsername(String name) {
         return null;
     }
 }

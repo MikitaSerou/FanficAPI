@@ -58,7 +58,7 @@ public class ThemeService extends AbstractService<Theme, Integer, SimpleThemeDto
     }
 
     @Override
-    public Theme findByName(String name) {
+    public Theme findByUsername(String name) {
         return null;
     }
 }

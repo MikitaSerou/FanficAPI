@@ -11,6 +11,8 @@ import { RegistrationFormComponent } from './components/forms/registration-form/
 import {AngularMaterialModule} from "./angular-material.module";
 import {AppRoutingModule} from "./app-routing.module";
 import {FlexLayoutModule} from "@angular/flex-layout";
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 @NgModule({
@@ -19,6 +21,8 @@ import {FlexLayoutModule} from "@angular/flex-layout";
     UserPageComponent,
     LoginFormComponent,
     RegistrationFormComponent,
+    NavBarComponent,
+    FooterComponent,
   ],
   imports: [
     AppRoutingModule,

@@ -1,15 +1,10 @@
-<!-- Toolbar -->
-<mat-toolbar color="primary" class="app-header">
-  <div><a href="#" target="_blank" class="positronx">FanFic</a></div>
-  <span class="nav-tool-items">
-    <a mat-button routerLink="signin" routerLinkActive="active">Signin</a>
-    <a mat-button mat-raised-button routerLink="register" routerLinkActive="active">Signup</a>
-  </span>
-</mat-toolbar>
-<mat-sidenav-container fullscreen>
+<div class="main-wrapper">
+<mat-sidenav-container style="height: 100%">
+  <app-nav-bar></app-nav-bar>
   <router-outlet></router-outlet>
+  <app-footer></app-footer>
 </mat-sidenav-container>
-
+</div>
 
 
 

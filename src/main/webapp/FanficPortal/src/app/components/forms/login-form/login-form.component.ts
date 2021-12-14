@@ -1,39 +1,53 @@
-import {Component, HostBinding} from '@angular/core';
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition,
-  // ...
-} from '@angular/animations';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {UserService} from "../../../services/user.service";
+import {Component} from '@angular/core';
+
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../../services/auth.service";
+import {TokenStorageService} from "../../../services/token-storage.service";
 
 
 @Component({
   selector: 'login-form',
   templateUrl: './login-form.component.html',
-  styleUrls: ['./login-form.component.css']
+  styleUrls: ['./login-form.component.sass']
 })
-export class LoginFormComponent{
+export class LoginFormComponent {
 
-  myForm: FormGroup;
+  hide: boolean = true;
+  loginForm: FormGroup;
+  username: FormControl = new FormControl('', [Validators.required]);
+  password: FormControl = new FormControl('', [Validators.required]);
+  submitted: boolean = false;
 
-  constructor(private userService: UserService, private authService: AuthService) {
-    this.myForm = new FormGroup({
-      "username": new FormControl('', [Validators.required, Validators.max(20)]),
-      "password": new FormControl('', [Validators.required, Validators.max(50)])
+  isLoggedIn = false;
+  isLoginFailed = false;
+  errorMessage = '';
+  roles: string[] = [];
+
+  constructor(private formBuilder: FormBuilder,
+              private tokenStorage: TokenStorageService,
+              private authService: AuthService,
+              ) {
+    this.loginForm = this.formBuilder.group({
+      username: this.username,
+      password: this.password
     });
   }
 
-  submit(): void {
-    this.authService.login(this.myForm.value.username, this.myForm.value.password).subscribe(
+  onSubmit(): void {
+
+    this.authService.login(this.loginForm.value.username, this.loginForm.value.password).subscribe(
       data => {
-        console.log(data);
+        console.log("Token ebat: " + data.token);
+        this.tokenStorage.saveToken(data.token);
+        this.tokenStorage.saveUser(data);
+
+        this.isLoginFailed = false;
+        this.isLoggedIn = true;
+        this.roles = this.tokenStorage.getUser().roles;
       },
       error => {
+        this.errorMessage = error.error.message;
+        this.isLoginFailed = true;
         console.log(error);
       }
     );

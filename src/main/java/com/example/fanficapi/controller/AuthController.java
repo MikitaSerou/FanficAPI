@@ -1,9 +1,10 @@
 package com.example.fanficapi.controller;
 
 import com.example.fanficapi.exception.TokenRefreshException;
-import com.example.fanficapi.security.*;
 import com.example.fanficapi.model.User;
 import com.example.fanficapi.payload.*;
+import com.example.fanficapi.security.JwtResponse;
+import com.example.fanficapi.security.JwtUtils;
 import com.example.fanficapi.security.model.RefreshToken;
 import com.example.fanficapi.security.service.AuthenticationService;
 import com.example.fanficapi.security.service.RefreshTokenService;
@@ -34,6 +35,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody SignInRequest signInRequest) {
+        setUsernameByEmailIfItNullInRequest(signInRequest);
         Authentication authentication = authenticationService.getAuthenticationBySignInRequest(signInRequest);
         authenticationService.setAuthenticationInContext(authentication);
         String accessToken = jwtUtils.generateJwtToken((UserDetailsImpl) authentication.getPrincipal());
@@ -42,6 +44,14 @@ public class AuthController {
         RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
         return ResponseEntity.ok(new JwtResponse(accessToken, refreshToken.getToken(), userDetails.getId(), userDetails.getUsername(),
                 userDetails.getEmail(), roleNames));
+    }
+
+    //if email is null in request, then set username by email
+    private void setUsernameByEmailIfItNullInRequest(SignInRequest signInRequest) {
+        String usernameOrEmail = signInRequest.getUsername();
+        if (!userService.existsByUsername(usernameOrEmail)) {
+            signInRequest.setUsername(userService.getUsernameByEmail(usernameOrEmail));
+        }
     }
 
     @PostMapping("/refresh")

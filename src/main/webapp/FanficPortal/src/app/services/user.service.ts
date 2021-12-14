@@ -13,15 +13,15 @@ export class UserService {
   }
 
   public getUserById(id: number): Observable<User> {
-    return this.http.get<User>(`${environment.baseUrl}/user/page/${id}`);
+    return this.http.get<User>(`${environment.baseUrl}/user/page/${id}`,{'responseType': 'json'});
   }
 
   public existByUsername(username: string): Observable<boolean> {
-    return this.http.get<boolean>(`${environment.baseUrl}/user/exist/username/${username}`);
+    return this.http.get<boolean>(`${environment.baseUrl}/user/exist/username/${username}`,{'responseType': 'json'});
   }
 
   public existByEmail(email: string): Observable<boolean> {
-    return this.http.get<boolean>(`${environment.baseUrl}/user/exist/email/${email}`);
+    return this.http.get<boolean>(`${environment.baseUrl}/user/exist/email/${email}`,{'responseType': 'json'});
   }
 
 }

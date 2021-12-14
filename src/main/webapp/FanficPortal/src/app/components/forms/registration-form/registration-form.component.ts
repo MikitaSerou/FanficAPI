@@ -11,8 +11,8 @@ import Validation from "../../../utils/validation";
 })
 export class RegistrationFormComponent {
 
-  hide = true;
-  form: FormGroup;
+  registrationForm: FormGroup;
+  hide: boolean = true;
   submitted: boolean = false;
   username: FormControl = new FormControl('', [Validators.required, Validators.maxLength(20)]);
   email: FormControl = new FormControl('', [Validators.required, Validators.email]);
@@ -25,7 +25,7 @@ export class RegistrationFormComponent {
               private userService: UserService,
               private formBuilder: FormBuilder) {
 
-    this.form = this.formBuilder.group({
+    this.registrationForm = this.formBuilder.group({
       username: this.username,
       email: this.email,
       password: this.password,
@@ -37,47 +37,30 @@ export class RegistrationFormComponent {
     });
   }
 
-  onSubmit(): void {
 
+  onSubmit(): void {
     this.checkUserNameBeforeRegistration(this.username.value);
     this.checkEmailBeforeRegistration(this.email.value);
-    if (!this.birthDate.errors){this.checkDateBeforeregistration(this.birthDate.value);}
+    if (!this.birthDate.errors){this.checkDateBeforeRegistration(this.birthDate.value);}
 
     this.submitted = true;
     console.log(this.birthDate.value)
-    if (this.form.invalid) {
-            console.log('username');
-            console.log( this.username.errors);
-            console.log("email");
-            console.log( this.email.errors);
-            console.log("password" );
-            console.log( this.password.errors);
-            console.log("confirmPassword");
-            console.log(this.confirmPassword.errors);
-            console.log("acceptTerms");
-            console.log(this.acceptTerms.errors);
-            console.log("birthDate");
-            console.log(this.birthDate.errors);
-            console.log('invalid');
-
+    if (this.registrationForm.invalid) {
       return;
     }
-    console.log(JSON.stringify(this.form.value, null, 2));
+    console.log(JSON.stringify(this.registrationForm.value, null, 2));
   }
 
   onReset(): void {
     this.submitted = false;
-    this.form.reset();
+    this.registrationForm.reset();
   }
 
-
-
-  checkDateBeforeregistration(date: Date): void {
+  checkDateBeforeRegistration(date: Date): void {
     date.getTime() > new Date().getTime() ?
       this.birthDate.setErrors({'birthDateMoreThanNow': true}) :
       this.birthDate.setErrors(null);
   }
-
 
   checkUserNameBeforeRegistration(username: string): void {
     if (username) {

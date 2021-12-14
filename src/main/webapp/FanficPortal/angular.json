@@ -9,6 +9,9 @@
     "FanficPortal": {
       "projectType": "application",
       "schematics": {
+        "@schematics/angular:component": {
+          "style": "sass"
+        },
         "@schematics/angular:application": {
           "strict": true
         }

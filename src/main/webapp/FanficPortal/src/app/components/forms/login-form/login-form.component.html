@@ -1,54 +1,36 @@
-<!--
-<form class="center" [formGroup]="myForm" novalidate (ngSubmit)="submit()">
-  <div class="form-group">
-    <label>Username</label>
-    <input class="form-control" name="username" formControlName="username">
-&lt;!&ndash;    <div class="alert alert-danger"
-         *ngIf="myForm.controls['username'].invalid && myForm.controls['username'].touched">
-      Name is required.
-    </div>&ndash;&gt;
-    <div class="alert alert-danger"
-         *ngIf="myForm.controls['username'].hasError('taken') && myForm.controls['username'].touched">
-      Name is taken.
-    </div>
-&lt;!&ndash;    <button class="btn btn-default" (click)="checkByUsername(myForm.controls['username'].value)">
-      Проверить
-    </button>&ndash;&gt;
-  </div>
-  <div class="form-group">
-    <label>Password</label>
-    <input class="form-control" name="password" formControlName="password">
-    <div class="alert alert-danger"
-         *ngIf="myForm.controls['password'].invalid && myForm.controls['password'].touched">
-      Incorrect password.
-    </div>
-  </div>
-  <div class="form-group">
-    <button class="btn btn-default" [disabled]="myForm.invalid">
-      Отправить
-    </button>
-  </div>
-</form>
--->
+<style>
+  .example-container{
+    width: 238px;
+  }
+</style>
 <div class="main-wrapper" fxLayout="row" fxLayoutAlign="center center">
-
   <mat-card class="box">
     <mat-card-header>
       <mat-card-title>Sign In</mat-card-title>
     </mat-card-header>
 
-    <form class="example-form">
+    <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <mat-card-content>
+        <div class="example-container">
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Username">
+          <input matInput placeholder="Username/email" [formControl]='username'>
+          <mat-error *ngIf="username.hasError('required')">You must enter a value</mat-error>
         </mat-form-field>
-
-        <mat-form-field class="example-full-width">
-          <input matInput placeholder="Password">
-        </mat-form-field>
+        </div>
+        <div class="example-container">
+          <mat-form-field>
+            <mat-label>Enter your password</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" [formControl]='password'
+                   required>
+            <mat-error *ngIf="password.hasError('required')">You must enter a value</mat-error>
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
       </mat-card-content>
-      <button mat-stroked-button color="accent" class="btn-block">Sign-in</button>
+      <button mat-stroked-button color="accent" class="btn-block" type="submit">Sign-in</button>
     </form>
   </mat-card>
-
 </div>

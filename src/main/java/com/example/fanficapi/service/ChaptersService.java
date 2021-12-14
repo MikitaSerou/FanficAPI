@@ -57,7 +57,7 @@ public class ChaptersService extends AbstractService<Chapter, Long, SimpleChapte
     }
 
     @Override
-    public Chapter findByName(String name) {
+    public Chapter findByUsername(String name) {
         return null;
     }
 }

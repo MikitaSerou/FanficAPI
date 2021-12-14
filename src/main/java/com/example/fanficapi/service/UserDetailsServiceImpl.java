@@ -3,7 +3,6 @@ package com.example.fanficapi.service;
 import com.example.fanficapi.model.User;
 import com.example.fanficapi.payload.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,7 +16,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userService.findByName(username);
+        User user = userService.findByUsername(username);
         return UserDetailsImpl.build(user);
     }
 

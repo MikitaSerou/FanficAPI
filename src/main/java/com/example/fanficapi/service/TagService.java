@@ -60,7 +60,7 @@ public class TagService extends AbstractService<Tag, Long, SimpleTagDto, TagDto>
     }
 
     @Override
-    public Tag findByName(String name) {
+    public Tag findByUsername(String name) {
         return null;
     }
 }

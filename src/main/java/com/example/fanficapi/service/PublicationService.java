@@ -39,7 +39,7 @@ public class PublicationService extends AbstractService<Publication, Long, Previ
     }
 
     @Override
-    public Publication findByName(String name) {
+    public Publication findByUsername(String name) {
         return publicationRepository.findByName(name)
                 .orElseThrow(
                         () -> new PublicationException("Publication with this name (" + name + ") was not found"));

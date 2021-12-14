@@ -14,9 +14,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -54,9 +56,20 @@ public class UserService extends AbstractService<User, Long, UserShortInfoDto, U
     }
 
     @Override
-    public User findByName(String username) throws UsernameNotFoundException {
+    public User findByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Can not find user with this username: " + username));
+    }
+
+    @Transactional
+    public String getUsernameByEmail(String email) {
+        Optional<User> user = userRepository.findByEmail(email);
+        return user.map(User::getUsername).orElse(null);
+    }
+
+    public User findByEmail(String email) throws UserException {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new UserException("Can not find user with this email: " + email));
     }
 
     @Override
