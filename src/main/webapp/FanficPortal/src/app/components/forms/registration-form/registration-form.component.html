@@ -1,4 +1,4 @@
-<div class="main-wrapper" fxLayout="row" fxLayoutAlign="center center">
+<div class ="form-wrapper" fxLayout="row" fxLayoutAlign="center center">
 <mat-card class="box">
   <mat-card-header>
     <mat-card-title>Register</mat-card-title>
@@ -73,16 +73,11 @@
             Accept Terms is required
           </mat-error>
         </div>
-
-      </mat-card-content>
-      <mat-grid-list cols="2" rowHeight="3:1">
-        <mat-grid-tile>
+        <mat-card-actions>
           <button mat-raised-button color="accent" class="main-button" type="submit">Register</button>
-        </mat-grid-tile>
-        <mat-grid-tile>
           <button mat-button color="warn" (click)="onReset()">Reset</button>
-        </mat-grid-tile>
-      </mat-grid-list>
+        </mat-card-actions>
+      </mat-card-content>
     </form>
   </div>
 </mat-card>
