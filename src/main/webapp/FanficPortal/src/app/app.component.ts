@@ -1,10 +1,33 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {TokenStorageService} from "./services/token-storage.service";
+import {environment} from "../environments/environment";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'FanficPortal';
+export class AppComponent implements OnInit {
+  mainTitle = environment.apiName;
+
+  constructor(private tokenStorage: TokenStorageService) {
+
+  }
+
+  ngOnInit(): void {
+      console.log(localStorage.getItem('auth-user'))
+  }
+  getCurrentUser() {
+    return localStorage.getItem('auth-user');
+  }
+
+  printCurrentUser() {
+    console.log(localStorage.getItem('auth-user'));
+  }
+
+  logout(){
+    console.log("logout");
+    this.tokenStorage.signOut();
+  }
+
 }

@@ -3,6 +3,7 @@ import {Component} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../../services/auth.service";
 import {TokenStorageService} from "../../../services/token-storage.service";
+import {AuthUser} from "../../../interfaces/auth/AuthUser";
 
 
 @Component({
@@ -40,10 +41,12 @@ export class LoginFormComponent {
         console.log("Token ebat: " + data.token);
         this.tokenStorage.saveToken(data.token);
         this.tokenStorage.saveUser(data);
-
         this.isLoginFailed = false;
         this.isLoggedIn = true;
-        this.roles = this.tokenStorage.getUser().roles;
+        let currentUser: AuthUser | null = this.tokenStorage.getUser();
+        if (currentUser != null) {
+          this.roles = currentUser.roles;
+        }
       },
       error => {
         this.errorMessage = error.error.message;
