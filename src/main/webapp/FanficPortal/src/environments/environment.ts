@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiName: 'FanFic',
+  apiName: "['FanFic']",
   baseUrl: 'http://localhost:1488/api'
 };
 
