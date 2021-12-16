@@ -12,6 +12,9 @@ import {AngularMaterialModule} from "./angular-material.module";
 import {AppRoutingModule} from "./app-routing.module";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {FooterComponent} from './components/footer/footer.component';
+import {ProfileComponent} from './components/user/profile/profile.component';
+import {MainPageComponent} from './components/main-page/main-page.component';
+import {ErrorPageComponent} from './components/error-page/error-page.component';
 
 
 @NgModule({
@@ -21,6 +24,10 @@ import {FooterComponent} from './components/footer/footer.component';
     LoginFormComponent,
     RegistrationFormComponent,
     FooterComponent,
+    ProfileComponent,
+    MainPageComponent,
+    ErrorPageComponent,
+
   ],
   imports: [
     AppRoutingModule,

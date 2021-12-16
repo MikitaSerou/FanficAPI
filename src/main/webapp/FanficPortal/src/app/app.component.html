@@ -6,27 +6,22 @@
   <span class="example-spacer"></span>
   <span class="nav-tool-items">
     <div *ngIf="getCurrentUser() else elseBlock"><a mat-flat-button
-                                                    routerLink="register"
+                                                    routerLink=""
                                                     (click)="logout()">Logout</a></div>
   <ng-template #elseBlock>
     <a mat-flat-button
-       routerLink="signin"
-       (click)="logout()">
-      Login</a>
+       routerLink="signin">
+      SignIn | SignUp</a>
   </ng-template>
   </span>
 </mat-toolbar>
 <div class="main-wrapper">
   <mat-sidenav-container>
-    <mat-drawer-container [hasBackdrop]="true" style="height: 100%">
+    <mat-drawer-container [hasBackdrop]="true" style="height: 100%" autosize>
       <mat-drawer #drawer>
         <mat-nav-list>
-          <a mat-list-item routerLink="home" routerLinkActive="active">Home</a>
-          <a mat-list-item routerLink="fanfic" routerLinkActive="active">Fanfic</a>
-          <a mat-list-item routerLink="author" routerLinkActive="active">Author</a>
-          <a mat-list-item routerLink="genre" routerLinkActive="active">Genre</a>
-          <a mat-list-item routerLink="register" routerLinkActive="active">Register</a>
-          <a mat-list-item routerLink="signin" routerLinkActive="active">Login</a>
+          <a mat-list-item routerLink="" routerLinkActive="active">Home</a>
+          <a *ngIf="getCurrentUser()" mat-list-item routerLink="profile" routerLinkActive="active">Profile</a>
         </mat-nav-list>
       </mat-drawer>
       <mat-drawer-content>

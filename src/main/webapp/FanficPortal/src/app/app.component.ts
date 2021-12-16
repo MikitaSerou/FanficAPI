@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {TokenStorageService} from "./services/token-storage.service";
 import {environment} from "../environments/environment";
+import {IconsService} from "./services/icons.service";
 
 @Component({
   selector: 'app-root',
@@ -10,12 +11,14 @@ import {environment} from "../environments/environment";
 export class AppComponent implements OnInit {
   mainTitle = environment.apiName;
 
-  constructor(private tokenStorage: TokenStorageService) {
-
+  constructor(private tokenStorage: TokenStorageService,
+              private iconsService: IconsService) {
+    this.iconsService.registerIcons();
   }
 
   ngOnInit(): void {
-      console.log(localStorage.getItem('auth-user'))
+    this.iconsService.registerIcons();
+    console.log(localStorage.getItem('auth-user'))
   }
   getCurrentUser() {
     return localStorage.getItem('auth-user');

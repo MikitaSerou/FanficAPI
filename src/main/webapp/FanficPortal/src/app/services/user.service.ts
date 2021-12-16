@@ -1,8 +1,12 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {User} from "../interfaces/user";
 import {environment} from "../../environments/environment";
+
+const httpOptions = {
+  headers: new HttpHeaders({'Content-Type': 'application/json'})
+};
 
 @Injectable({
   providedIn: 'root'
@@ -13,15 +17,15 @@ export class UserService {
   }
 
   public getUserById(id: number): Observable<User> {
-    return this.http.get<User>(`${environment.baseUrl}/user/page/${id}`,{'responseType': 'json'});
+    return this.http.get<User>(`${environment.baseUrl}/user/page/${id}`,httpOptions);
   }
 
   public existByUsername(username: string): Observable<boolean> {
-    return this.http.get<boolean>(`${environment.baseUrl}/user/exist/username/${username}`,{'responseType': 'json'});
+    return this.http.get<boolean>(`${environment.baseUrl}/user/exist/username/${username}`,httpOptions);
   }
 
   public existByEmail(email: string): Observable<boolean> {
-    return this.http.get<boolean>(`${environment.baseUrl}/user/exist/email/${email}`,{'responseType': 'json'});
+    return this.http.get<boolean>(`${environment.baseUrl}/user/exist/email/${email}`,httpOptions);
   }
 
 }
