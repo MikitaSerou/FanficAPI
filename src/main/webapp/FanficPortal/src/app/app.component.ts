@@ -3,6 +3,7 @@ import {TokenStorageService} from "./services/token-storage.service";
 import {environment} from "../environments/environment";
 import {IconsService} from "./services/icons.service";
 import {fadeAnimation} from "./utils/animations";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,8 @@ export class AppComponent implements OnInit {
   mainTitle = environment.apiName;
 
   constructor(private tokenStorage: TokenStorageService,
-              private iconsService: IconsService) {
+              private iconsService: IconsService,
+              public router: Router) {
     this.iconsService.registerIcons();
   }
 

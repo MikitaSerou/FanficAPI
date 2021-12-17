@@ -1,18 +1,21 @@
 <mat-toolbar color="primary" class="app-header">
-  <button mat-icon-button (click)="drawer.toggle()">
+  <button mat-icon-button (click)="drawer.toggle()" style="transform: scale(1.5);">
     <mat-icon>menu</mat-icon>
   </button>
   <div class="main-title">{{mainTitle}}</div>
   <span class="example-spacer"></span>
   <span class="nav-tool-items">
-    <div *ngIf="getCurrentUser() else elseBlock"><a mat-flat-button
-                                                    routerLink=""
-                                                    (click)="logout()">Logout</a></div>
-  <ng-template #elseBlock>
-    <a mat-flat-button
-       routerLink="signin">
-      SignIn | SignUp</a>
-  </ng-template>
+    <div *ngIf="getCurrentUser()">
+      <button mat-stroked-button
+         routerLink=""
+         (click)="logout()">Logout
+      </button>
+    </div>
+  <div *ngIf="!getCurrentUser() && router.url !== '/signin'">
+      <button mat-stroked-button color="accent" routerLink="signin">SignIn</button>
+    <button *ngIf="!getCurrentUser() && router.url !== '/signin' && router.url !== '/register'"
+            mat-button routerLink="register">SignUp</button>
+  </div>
   </span>
 </mat-toolbar>
 <div class="main-wrapper">
