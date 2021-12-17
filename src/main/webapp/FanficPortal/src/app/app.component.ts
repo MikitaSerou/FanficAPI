@@ -2,11 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {TokenStorageService} from "./services/token-storage.service";
 import {environment} from "../environments/environment";
 import {IconsService} from "./services/icons.service";
+import {fadeAnimation} from "./utils/animations";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  animations: [fadeAnimation]
 })
 export class AppComponent implements OnInit {
   mainTitle = environment.apiName;
