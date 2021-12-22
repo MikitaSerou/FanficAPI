@@ -28,4 +28,5 @@ export class UserService {
     return this.http.get<boolean>(`${environment.baseUrl}/user/exist/email/${email}`,httpOptions);
   }
 
+
 }

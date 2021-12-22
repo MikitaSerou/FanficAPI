@@ -15,6 +15,7 @@ import {FooterComponent} from './components/footer/footer.component';
 import {ProfileComponent} from './components/user/profile/profile.component';
 import {MainPageComponent} from './components/main-page/main-page.component';
 import {ErrorPageComponent} from './components/error-page/error-page.component';
+import { ThemesListComponent } from './components/themes-list/themes-list.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import {ErrorPageComponent} from './components/error-page/error-page.component';
     ProfileComponent,
     MainPageComponent,
     ErrorPageComponent,
+    ThemesListComponent,
 
   ],
   imports: [

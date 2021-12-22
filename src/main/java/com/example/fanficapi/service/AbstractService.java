@@ -1,5 +1,6 @@
 package com.example.fanficapi.service;
 
+import com.example.fanficapi.dto.ThemeDto;
 import com.example.fanficapi.mapper.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

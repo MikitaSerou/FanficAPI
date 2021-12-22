@@ -5,6 +5,7 @@ import {LoginFormComponent} from "./components/forms/login-form/login-form.compo
 import {ProfileComponent} from "./components/user/profile/profile.component";
 import {MainPageComponent} from "./components/main-page/main-page.component";
 import {ErrorPageComponent} from "./components/error-page/error-page.component";
+import {ThemesListComponent} from "./components/themes-list/themes-list.component";
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/' },
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'signin', component: LoginFormComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'register', component: RegistrationFormComponent },
+  {path: 'themes', component:ThemesListComponent},
   { path: '**', component: ErrorPageComponent },
 ];
 

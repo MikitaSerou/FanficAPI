@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/theme")
@@ -30,5 +32,11 @@ public class ThemeController {
     public ResponseEntity<ThemeDto> getPublicationById(@PathVariable("id") Integer id) {
         ThemeDto publication = themeService.getDtoById(id);
         return new ResponseEntity<>(publication, HttpStatus.OK);
+    }
+
+    @GetMapping("/allPreviews")
+    public ResponseEntity<List<SimpleThemeDto>> getAll(){
+        List<SimpleThemeDto> list = themeService.getAllPreviewsDto();
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 }
