@@ -1,65 +1,37 @@
+<div style="padding: 16px">
+  <mat-grid-list [cols]="breakpoint" rowHeight="100px" (window:resize)="onResize({event : $event})" style="height: 10px">
+    <mat-grid-tile  [colspan]="5" [rowspan]="1">
+      <mat-card class="subtitle-card">
+        <h1>Themes</h1>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile *ngIf="breakpoint == 6" [colspan]="1" [rowspan]="1">
+      <div>
+      <span class="column-label">Columns</span>
+      <mat-slider [max]="8" [min]="3" [(ngModel)]="gridColumns" [thumbLabel]="true">
+      </mat-slider>
+    </div></mat-grid-tile>
+  </mat-grid-list>
 
-<div class="main-wrapper">
-<mat-grid-list [cols]="breakpoint" rowHeight="1:1.8" gutterSize="20px" (window:resize)="onResize({event : $event})">
-
-  <mat-grid-tile  *ngFor="let theme of themes">
-    <mat-card style="height: 95%; width: 100%">
-
-      <mat-card-content style="height: 60%">
-        <img src="{{theme.imageUrl}}" style='width:100%; ' border="0" alt="Null">
-      </mat-card-content>
-      <mat-card-header style="max-height: 15%; min-height: 15%">
-        <mat-card-title class="example">{{theme.name}}</mat-card-title>
-      </mat-card-header>
-      <mat-card-actions style="height: 25%">
-        <button mat-raised-button color="primary">
-          <mat-icon>launch</mat-icon>
-          <span>View</span>
-        </button>
-      </mat-card-actions>
-    </mat-card>
-
-<!--    <img src="{{theme.imageUrl}}" style='width:100%;' border="0" alt="Null">-->
-<!--    <img mat-card-image src="{{theme.imageUrl}}" alt="Photo of a Shiba Inu">-->
-  </mat-grid-tile>
-
-
-
-
-
-<!--  <div class="content-wrapper">-->
-
-
-<!--    <mat-card-content style="max-width: 70%">-->
-<!--      <img src="{{theme.imageUrl}}" style="width:100%; max-height: 70%" alt="Null">-->
-<!--    </mat-card-content>-->
-<!--    <mat-card-title style=" padding: 10%; text-align: center;">{{theme.name}}</mat-card-title>-->
-
-<!--  </div>-->
-<!--  <mat-card-actions>-->
-<!--    <button mat-raised-button color="primary">Select</button>-->
-<!--  </mat-card-actions>-->
-
-
-  <!--  <mat-grid-tile  *ngFor="let theme of themes">-->
-<!--    <mat-card>-->
-<!--      <mat-card-header>-->
-<!--        <mat-card-title>{{theme.name}}</mat-card-title>-->
-<!--      </mat-card-header>-->
-<!--      <mat-card-content>-->
-<!--        <div class="image-wrapper">-->
-<!--      <img mat-card-image src="{{theme.imageUrl}}" alt="Photo of a Shiba Inu">-->
-<!--        </div>-->
-<!--      </mat-card-content>-->
-<!--      <mat-card-actions>-->
-<!--        <button mat-button>LIKE</button>-->
-<!--        <button mat-button>SHARE</button>-->
-<!--      </mat-card-actions>-->
-<!--    </mat-card>-->
-<!--  </mat-grid-tile>-->
-</mat-grid-list>
-
+<div class="content">
+  <div fxLayout="row wrap" fxLayoutGap="16px grid">
+      <div [fxFlex]="(100/gridColumns) + '%'" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let theme of themes">
+      <mat-card class="mat-elevation-z4" >
+        <mat-card-header>
+          <mat-card-title>{{theme.name}}</mat-card-title>
+        </mat-card-header>
+        <img mat-card-image src="{{theme.imageUrl}}" alt="{{theme.name}}">
+        <mat-card-content>
+          <p>
+            The Himalayas is a mountain range in Asia.
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button>LIKE</button>
+          <button mat-button>SHARE</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
 </div>
-
-
-
+</div>

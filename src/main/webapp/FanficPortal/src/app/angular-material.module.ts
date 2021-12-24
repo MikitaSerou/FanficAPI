@@ -32,6 +32,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import {MatSliderModule} from "@angular/material/slider";
 
 
 const materialModules = [
@@ -67,7 +68,14 @@ const materialModules = [
   MatRadioModule,
   MatDatepickerModule,
   MatTooltipModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+
+  MatToolbarModule,
+  MatButtonModule,
+  MatSidenavModule,
+  MatIconModule,
+  MatListModule,
+  MatSliderModule,
 ];
 
 

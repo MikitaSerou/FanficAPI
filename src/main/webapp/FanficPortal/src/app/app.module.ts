@@ -15,7 +15,9 @@ import {FooterComponent} from './components/footer/footer.component';
 import {ProfileComponent} from './components/user/profile/profile.component';
 import {MainPageComponent} from './components/main-page/main-page.component';
 import {ErrorPageComponent} from './components/error-page/error-page.component';
-import { ThemesListComponent } from './components/themes-list/themes-list.component';
+import {ThemesListComponent} from './components/themes-list/themes-list.component';
+import {NavigationComponent} from './components/navigation/navigation.component';
+import {LayoutModule} from '@angular/cdk/layout';
 
 
 @NgModule({
@@ -29,7 +31,7 @@ import { ThemesListComponent } from './components/themes-list/themes-list.compon
     MainPageComponent,
     ErrorPageComponent,
     ThemesListComponent,
-
+    NavigationComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -40,6 +42,7 @@ import { ThemesListComponent } from './components/themes-list/themes-list.compon
     ReactiveFormsModule,
     AngularMaterialModule,
     FlexLayoutModule,
+    LayoutModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
