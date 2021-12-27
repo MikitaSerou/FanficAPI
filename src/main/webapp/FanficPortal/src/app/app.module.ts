@@ -11,13 +11,13 @@ import { RegistrationFormComponent } from './components/forms/registration-form/
 import { AngularMaterialModule } from './angular-material.module';
 import { AppRoutingModule } from './app-routing.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { FooterComponent } from './components/footer/footer.component';
 import { ProfileComponent } from './components/user/profile/profile.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { ErrorPageComponent } from './components/error-page/error-page.component';
 import { ThemesListComponent } from './components/themes-list/themes-list.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { LayoutModule } from '@angular/cdk/layout';
+import { ThemeComponent } from './components/theme/theme.component';
 
 @NgModule({
   declarations: [
@@ -25,12 +25,12 @@ import { LayoutModule } from '@angular/cdk/layout';
     UserPageComponent,
     LoginFormComponent,
     RegistrationFormComponent,
-    FooterComponent,
     ProfileComponent,
     MainPageComponent,
     ErrorPageComponent,
     ThemesListComponent,
     NavigationComponent,
+    ThemeComponent,
   ],
   imports: [
     AppRoutingModule,

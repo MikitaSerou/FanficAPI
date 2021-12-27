@@ -6,6 +6,7 @@ import { ProfileComponent } from './components/user/profile/profile.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { ErrorPageComponent } from './components/error-page/error-page.component';
 import { ThemesListComponent } from './components/themes-list/themes-list.component';
+import { ThemeComponent } from './components/theme/theme.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/' },
@@ -14,6 +15,8 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'register', component: RegistrationFormComponent },
   { path: 'themes', component: ThemesListComponent },
+  { path: 'themes/:id', component: ThemeComponent },
+  //error page routing should be last!!!
   { path: '**', component: ErrorPageComponent },
 ];
 

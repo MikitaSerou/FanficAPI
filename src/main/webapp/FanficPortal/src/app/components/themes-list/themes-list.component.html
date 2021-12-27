@@ -1,4 +1,4 @@
-<div style="padding: 16px">
+<div class="main-wrapper">
   <mat-grid-list
     [cols]="breakpoint"
     rowHeight="100px"
@@ -50,11 +50,14 @@
               <mat-icon>bookmark</mat-icon>
             </button>
           </mat-card-header>
-          <img
-            mat-card-image
-            src="{{ theme.imageUrl }}"
-            alt="{{ theme.name }}"
-          />
+          <a routerLink="/themes/{{ theme.id }}">
+            <img
+              md-fab-image
+              mat-card-image
+              src="{{ theme.imageUrl }}"
+              alt="{{ theme.name }}"
+            />
+          </a>
           <mat-card-content>
             <!--          TODO add name of last publication-->
             Last publication
