@@ -1,5 +1,5 @@
 export interface SimpleChapter {
-  id: number,
-  name: string,
-  imageReference: string
+  id: number;
+  name: string;
+  imageReference: string;
 }

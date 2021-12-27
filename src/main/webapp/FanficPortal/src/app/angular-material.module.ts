@@ -9,7 +9,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
-import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
+import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -32,8 +32,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import {MatSliderModule} from "@angular/material/slider";
-
+import { MatSliderModule } from '@angular/material/slider';
 
 const materialModules = [
   CdkTreeModule,
@@ -78,16 +77,9 @@ const materialModules = [
   MatSliderModule,
 ];
 
-
-
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    ...materialModules
-  ],
-  exports: [
-    ...materialModules
-  ],
+  imports: [CommonModule, ...materialModules],
+  exports: [...materialModules],
 })
-export class AngularMaterialModule { }
+export class AngularMaterialModule {}

@@ -1,25 +1,24 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {RegistrationFormComponent} from "./components/forms/registration-form/registration-form.component";
-import {LoginFormComponent} from "./components/forms/login-form/login-form.component";
-import {ProfileComponent} from "./components/user/profile/profile.component";
-import {MainPageComponent} from "./components/main-page/main-page.component";
-import {ErrorPageComponent} from "./components/error-page/error-page.component";
-import {ThemesListComponent} from "./components/themes-list/themes-list.component";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { RegistrationFormComponent } from './components/forms/registration-form/registration-form.component';
+import { LoginFormComponent } from './components/forms/login-form/login-form.component';
+import { ProfileComponent } from './components/user/profile/profile.component';
+import { MainPageComponent } from './components/main-page/main-page.component';
+import { ErrorPageComponent } from './components/error-page/error-page.component';
+import { ThemesListComponent } from './components/themes-list/themes-list.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/' },
-  {path: '', component: MainPageComponent},
+  { path: '', component: MainPageComponent },
   { path: 'signin', component: LoginFormComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'register', component: RegistrationFormComponent },
-  {path: 'themes', component:ThemesListComponent},
+  { path: 'themes', component: ThemesListComponent },
   { path: '**', component: ErrorPageComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule {}
