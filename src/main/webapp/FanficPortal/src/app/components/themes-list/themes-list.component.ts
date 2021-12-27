@@ -30,4 +30,14 @@ export class ThemesListComponent implements OnInit {
   onResize({event}: { event: any }) {
     this.breakpoint = (event.target.innerWidth <= 960) ? 5 : 6;
   }
+
+  //Round off the number and add k when the number is over 1000 and cut off the last 3 digits
+  roundOff(number: number): string {
+    if (number > 1000) {
+      return (Math.round(number / 100) / 10).toString() + 'k';
+    } else {
+      return number.toString();
+    }
+  }
+
 }
