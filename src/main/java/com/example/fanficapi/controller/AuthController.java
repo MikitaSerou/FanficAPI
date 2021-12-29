@@ -1,14 +1,16 @@
 package com.example.fanficapi.controller;
 
 import com.example.fanficapi.exception.TokenRefreshException;
-import com.example.fanficapi.jwt.JwtUtils;
-import com.example.fanficapi.model.RefreshToken;
 import com.example.fanficapi.model.User;
 import com.example.fanficapi.payload.*;
-import com.example.fanficapi.service.AuthenticationService;
-import com.example.fanficapi.service.RefreshTokenService;
+import com.example.fanficapi.security.JwtResponse;
+import com.example.fanficapi.security.JwtUtils;
+import com.example.fanficapi.security.model.RefreshToken;
+import com.example.fanficapi.security.service.AuthenticationService;
+import com.example.fanficapi.security.service.RefreshTokenService;
 import com.example.fanficapi.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 
 //@CrossOrigin(origins = "*", maxAge = 3600) //TODO Check in case when bean in main class wil not work
@@ -34,6 +37,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody SignInRequest signInRequest) {
+        setUsernameByEmailIfItNullInRequest(signInRequest);
         Authentication authentication = authenticationService.getAuthenticationBySignInRequest(signInRequest);
         authenticationService.setAuthenticationInContext(authentication);
         String accessToken = jwtUtils.generateJwtToken((UserDetailsImpl) authentication.getPrincipal());
@@ -42,6 +46,14 @@ public class AuthController {
         RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
         return ResponseEntity.ok(new JwtResponse(accessToken, refreshToken.getToken(), userDetails.getId(), userDetails.getUsername(),
                 userDetails.getEmail(), roleNames));
+    }
+
+    //if email is null in request, then set username by email
+    private void setUsernameByEmailIfItNullInRequest(SignInRequest signInRequest) {
+        String usernameOrEmail = signInRequest.getUsername();
+        if (!userService.existsByUsername(usernameOrEmail)) {
+            signInRequest.setUsername(userService.getUsernameByEmail(usernameOrEmail));
+        }
     }
 
     @PostMapping("/refresh")
@@ -62,13 +74,16 @@ public class AuthController {
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
         if (!signUpRequest.getPassword().equals(signUpRequest.getConfirmPassword())) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Passwords do not match!"));
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new MessageResponse("Passwords do not match!"));
         }
         if (userService.existsByUsername(signUpRequest.getUsername())) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new MessageResponse("Username is already taken!"));
         }
         if (userService.existsByEmail(signUpRequest.getEmail())) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new MessageResponse("Email is already in use!"));
+        }
+        if (signUpRequest.getBirthDate().isAfter(LocalDate.now().minusYears(16))) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new MessageResponse("You must be at least 16 years old!"));
         }
         User userForSave = userService.getUserFromSignUpRequest(signUpRequest);
         userForSave.setPassword(encoder.encode(signUpRequest.getPassword()));

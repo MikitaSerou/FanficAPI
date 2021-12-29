@@ -1,20 +1,19 @@
-import {Component, OnInit} from '@angular/core';
-import {User} from "../../../interfaces/user";
-import {UserService} from "../../../services/user.service";
-import {HttpErrorResponse} from "@angular/common/http";
+import { Component, OnInit } from '@angular/core';
+import { User } from '../../../interfaces/user';
+import { UserService } from '../../../services/user.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-user-page',
   templateUrl: './user-page.component.html',
-  styleUrls: ['./user-page.component.css']
+  styleUrls: ['./user-page.component.sass'],
 })
 export class UserPageComponent implements OnInit {
   public user!: User;
 
-//  public username?: string
+  //  public username?: string
 
-  constructor(private userService: UserService) {
-  }
+  constructor(private userService: UserService) {}
 
   ngOnInit(): void {
     this.getUserById(1);
@@ -25,11 +24,11 @@ export class UserPageComponent implements OnInit {
       (response: User) => {
         this.user = response;
         //   this.username = response.username;
-        console.log(this.user)
+        console.log(this.user);
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
       }
-    )
+    );
   }
 }

@@ -1,77 +1,112 @@
-import {Component} from '@angular/core';
-import {AuthService} from "../../../services/auth.service";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {UserService} from "../../../services/user.service";
-import Validation from "../../../utils/validation";
+import { Component } from '@angular/core';
+import { AuthService } from '../../../services/auth.service';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { UserService } from '../../../services/user.service';
+import Validation from '../../../utils/validation';
+import { ComponentCanDeactivate } from '../../../guards/exit.guard';
+import { Observable } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { TokenStorageService } from '../../../services/token-storage.service';
 
 @Component({
   selector: 'app-registration-form',
   templateUrl: './registration-form.component.html',
-  styleUrls: ['./registration-form.component.css']
+  styleUrls: ['./registration-form.component.sass'],
 })
-export class RegistrationFormComponent {
-
-  hide = true;
-  form: FormGroup;
+export class RegistrationFormComponent implements ComponentCanDeactivate {
+  registrationForm: FormGroup;
+  hide: boolean = true;
   submitted: boolean = false;
-  username: FormControl = new FormControl('', [Validators.required, Validators.maxLength(20)]);
-  email: FormControl = new FormControl('', [Validators.required, Validators.email]);
-  password: FormControl = new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(40)]);
+  userIsRegistered: boolean = false;
+  username: FormControl = new FormControl('', [
+    Validators.required,
+    Validators.maxLength(20),
+  ]);
+  email: FormControl = new FormControl('', [
+    Validators.required,
+    Validators.email,
+  ]);
+  birthDate: FormControl = new FormControl('', [Validators.required]);
+  password: FormControl = new FormControl('', [
+    Validators.required,
+    Validators.minLength(8),
+    Validators.maxLength(40),
+  ]);
   confirmPassword: FormControl = new FormControl('', Validators.required);
   acceptTerms: FormControl = new FormControl(false, Validators.requiredTrue);
 
-  constructor(private authService: AuthService,
-              private userService: UserService,
-              private formBuilder: FormBuilder) {
-
-    this.form = this.formBuilder.group({
-      username: this.username,
-      email: this.email,
-      password: this.password,
-      confirmPassword: this.confirmPassword,
-      acceptTerms: this.acceptTerms,
-    }, {
-      validators: [Validation.match('password', 'confirmPassword')]
-    });
+  constructor(
+    private authService: AuthService,
+    private userService: UserService,
+    private formBuilder: FormBuilder,
+    private _snackBar: MatSnackBar,
+    private router: Router,
+    private tokenStorage: TokenStorageService
+  ) {
+    this.registrationForm = this.formBuilder.group(
+      {
+        username: this.username,
+        email: this.email,
+        password: this.password,
+        birthDate: this.birthDate,
+        confirmPassword: this.confirmPassword,
+        acceptTerms: this.acceptTerms,
+      },
+      {
+        validators: [Validation.match('password', 'confirmPassword')],
+      }
+    );
   }
 
   onSubmit(): void {
     this.checkUserNameBeforeRegistration(this.username.value);
     this.checkEmailBeforeRegistration(this.email.value);
+    if (!this.birthDate.errors) {
+      this.checkDateBeforeRegistration(this.birthDate.value);
+    }
     this.submitted = true;
-    if (this.form.invalid) {
-      /*      console.log('username');
-            console.log( this.username.errors);
-            console.log("email");
-            console.log( this.email.errors);
-            console.log("password" );
-            console.log( this.password.errors);
-            console.log("confirmPassword");
-            console.log(this.confirmPassword.errors);
-            console.log("acceptTerms");
-            console.log(this.acceptTerms.errors);
-            console.log('invalid');*/
+    console.log(this.birthDate.value);
+    if (this.registrationForm.invalid) {
       return;
     }
-    console.log(JSON.stringify(this.form.value, null, 2));
+    this.registerUser(
+      this.username.value,
+      this.email.value,
+      this.password.value,
+      this.birthDate.value,
+      this.confirmPassword.value
+    );
+    //this.loginNewUser(this.username.value, this.password.value);
   }
 
   onReset(): void {
     this.submitted = false;
-    this.form.reset();
+    this.registrationForm.reset();
+  }
+
+  checkDateBeforeRegistration(date: Date): void {
+    date.getTime() > new Date().getTime()
+      ? this.birthDate.setErrors({ birthDateMoreThanNow: true })
+      : this.birthDate.setErrors(null);
   }
 
   checkUserNameBeforeRegistration(username: string): void {
     if (username) {
       this.userService.existByUsername(username).subscribe(
-        data => {
+        (data) => {
           if (data) {
-            this.username.setErrors({'usernameIsTaken': true})
+            this.username.setErrors({ usernameIsTaken: true });
           } else {
             this.username.setErrors(null);
           }
         },
-        error => {
+        (error) => {
           console.log(error);
         }
       );
@@ -81,14 +116,67 @@ export class RegistrationFormComponent {
   checkEmailBeforeRegistration(email: string): void {
     if (email) {
       this.userService.existByEmail(email).subscribe(
-        data => {
-          data ? this.email.setErrors({'emailIsTaken': true}) :
-            this.email.setErrors(null);
+        (data) => {
+          data
+            ? this.email.setErrors({ emailIsTaken: true })
+            : this.email.setErrors(null);
         },
-        error => {
+        (error) => {
           console.log(error);
         }
       );
     }
+  }
+
+  registerUser(
+    username: string,
+    email: string,
+    password: string,
+    birthDate: Date,
+    confirmPassword: string
+  ): void {
+    this.authService
+      .signup(username, email, password, birthDate, confirmPassword)
+      .subscribe(
+        (data) => {
+          console.log(data);
+          this.loginNewUser(username, password);
+        },
+        (error) => {
+          this.openRegistrationFailedSnackBar(error.error.message);
+          console.log(error);
+        }
+      );
+  }
+
+  loginNewUser(username: string, password: string): void {
+    this.authService.login(username, password).subscribe(
+      (data) => {
+        console.log(data);
+        this.tokenStorage.saveToken(data.token);
+        this.tokenStorage.saveUser(data);
+        this.router.navigate(['/']);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  canDeactivate(): boolean | Observable<boolean> {
+    if (!this.submitted && this.registrationForm.dirty) {
+      return confirm(
+        'Are you want to leave this page without saving inputted data?'
+      );
+    } else {
+      return true;
+    }
+  }
+
+  openRegistrationFailedSnackBar(message: string) {
+    this._snackBar.open(message, '', {
+      panelClass: ['snackbar-error'],
+      duration: 3000,
+    });
   }
 }

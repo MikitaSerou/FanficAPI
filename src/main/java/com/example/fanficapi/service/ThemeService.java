@@ -6,7 +6,6 @@ import com.example.fanficapi.exception.ThemeException;
 import com.example.fanficapi.model.Theme;
 import com.example.fanficapi.repository.ThemeRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -47,6 +46,11 @@ public class ThemeService extends AbstractService<Theme, Integer, SimpleThemeDto
         return null;
     }
 
+
+    public List<SimpleThemeDto> getAllPreviewsDto() {
+        return mapper.themeListToSimpleDto(themeRepository.findAll());
+    }
+
     @Override
     public SimpleThemeDto getSimpleDtoById(Integer id) {
         return mapper.themeToSimpleDto(findById(id));
@@ -58,7 +62,7 @@ public class ThemeService extends AbstractService<Theme, Integer, SimpleThemeDto
     }
 
     @Override
-    public Theme findByName(String name) {
+    public Theme findByUsername(String name) {
         return null;
     }
 }

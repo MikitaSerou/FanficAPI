@@ -6,8 +6,9 @@ import lombok.experimental.FieldDefaults;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Set;
+import java.time.LocalDate;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -23,12 +24,14 @@ public class SignUpRequest {
     String email;
 
     @NotBlank
-    @Size(min = 6, max = 40)
+    @Size(min = 8, max = 40)
     String password;
+
+    @NotNull
+    LocalDate birthDate;
 
     @NotBlank
     @Size(min = 6, max = 40)
     String confirmPassword;
 
-    Set<String> roles;
 }

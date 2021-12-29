@@ -5,7 +5,6 @@ import com.example.fanficapi.enums.RoleName;
 import com.example.fanficapi.model.Role;
 import com.example.fanficapi.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -63,7 +62,7 @@ public class RoleService extends AbstractService<Role, Short, RoleDto, RoleDto> 
     }
 
     @Override
-    public Role findByName(String name) {
+    public Role findByUsername(String name) {
         return null;
     }
 }

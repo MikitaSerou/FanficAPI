@@ -7,7 +7,6 @@ import com.example.fanficapi.exception.PublicationException;
 import com.example.fanficapi.model.Publication;
 import com.example.fanficapi.repository.PublicationRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -39,7 +38,7 @@ public class PublicationService extends AbstractService<Publication, Long, Previ
     }
 
     @Override
-    public Publication findByName(String name) {
+    public Publication findByUsername(String name) {
         return publicationRepository.findByName(name)
                 .orElseThrow(
                         () -> new PublicationException("Publication with this name (" + name + ") was not found"));

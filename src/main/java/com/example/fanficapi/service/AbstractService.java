@@ -28,5 +28,5 @@ public abstract class AbstractService<T, I, S, D> { // T - Object type, I - id t
 
     public abstract D getDtoById(I id);
 
-    public abstract T findByName(String name);
+    public abstract T findByUsername(String name);
 }

@@ -1,63 +1,177 @@
-<div class="main-wrapper" fxLayout="row" fxLayoutAlign="center center">
+<div fxLayout="row" fxLayoutAlign="center center">
   <mat-card class="box">
     <mat-card-header>
       <mat-card-title>Register</mat-card-title>
     </mat-card-header>
-
     <div class="register-form">
-      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
         <mat-card-content>
           <div class="example-container">
             <mat-form-field hintLabel="Max 20 characters" appearance="fill">
               <mat-label>Username</mat-label>
-              <input matInput #input maxlength="10" [formControl]='username' required>
-              <mat-hint align="end">{{input.value?.length || 0}}/10</mat-hint>
-              <mat-error *ngIf="username.hasError('required')">You must enter a value</mat-error>
-              <mat-error *ngIf="username.hasError('usernameIsTaken')">This username already used</mat-error>
+              <input
+                matInput
+                #input
+                maxlength="10"
+                [formControl]="username"
+                required
+              />
+              <mat-hint align="end">{{ input.value?.length || 0 }}/10</mat-hint>
+              <mat-error *ngIf="username.hasError('required')"
+              >You must enter a value
+              </mat-error
+              >
+              <mat-error *ngIf="username.hasError('usernameIsTaken')"
+              >This username already used
+              </mat-error
+              >
             </mat-form-field>
           </div>
-          <br/>
           <div class="example-container">
             <mat-form-field appearance="fill">
               <mat-label>Email</mat-label>
-              <input matInput placeholder="pat@example.com" [formControl]='email' required>
-              <mat-error *ngIf="email.hasError('required')">You must enter a value</mat-error>
-              <mat-error *ngIf="email.hasError('email')">Not valid email</mat-error>
-              <mat-error *ngIf="email.hasError('emailIsTaken')">This email already used</mat-error>
+              <input
+                matInput
+                placeholder="pat@example.com"
+                [formControl]="email"
+                required
+              />
+              <mat-error *ngIf="email.hasError('required')"
+              >You must enter a value
+              </mat-error
+              >
+              <mat-error *ngIf="email.hasError('emailIsTaken')"
+              >This email already used
+              </mat-error
+              >
             </mat-form-field>
           </div>
           <div class="example-container">
-            <mat-form-field appearance="fill" hintLabel="Min 8,max 40 characters">
+            <mat-form-field appearance="fill" class="example-form-field">
+              <mat-label>Choose a date</mat-label>
+              <input
+                matInput
+                [matDatepicker]="datepicker"
+                [formControl]="birthDate"
+                required
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="datepicker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #datepicker>
+                <mat-datepicker-actions>
+                  <button mat-button matDatepickerCancel>Cancel</button>
+                  <button mat-raised-button color="primary" matDatepickerApply>
+                    Apply
+                  </button>
+                </mat-datepicker-actions>
+              </mat-datepicker>
+              <mat-error
+                *ngIf="
+                  birthDate.hasError('required') &&
+                  !birthDate.hasError('matDatepickerParse')
+                "
+              >
+                You must enter a value
+              </mat-error>
+              <mat-error *ngIf="birthDate.hasError('matDatepickerParse')"
+              >Not valid value
+              </mat-error
+              >
+              <mat-error *ngIf="birthDate.hasError('birthDateMoreThanNow')"
+              >You haven't even been born yet!
+              </mat-error
+              >
+            </mat-form-field>
+          </div>
+          <div class="example-container">
+            <mat-form-field
+              appearance="fill"
+              hintLabel="Min 8,max 40 characters"
+            >
               <mat-label>Enter your password</mat-label>
-              <input matInput #inputPass maxlength="40" [type]="hide ? 'password' : 'text'" [formControl]='password'
-                     required>
-              <mat-hint align="end">{{inputPass.value?.length || 0}}/40</mat-hint>
-              <mat-error *ngIf="password.hasError('required')">You must enter a value</mat-error>
-              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-                      [attr.aria-pressed]="hide">
-                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              <input
+                matInput
+                #inputPass
+                maxlength="40"
+                [type]="hide ? 'password' : 'text'"
+                [formControl]="password"
+                required
+              />
+              <mat-hint align="end"
+              >{{ inputPass.value?.length || 0 }}/40
+              </mat-hint
+              >
+              <mat-error *ngIf="password.hasError('required')"
+              >You must enter a value
+              </mat-error
+              >
+              <button
+                mat-icon-button
+                matSuffix
+                (click)="hide = !hide"
+                [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide"
+              >
+                <mat-icon>{{
+                  hide ? "visibility_off" : "visibility"
+                  }}</mat-icon>
               </button>
             </mat-form-field>
           </div>
           <div class="example-container">
             <mat-form-field appearance="fill">
               <mat-label>Confirm password</mat-label>
-              <input matInput [type]="hide ? 'password' : 'text'" [formControl]='confirmPassword' required>
-              <mat-error *ngIf="confirmPassword.hasError('required')">You must enter a value</mat-error>
-              <mat-error *ngIf="confirmPassword.hasError('matching')">Passwords don't match</mat-error>
-              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-                      [attr.aria-pressed]="hide">
-                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              <input
+                matInput
+                [type]="hide ? 'password' : 'text'"
+                [formControl]="confirmPassword"
+                required
+              />
+              <mat-error *ngIf="confirmPassword.hasError('required')"
+              >You must enter a value
+              </mat-error
+              >
+              <mat-error *ngIf="confirmPassword.hasError('matching')"
+              >Passwords don't match
+              </mat-error
+              >
+              <button
+                mat-icon-button
+                matSuffix
+                (click)="hide = !hide"
+                [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide"
+              >
+                <mat-icon>{{
+                  hide ? "visibility_off" : "visibility"
+                  }}</mat-icon>
               </button>
             </mat-form-field>
           </div>
           <div class="example-container">
-          <mat-checkbox [formControl]="acceptTerms"  class="example-margin">I have read and agree to the Terms</mat-checkbox>
-            <mat-error *ngIf="submitted && acceptTerms.hasError('required')" style="font-size: 11px; margin-left: 5%;">
-               Accept Terms is required</mat-error>
+            <mat-checkbox [formControl]="acceptTerms" class="example-margin"
+            >I have read and agree to the Terms
+            </mat-checkbox>
+            <mat-error
+              *ngIf="submitted && acceptTerms.hasError('required')"
+              style="font-size: 11px; margin-left: 3%"
+            >
+              Accept Terms is required
+            </mat-error>
           </div>
-          <button mat-raised-button color="accent" type="submit">Register</button>
-          <button mat-stroked-button color="warn" (click)="onReset()">Reset</button>
+          <mat-card-actions>
+            <button
+              mat-raised-button
+              color="accent"
+              class="main-button"
+              type="submit"
+            >
+              Register
+            </button>
+            <button mat-button color="warn" (click)="onReset()">Reset</button>
+          </mat-card-actions>
         </mat-card-content>
       </form>
     </div>

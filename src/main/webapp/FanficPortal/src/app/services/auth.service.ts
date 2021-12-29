@@ -1,25 +1,70 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {environment} from "../../environments/environment";
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
+import { TokenStorageService } from './token-storage.service';
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+};
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
+  isLogin: boolean = false;
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private tokenService: TokenStorageService
+  ) {}
+
+  public login(username: string, password: string): Observable<any> {
+    this.isLogin = true;
+    return this.http.post(
+      `${environment.baseUrl}/auth/login`,
+      { username, password },
+      httpOptions
+    );
   }
 
-  public login(username: string, password: string) {
-    return this.http.post(`${environment.baseUrl}/auth/login`, {username, password});
+  isLoggedIn(): boolean {
+    const loggedIn = this.tokenService.getUser();
+    this.isLogin = loggedIn != null;
+    return this.isLogin;
   }
 
-  public signup(username: string, email: string, password: string, roles: string[]) {
-    return this.http.post(`${environment.baseUrl}/auth/signup`, {username, email, password, roles});
+  getCurrentUserRoles(): string[] {
+    const user = this.tokenService.getUser();
+    if (user) {
+      return user.roles;
+    }
+    return [];
   }
 
-  public refreshTokens(refreshToken: string) {
-    return this.http.post(`${environment.baseUrl}/auth/refresh`, {refreshToken});
+  public signup(
+    username: string,
+    email: string,
+    password: string,
+    birthDate: Date,
+    confirmPassword: string
+  ): Observable<any> {
+    return this.http.post(
+      `${environment.baseUrl}/auth/signup`,
+      { username, email, password, birthDate, confirmPassword },
+      httpOptions
+    );
   }
 
+  public refreshTokens(refreshToken: string): Observable<any> {
+    return this.http.post(
+      `${environment.baseUrl}/auth/refresh`,
+      { refreshToken },
+      httpOptions
+    );
+  }
+
+  logout() {
+    window.localStorage.clear();
+  }
 }
