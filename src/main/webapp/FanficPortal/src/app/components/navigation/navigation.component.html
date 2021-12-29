@@ -14,7 +14,7 @@
         mat-list-item
         routerLink="profile"
         routerLinkActive="active"
-        >Profile</a
+      >Profile</a
       >
       <a mat-list-item routerLink="" routerLinkActive="active">Home</a>
       <a mat-list-item routerLink="/themes" routerLinkActive="active">Themes</a>
@@ -31,7 +31,7 @@
       >
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>{{ mainTitle }}</span>
+      <h1 style="font-size: 36px">{{ mainTitle }}</h1>
       <span class="spacer"></span>
       <div class="auth-buttons">
         <div *ngIf="getCurrentUser()">

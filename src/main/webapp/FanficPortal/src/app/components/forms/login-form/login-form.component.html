@@ -23,7 +23,8 @@
               [formControl]="username"
             />
             <mat-error *ngIf="username.hasError('required')"
-              >You must enter a value</mat-error
+            >You must enter a value
+            </mat-error
             >
           </mat-form-field>
         </div>
@@ -37,7 +38,8 @@
               required
             />
             <mat-error *ngIf="password.hasError('required')"
-              >You must enter a value</mat-error
+            >You must enter a value
+            </mat-error
             >
             <button
               mat-icon-button
@@ -57,16 +59,19 @@
     </form>
   </mat-card>
 </div>
-<br />
+<br/>
 <div class="form-wrapper" fxLayout="row" fxLayoutAlign="center center">
   <p>
-    New to here?<button
+    New to here?
+    <button
       mat-button
       color="accent"
       routerLink="/register"
       style="padding-left: 3px; padding-right: 3px"
     >
-      Create an account</button
-    >.
+      Create an account
+    </button
+    >
+    .
   </p>
 </div>

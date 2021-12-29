@@ -18,6 +18,7 @@ import { ThemesListComponent } from './components/themes-list/themes-list.compon
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ThemeComponent } from './components/theme/theme.component';
+import { ExitGuard } from './guards/exit.guard';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,7 @@ import { ThemeComponent } from './components/theme/theme.component';
     FlexLayoutModule,
     LayoutModule,
   ],
-  providers: [],
+  providers: [ExitGuard],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

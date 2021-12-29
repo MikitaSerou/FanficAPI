@@ -35,7 +35,7 @@ public class RefreshTokenService {
         return refreshTokenRepository.save(refreshToken);
     }
 
-    public RefreshToken verifyExpiration(RefreshToken token){
+    public RefreshToken verifyExpiration(RefreshToken token) {
         if (token.getExpirationDate().compareTo(Instant.now()) < 0) {
             refreshTokenRepository.delete(token);
         }

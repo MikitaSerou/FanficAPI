@@ -7,13 +7,19 @@ import { MainPageComponent } from './components/main-page/main-page.component';
 import { ErrorPageComponent } from './components/error-page/error-page.component';
 import { ThemesListComponent } from './components/themes-list/themes-list.component';
 import { ThemeComponent } from './components/theme/theme.component';
+import { ExitGuard } from './guards/exit.guard';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/' },
   { path: '', component: MainPageComponent },
   { path: 'signin', component: LoginFormComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'register', component: RegistrationFormComponent },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  {
+    path: 'register',
+    component: RegistrationFormComponent,
+    canDeactivate: [ExitGuard],
+  },
   { path: 'themes', component: ThemesListComponent },
   { path: 'themes/:id', component: ThemeComponent },
   //error page routing should be last!!!

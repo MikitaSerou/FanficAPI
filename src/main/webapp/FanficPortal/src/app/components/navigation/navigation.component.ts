@@ -3,9 +3,9 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-import { TokenStorageService } from '../../services/token-storage.service';
 import { Router } from '@angular/router';
 import { fadeAnimation } from '../../utils/animations';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-navigation',
@@ -25,15 +25,16 @@ export class NavigationComponent {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private tokenStorage: TokenStorageService,
+    private authService: AuthService,
     public router: Router
   ) {}
+
   getCurrentUser() {
     return localStorage.getItem('auth-user');
   }
 
   logout() {
     console.log('logout');
-    this.tokenStorage.signOut();
+    this.authService.logout();
   }
 }

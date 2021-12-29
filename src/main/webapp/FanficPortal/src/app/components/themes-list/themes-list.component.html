@@ -10,7 +10,8 @@
       [rowspan]="1"
       class="subtitle-card mat-display-2"
     >
-      <mat-card style="width: 100%">
+      <mat-card style="width: 100%" fxLayoutAlign="start center">
+        <mat-icon>local_library</mat-icon>
         <h1 class="mat-display-2">Themes</h1>
       </mat-card>
     </mat-grid-tile>
@@ -27,19 +28,19 @@
       </div>
     </mat-grid-tile>
   </mat-grid-list>
-  <br />
+  <br/>
   <mat-divider></mat-divider>
-  <br />
+  <br/>
   <div class="content">
     <div fxLayout="row wrap" fxLayoutGap="16px grid">
       <div
         [fxFlex]="100 / gridColumns + '%'"
         fxFlex.xs="100%"
-        fxFlex.sm="33%"
+        fxFlex.sm="50%"
         *ngFor="let theme of themes"
       >
         <mat-card class="mat-card-wrapper">
-          <mat-card-header style="min-height: 50px">
+          <mat-card-header>
             <mat-card-title>{{ theme.name }} </mat-card-title>
             <button
               mat-icon-button

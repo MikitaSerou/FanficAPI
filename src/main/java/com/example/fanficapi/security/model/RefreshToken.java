@@ -26,7 +26,7 @@ public class RefreshToken {
     String token;
 
     @OneToOne
-    @JoinColumn(name = "user_id",referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     User user;
 
     @NotNull(message = "Expiration date is null")

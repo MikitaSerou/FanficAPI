@@ -18,10 +18,12 @@
               />
               <mat-hint align="end">{{ input.value?.length || 0 }}/10</mat-hint>
               <mat-error *ngIf="username.hasError('required')"
-                >You must enter a value</mat-error
+              >You must enter a value
+              </mat-error
               >
               <mat-error *ngIf="username.hasError('usernameIsTaken')"
-                >This username already used</mat-error
+              >This username already used
+              </mat-error
               >
             </mat-form-field>
           </div>
@@ -35,10 +37,12 @@
                 required
               />
               <mat-error *ngIf="email.hasError('required')"
-                >You must enter a value</mat-error
+              >You must enter a value
+              </mat-error
               >
               <mat-error *ngIf="email.hasError('emailIsTaken')"
-                >This email already used</mat-error
+              >This email already used
+              </mat-error
               >
             </mat-form-field>
           </div>
@@ -72,10 +76,12 @@
                 You must enter a value
               </mat-error>
               <mat-error *ngIf="birthDate.hasError('matDatepickerParse')"
-                >Not valid value</mat-error
+              >Not valid value
+              </mat-error
               >
               <mat-error *ngIf="birthDate.hasError('birthDateMoreThanNow')"
-                >You haven't even been born yet!</mat-error
+              >You haven't even been born yet!
+              </mat-error
               >
             </mat-form-field>
           </div>
@@ -94,10 +100,12 @@
                 required
               />
               <mat-hint align="end"
-                >{{ inputPass.value?.length || 0 }}/40</mat-hint
+              >{{ inputPass.value?.length || 0 }}/40
+              </mat-hint
               >
               <mat-error *ngIf="password.hasError('required')"
-                >You must enter a value</mat-error
+              >You must enter a value
+              </mat-error
               >
               <button
                 mat-icon-button
@@ -108,7 +116,7 @@
               >
                 <mat-icon>{{
                   hide ? "visibility_off" : "visibility"
-                }}</mat-icon>
+                  }}</mat-icon>
               </button>
             </mat-form-field>
           </div>
@@ -122,10 +130,12 @@
                 required
               />
               <mat-error *ngIf="confirmPassword.hasError('required')"
-                >You must enter a value</mat-error
+              >You must enter a value
+              </mat-error
               >
               <mat-error *ngIf="confirmPassword.hasError('matching')"
-                >Passwords don't match</mat-error
+              >Passwords don't match
+              </mat-error
               >
               <button
                 mat-icon-button
@@ -136,13 +146,13 @@
               >
                 <mat-icon>{{
                   hide ? "visibility_off" : "visibility"
-                }}</mat-icon>
+                  }}</mat-icon>
               </button>
             </mat-form-field>
           </div>
           <div class="example-container">
             <mat-checkbox [formControl]="acceptTerms" class="example-margin"
-              >I have read and agree to the Terms
+            >I have read and agree to the Terms
             </mat-checkbox>
             <mat-error
               *ngIf="submitted && acceptTerms.hasError('required')"

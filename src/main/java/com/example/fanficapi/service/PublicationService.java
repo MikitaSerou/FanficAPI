@@ -7,7 +7,6 @@ import com.example.fanficapi.exception.PublicationException;
 import com.example.fanficapi.model.Publication;
 import com.example.fanficapi.repository.PublicationRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

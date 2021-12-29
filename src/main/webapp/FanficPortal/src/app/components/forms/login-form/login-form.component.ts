@@ -7,9 +7,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
-import { TokenStorageService } from '../../../services/token-storage.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { TokenStorageService } from '../../../services/token-storage.service';
 
 @Component({
   selector: 'app-login-form',
@@ -26,7 +26,6 @@ export class LoginFormComponent {
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
-  roles: string[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -58,7 +57,6 @@ export class LoginFormComponent {
           this.tokenStorage.saveUser(data);
           this.isLoginFailed = false;
           this.isLoggedIn = true;
-          this.roles = this.tokenStorage.getUser().roles;
           this.router.navigate(['/']);
         },
         (error) => {

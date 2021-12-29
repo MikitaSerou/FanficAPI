@@ -6,7 +6,7 @@ import lombok.experimental.FieldDefaults;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,7 +17,6 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @ToString
-@RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
 
@@ -28,27 +27,27 @@ public class User {
     @Size(min = 3, max = 20)
     @Column(unique = true, nullable = false)
     @NonNull
+
     String username;
 
     @Email
     @Column(unique = true, nullable = false)
     @NonNull
+
     String email;
 
-    @Size(min = 8,max = 40)
+    @Size(min = 8)
     @Column(nullable = false)
     @NonNull
     String password;
 
-    @Column(name="birth_date", nullable = false)
-    @Temporal(TemporalType.DATE)
+    @Column(name = "birth_date", nullable = false)
     @NonNull
-    private Date birthDate;
+    LocalDate birthDate;
 
-    @Column(name="registration_date", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "registration_date", nullable = false)
     @NonNull
-    private Date registrationDate;
+    LocalDate registrationDate;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",
@@ -81,8 +80,12 @@ public class User {
     @ToString.Exclude
     Set<Publication> bookmarks;
 
-    public User(@Size(max = 20) @NonNull String username, @Size(max = 50) @Email @NonNull String email) {
+    public User(@Size(min = 3, max = 20) @NonNull String username, @Email @NonNull String email, @Size(min = 8, max = 40) @NonNull String password, @NonNull LocalDate birthDate) {
         this.username = username;
         this.email = email;
+        this.password = password;
+        this.birthDate = birthDate;
+        this.registrationDate = LocalDate.now();
     }
+
 }

@@ -6,7 +6,6 @@ import com.example.fanficapi.exception.TagException;
 import com.example.fanficapi.model.Tag;
 import com.example.fanficapi.repository.TagRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

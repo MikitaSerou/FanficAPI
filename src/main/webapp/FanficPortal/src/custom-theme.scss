@@ -20,13 +20,13 @@ $FanficPortal-warn: mat.define-palette(mat.$red-palette);
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
 $FanficPortal-theme: mat.define-dark-theme(
-  (
-    color: (
-      primary: $FanficPortal-primary,
-      accent: $FanficPortal-accent,
-      warn: $FanficPortal-warn,
-    ),
-  )
+    (
+      color: (
+        primary: $FanficPortal-primary,
+        accent: $FanficPortal-accent,
+        warn: $FanficPortal-warn,
+      ),
+    )
 );
 
 // Include theme styles for core and each component used in your app.

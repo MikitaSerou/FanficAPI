@@ -10,6 +10,7 @@ import com.example.fanficapi.security.service.AuthenticationService;
 import com.example.fanficapi.security.service.RefreshTokenService;
 import com.example.fanficapi.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 
 //@CrossOrigin(origins = "*", maxAge = 3600) //TODO Check in case when bean in main class wil not work
@@ -72,13 +74,16 @@ public class AuthController {
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
         if (!signUpRequest.getPassword().equals(signUpRequest.getConfirmPassword())) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Passwords do not match!"));
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new MessageResponse("Passwords do not match!"));
         }
         if (userService.existsByUsername(signUpRequest.getUsername())) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new MessageResponse("Username is already taken!"));
         }
         if (userService.existsByEmail(signUpRequest.getEmail())) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new MessageResponse("Email is already in use!"));
+        }
+        if (signUpRequest.getBirthDate().isAfter(LocalDate.now().minusYears(16))) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new MessageResponse("You must be at least 16 years old!"));
         }
         User userForSave = userService.getUserFromSignUpRequest(signUpRequest);
         userForSave.setPassword(encoder.encode(signUpRequest.getPassword()));

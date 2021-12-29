@@ -5,21 +5,19 @@ import com.example.fanficapi.dto.simple.UserShortInfoDto;
 import com.example.fanficapi.enums.RoleName;
 import com.example.fanficapi.exception.UserException;
 import com.example.fanficapi.mapper.Mapper;
-import com.example.fanficapi.model.Role;
 import com.example.fanficapi.model.User;
 import com.example.fanficapi.payload.SignUpRequest;
 import com.example.fanficapi.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -118,21 +116,8 @@ public class UserService extends AbstractService<User, Long, UserShortInfoDto, U
     }
 
     public User getUserFromSignUpRequest(SignUpRequest request) {
-        User user = new User(request.getUsername(), request.getEmail());
-        Set<String> requestRoleNames = request.getRoles();
-        Set<Role> roles = new HashSet<>();
-        if (requestRoleNames == null) {
-            roles.add(roleService.findByRoleName(RoleName.ROLE_USER));
-        } else {
-            requestRoleNames.forEach(role -> {
-                if (role.equals("admin")) {
-                    roles.add(roleService.findByRoleName(RoleName.ROLE_ADMIN));
-                } else {
-                    roles.add(roleService.findByRoleName(RoleName.ROLE_USER));
-                }
-            });
-        }
-        user.setRoles(roles);
+        User user = new User(request.getUsername(), request.getEmail(), request.getPassword(), request.getBirthDate());
+        user.setRoles(new HashSet<>(Collections.singleton(roleService.findByRoleName(RoleName.ROLE_USER))));
         return user;
     }
 }

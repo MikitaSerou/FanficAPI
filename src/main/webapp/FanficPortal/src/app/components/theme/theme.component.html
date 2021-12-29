@@ -1,23 +1,25 @@
 <div class="main-wrapper">
-  <div style="padding-top: 10px">
-    <mat-card>
-      <!--    <button mat-icon-button (click)="goBack()">-->
-      <!--      <mat-icon>arrow_back</mat-icon>-->
-      <!--    </button>-->
-      <h1 class="mat-display-2" (click)="goBack()">{{ theme.name }}</h1>
+  <div class="theme-name-card">
+    <mat-card fxLayoutAlign="start center" class="mat-card-header">
+      <button mat-icon-button color="accent" (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <h1 class="mat-display-2">
+        {{ theme.name }}
+      </h1>
     </mat-card>
   </div>
   <mat-tab-group class="content-wrapper">
-    <mat-tab label="First">
-      <h1>{{ theme.name }}</h1>
+    <mat-tab label="Summary">
+      <mat-card style="margin: 1%">
+        <div class="theme-summary">
+          <h1>{{ theme.name }}</h1>
+        </div>
+      </mat-card>
     </mat-tab>
-    <mat-tab label="Second">
-      <button mat-icon-button (click)="goBack()">
-        <mat-icon>arrow_back</mat-icon>
-      </button>
-    </mat-tab>
+    <mat-tab label="Chapters"></mat-tab>
     <mat-tab label="Third"
-      ><img src="{{ theme.imageUrl }}" alt="{{ theme.name }}" />
+    ><img src="{{ theme.imageUrl }}" alt="{{ theme.name }}"/>
     </mat-tab>
     <mat-tab label="KEK">
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid
