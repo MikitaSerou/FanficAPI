@@ -8,20 +8,20 @@ import {
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { TokenStorageService } from '../services/token-storage.service';
+import { AuthService } from '../services/auth.service';
 
 const TOKEN_HEADER_KEY: string = 'Authorization';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private tokenStorage: TokenStorageService) {}
+  constructor(private authService: AuthService) {}
 
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     let authReq = request;
-    const token = this.tokenStorage.getToken();
+    const token = this.authService.getToken();
     if (token != null) {
       authReq = request.clone({
         headers: request.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token),
