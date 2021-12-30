@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
-import { TokenStorageService } from './token-storage.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
 };
+const TOKEN_KEY: string = 'auth-token';
+const USER_KEY: string = 'auth-user';
 
 @Injectable({
   providedIn: 'root',
@@ -14,10 +15,29 @@ const httpOptions = {
 export class AuthService {
   isLogin: boolean = false;
 
-  constructor(
-    private http: HttpClient,
-    private tokenService: TokenStorageService
-  ) {}
+  public saveToken(token: string) {
+    window.localStorage.removeItem(TOKEN_KEY);
+    window.localStorage.setItem(TOKEN_KEY, token);
+  }
+
+  public getToken(): string | null {
+    return window.localStorage.getItem(TOKEN_KEY);
+  }
+
+  public saveUser(user: any) {
+    window.localStorage.removeItem(USER_KEY);
+    window.localStorage.setItem(USER_KEY, JSON.stringify(user));
+  }
+
+  public getUser(): any {
+    const user = window.localStorage.getItem(USER_KEY);
+    if (user) {
+      return JSON.parse(user);
+    }
+    return null;
+  }
+
+  constructor(private http: HttpClient) {}
 
   public login(username: string, password: string): Observable<any> {
     this.isLogin = true;
@@ -29,13 +49,13 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    const loggedIn = this.tokenService.getUser();
+    const loggedIn = this.getUser();
     this.isLogin = loggedIn != null;
     return this.isLogin;
   }
 
   getCurrentUserRoles(): string[] {
-    const user = this.tokenService.getUser();
+    const user = this.getUser();
     if (user) {
       return user.roles;
     }

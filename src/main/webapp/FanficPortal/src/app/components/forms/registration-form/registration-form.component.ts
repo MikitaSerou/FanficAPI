@@ -1,12 +1,17 @@
-import {Component} from '@angular/core';
-import {AuthService} from '../../../services/auth.service';
-import {FormBuilder, FormControl, FormGroup, Validators,} from '@angular/forms';
-import {UserService} from '../../../services/user.service';
+import { Component } from '@angular/core';
+import { AuthService } from '../../../services/auth.service';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { UserService } from '../../../services/user.service';
 import Validation from '../../../utils/validation';
-import {ComponentCanDeactivate} from '../../../guards/exit.guard';
-import {Observable} from 'rxjs';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {Router} from '@angular/router';
+import { ComponentCanDeactivate } from '../../../guards/exit.guard';
+import { Observable } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration-form',

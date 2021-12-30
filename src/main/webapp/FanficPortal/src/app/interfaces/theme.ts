@@ -1,5 +1,5 @@
-import {SimplePublication} from './simple/simplePublication';
-import {SimpleUser} from './simple/simpleUser';
+import { SimplePublication } from './simple/simplePublication';
+import { SimpleUser } from './simple/simpleUser';
 
 export interface Theme {
   id: number;

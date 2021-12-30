@@ -1,4 +1,4 @@
-import {Publication} from './simple/publication';
+import { Publication } from './simple/publication';
 
 export interface Chapter {
   id: number;

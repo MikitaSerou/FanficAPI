@@ -1,7 +1,7 @@
-import {SimpleUser} from './simple/simpleUser';
-import {SimpleTheme} from './simple/simpleTheme';
-import {SimpleChapter} from './simple/simpleChapter';
-import {SimpleTag} from './simple/simpleTag';
+import { SimpleUser } from './simple/simpleUser';
+import { SimpleTheme } from './simple/simpleTheme';
+import { SimpleChapter } from './simple/simpleChapter';
+import { SimpleTag } from './simple/simpleTag';
 
 export interface Publication {
   id: number;

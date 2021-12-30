@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {IconsService} from './services/icons.service';
-import {Router} from '@angular/router';
-import {AuthService} from './services/auth.service';
+import { Component, OnInit } from '@angular/core';
+import { IconsService } from './services/icons.service';
+import { Router } from '@angular/router';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
