@@ -1,4 +1,4 @@
-import { SimplePublication } from './simple/simplePublication';
+import {SimplePublication} from './simple/simplePublication';
 
 export interface Tag {
   id: number;

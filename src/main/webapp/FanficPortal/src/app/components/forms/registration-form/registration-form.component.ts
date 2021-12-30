@@ -1,18 +1,12 @@
-import { Component } from '@angular/core';
-import { AuthService } from '../../../services/auth.service';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
-import { UserService } from '../../../services/user.service';
+import {Component} from '@angular/core';
+import {AuthService} from '../../../services/auth.service';
+import {FormBuilder, FormControl, FormGroup, Validators,} from '@angular/forms';
+import {UserService} from '../../../services/user.service';
 import Validation from '../../../utils/validation';
-import { ComponentCanDeactivate } from '../../../guards/exit.guard';
-import { Observable } from 'rxjs';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
-import { TokenStorageService } from '../../../services/token-storage.service';
+import {ComponentCanDeactivate} from '../../../guards/exit.guard';
+import {Observable} from 'rxjs';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-registration-form',
@@ -46,8 +40,7 @@ export class RegistrationFormComponent implements ComponentCanDeactivate {
     private userService: UserService,
     private formBuilder: FormBuilder,
     private _snackBar: MatSnackBar,
-    private router: Router,
-    private tokenStorage: TokenStorageService
+    private router: Router
   ) {
     this.registrationForm = this.formBuilder.group(
       {
@@ -153,8 +146,8 @@ export class RegistrationFormComponent implements ComponentCanDeactivate {
     this.authService.login(username, password).subscribe(
       (data) => {
         console.log(data);
-        this.tokenStorage.saveToken(data.token);
-        this.tokenStorage.saveUser(data);
+        this.authService.saveToken(data.token);
+        this.authService.saveUser(data);
         this.router.navigate(['/']);
       },
       (error) => {

@@ -1,15 +1,9 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
-import { AuthService } from '../../../services/auth.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
-import { TokenStorageService } from '../../../services/token-storage.service';
+import {FormBuilder, FormControl, FormGroup, Validators,} from '@angular/forms';
+import {AuthService} from '../../../services/auth.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login-form',
@@ -29,7 +23,6 @@ export class LoginFormComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private tokenStorage: TokenStorageService,
     private authService: AuthService,
     private _snackBar: MatSnackBar,
     private router: Router
@@ -53,8 +46,8 @@ export class LoginFormComponent {
       .login(this.loginForm.value.username, this.loginForm.value.password)
       .subscribe(
         (data) => {
-          this.tokenStorage.saveToken(data.token);
-          this.tokenStorage.saveUser(data);
+          this.authService.saveToken(data.token);
+          this.authService.saveUser(data);
           this.isLoginFailed = false;
           this.isLoggedIn = true;
           this.router.navigate(['/']);

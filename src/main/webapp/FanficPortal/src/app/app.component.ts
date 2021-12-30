@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { TokenStorageService } from './services/token-storage.service';
-import { IconsService } from './services/icons.service';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {IconsService} from './services/icons.service';
+import {Router} from '@angular/router';
+import {AuthService} from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent implements OnInit {
   constructor(
-    private tokenStorage: TokenStorageService,
+    private authService: AuthService,
     private iconsService: IconsService,
     public router: Router
   ) {
