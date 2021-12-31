@@ -1,18 +1,13 @@
 $main-padding: 16px
+$main-top-padding: 75px
 
 .main-wrapper
   padding: $main-padding
 
-.content-wrapper
-  position: sticky
-  top: 0
-//position: fixed
-//height: 100%
+.header-card
+  margin-top: $main-top-padding
 
-.content-tab
-  height: 100%
-
-.theme-name-card > mat-card
+.theme-name-card > mat-car
   width: 100%
 
 .theme-name-card
@@ -21,4 +16,17 @@ $main-padding: 16px
 
 .mat-card-header > button
   margin-right: 10px
+
+mat-grid-tile
+  height: 200px
+
+
+.summary-card
+  margin-right: auto
+  margin-left: auto
+  max-width: 400px
+
+.example-header-image
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg')
+  background-size: cover
 
