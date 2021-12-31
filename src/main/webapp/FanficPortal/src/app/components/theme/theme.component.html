@@ -1,5 +1,6 @@
 <div class="main-wrapper" style="height: calc(100% - 64px)">
-  <div class="theme-name-card">
+
+  <div class="header-card">
     <mat-card fxLayoutAlign="start center" class="mat-card-header">
       <button mat-icon-button color="accent" (click)="goBack()">
         <mat-icon>arrow_back</mat-icon>
@@ -12,17 +13,105 @@
   <br />
   <mat-divider></mat-divider>
   <br />
+  <mat-card-content>
+    <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap="16px">
+      <div fxFlex.gt-sm="50%" fxFlex>
+        <mat-card class="summary-card" >
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>Shiba Inu</mat-card-title>
+            <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+          </mat-card-header>
+          <img mat-card-image src="{{ theme.imageUrl }}" alt="Photo of a Shiba Inu">
+          <mat-card-content>
+            <p>
+              The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+              A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+              bred for hunting.
+            </p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button>LIKE</button>
+            <button mat-button>SHARE</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+      <div fxFlex.gt-sm="50%" fxFlex>
+        <div fxLayout="column" fxLayoutAlign="space-evenly stretch">
+          <h1>Publications:</h1>
+          <mat-list role="list">
+            <mat-list-item role="listitem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure, libero?</mat-list-item>
+            <mat-list-item role="listitem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates.</mat-list-item>
+            <mat-list-item role="listitem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, dolorum.</mat-list-item>
+            <mat-list-item role="listitem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, dolorum.</mat-list-item>
+            <mat-list-item role="listitem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, dolorum.</mat-list-item>
+            <mat-list-item role="listitem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, dolorum.</mat-list-item>
+            <mat-list-item role="listitem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, dolorum.</mat-list-item>
+            <mat-list-item role="listitem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, dolorum.</mat-list-item>
+            <mat-list-item role="listitem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, dolorum.</mat-list-item>
+            <mat-list-item role="listitem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, dolorum.</mat-list-item>
+          </mat-list>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
 
-<mat-grid-list cols="4" style="width: 100%">
-  <mat-grid-tile colspan="1" rowspan="1">
-    <mat-card fxLayoutAlign="center center" class="mat-card-header" style="height: 100%">
-      <h1 class="mat-display-1">
-        {{ theme.name }}
-      </h1>
-    </mat-card>
-    </mat-grid-tile>
-  <mat-grid-tile colspan="3" rowspan="1">
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquid aperiam beatae, culpa delectus dolore ducimus ea eligendi error incidunt ipsa ipsum iste, laborum libero maiores maxime minus molestias non nulla quae quia quis quod rem tempore veritatis voluptatem voluptatibus. Atque autem dolorum eos explicabo maxime modi neque, nobis nostrum quasi ratione tempore voluptatem. Adipisci aperiam blanditiis cum distinctio explicabo, fugiat illum iure, maiores maxime officiis provident quaerat quo sapiente. Amet cumque, error incidunt libero maxime natus necessitatibus, officia, perspiciatis placeat qui quidem sapiente unde voluptatem! Doloribus eum eveniet facere incidunt iusto, nostrum obcaecati, porro praesentium quae quia saepe voluptas.
-  </mat-grid-tile>
-</mat-grid-list>
+<!--  <div>-->
+<!--    <div fxFlex="60">dsgfdswgdfshbdfshds</div>-->
+<!--    <div fxFlex="40">dsfgdfsgdfsgdfsg</div>-->
+<!--  </div>-->
+
+<!--  <mat-grid-list [cols]="breakpoint"
+                 (window:resize)="onResize({ event: $event })"
+                 rowHeight="1:1">
+    <mat-grid-tile>
+      <mat-card class="card" fxFill>
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>Shiba Inu</mat-card-title>
+        <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image src="{{ theme.imageUrl }}" alt="Photo of a Shiba Inu">
+      <mat-card-content>
+        <p>
+          The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+          A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+          bred for hunting.
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button>LIKE</button>
+        <button mat-button>SHARE</button>
+      </mat-card-actions>
+    </mat-card></mat-grid-tile>
+    <mat-grid-tile>
+      <mat-card  fxFill>
+      <div fxLayout="column" fxLayoutAlign="space-evenly stretch">
+        <h1>Publications</h1>
+        <mat-list role="list">
+          <mat-list-item role="listitem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure, libero?</mat-list-item>
+          <mat-list-item role="listitem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates.</mat-list-item>
+          <mat-list-item role="listitem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, dolorum.</mat-list-item>
+          <mat-list-item role="listitem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, dolorum.</mat-list-item>
+          <mat-list-item role="listitem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, dolorum.</mat-list-item>
+          <mat-list-item role="listitem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, dolorum.</mat-list-item>
+          <mat-list-item role="listitem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, dolorum.</mat-list-item>
+          <mat-list-item role="listitem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, dolorum.</mat-list-item>
+          <mat-list-item role="listitem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, dolorum.</mat-list-item>
+          <mat-list-item role="listitem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, dolorum.</mat-list-item>
+        </mat-list>
+      </div>
+    </mat-card></mat-grid-tile>
+  </mat-grid-list>-->
+
 </div>
+
+
+
+
+
+
+
+
+
+

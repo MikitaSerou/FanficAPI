@@ -17,6 +17,7 @@ export class ThemeComponent implements OnInit {
     publications: [],
     subscribers: [],
   };
+  breakpoint: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -31,11 +32,16 @@ export class ThemeComponent implements OnInit {
         console.log(error);
       }
     );
+    this.breakpoint = window.innerWidth <= 960 ? 1 : 2;
   }
 
   ngOnInit(): void {}
 
   goBack(): void {
     this.location.back();
+  }
+
+  onResize({ event }: { event: any }) {
+    this.breakpoint = event.target.innerWidth <= 960 ? 1 : 2;
   }
 }
