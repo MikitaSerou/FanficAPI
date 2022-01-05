@@ -1,7 +1,7 @@
 package com.example.fanficapi.service;
 
-import com.example.fanficapi.dto.ThemeDto;
-import com.example.fanficapi.dto.simple.SimpleThemeDto;
+import com.example.fanficapi.dto.theme.ThemeDto;
+import com.example.fanficapi.dto.theme.SimpleThemeDto;
 import com.example.fanficapi.exception.ThemeException;
 import com.example.fanficapi.model.Theme;
 import com.example.fanficapi.repository.ThemeRepository;

@@ -1,6 +1,6 @@
 package com.example.fanficapi.controller;
 
-import com.example.fanficapi.dto.UserDto;
+import com.example.fanficapi.dto.user.UserDto;
 import com.example.fanficapi.model.User;
 import com.example.fanficapi.service.UserService;
 import lombok.RequiredArgsConstructor;

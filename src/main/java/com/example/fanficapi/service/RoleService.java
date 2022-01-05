@@ -1,6 +1,6 @@
 package com.example.fanficapi.service;
 
-import com.example.fanficapi.dto.RoleDto;
+import com.example.fanficapi.dto.role.RoleDto;
 import com.example.fanficapi.enums.RoleName;
 import com.example.fanficapi.model.Role;
 import com.example.fanficapi.repository.RoleRepository;

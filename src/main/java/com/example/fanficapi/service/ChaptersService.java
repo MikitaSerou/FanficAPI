@@ -1,7 +1,7 @@
 package com.example.fanficapi.service;
 
-import com.example.fanficapi.dto.ChapterDto;
-import com.example.fanficapi.dto.simple.SimpleChapterDto;
+import com.example.fanficapi.dto.chapter.ChapterDto;
+import com.example.fanficapi.dto.chapter.ParentChapterDto;
 import com.example.fanficapi.model.Chapter;
 import com.example.fanficapi.repository.ChapterRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class ChaptersService extends AbstractService<Chapter, Long, SimpleChapterDto, ChapterDto> {
+public class ChaptersService extends AbstractService<Chapter, Long, ParentChapterDto, ChapterDto> {
 
     private final ChapterRepository chapterRepository;
 
@@ -46,7 +46,7 @@ public class ChaptersService extends AbstractService<Chapter, Long, SimpleChapte
     }
 
     @Override
-    public SimpleChapterDto getSimpleDtoById(Long id) {
+    public ParentChapterDto getSimpleDtoById(Long id) {
         return null;
     }
 

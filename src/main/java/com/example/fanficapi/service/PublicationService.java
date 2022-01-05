@@ -1,8 +1,8 @@
 package com.example.fanficapi.service;
 
 
-import com.example.fanficapi.dto.PublicationDto;
-import com.example.fanficapi.dto.simple.PreviewPublicationDto;
+import com.example.fanficapi.dto.publication.PublicationDto;
+import com.example.fanficapi.dto.publication.PreviewPublicationDto;
 import com.example.fanficapi.exception.PublicationException;
 import com.example.fanficapi.model.Publication;
 import com.example.fanficapi.repository.PublicationRepository;

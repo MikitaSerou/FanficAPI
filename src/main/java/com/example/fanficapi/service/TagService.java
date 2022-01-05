@@ -1,7 +1,7 @@
 package com.example.fanficapi.service;
 
-import com.example.fanficapi.dto.TagDto;
-import com.example.fanficapi.dto.simple.SimpleTagDto;
+import com.example.fanficapi.dto.tag.ParentTagDto;
+import com.example.fanficapi.dto.tag.TagDto;
 import com.example.fanficapi.exception.TagException;
 import com.example.fanficapi.model.Tag;
 import com.example.fanficapi.repository.TagRepository;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class TagService extends AbstractService<Tag, Long, SimpleTagDto, TagDto> {
+public class TagService extends AbstractService<Tag, Long, ParentTagDto, TagDto> {
 
     private final TagRepository tagRepository;
 
@@ -49,7 +49,7 @@ public class TagService extends AbstractService<Tag, Long, SimpleTagDto, TagDto>
     }
 
     @Override
-    public SimpleTagDto getSimpleDtoById(Long id) {
+    public ParentTagDto getSimpleDtoById(Long id) {
         return null;
     }
 

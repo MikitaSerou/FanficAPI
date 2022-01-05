@@ -1,4 +1,4 @@
-package com.example.fanficapi.dto.simple;
+package com.example.fanficapi.dto.theme;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -8,8 +8,9 @@ import lombok.experimental.FieldDefaults;
 @Data
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class SimpleTagDto {
+public class SimpleThemeDto {
 
-    Long id;
+    Integer id;
     String name;
+    String imageUrl;
 }

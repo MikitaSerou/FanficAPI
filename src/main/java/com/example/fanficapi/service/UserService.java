@@ -1,7 +1,7 @@
 package com.example.fanficapi.service;
 
-import com.example.fanficapi.dto.UserDto;
-import com.example.fanficapi.dto.simple.UserShortInfoDto;
+import com.example.fanficapi.dto.user.UserDto;
+import com.example.fanficapi.dto.user.UserShortInfoDto;
 import com.example.fanficapi.enums.RoleName;
 import com.example.fanficapi.exception.UserException;
 import com.example.fanficapi.mapper.Mapper;

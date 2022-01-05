@@ -1,8 +1,8 @@
 package com.example.fanficapi.controller;
 
 
-import com.example.fanficapi.dto.PublicationDto;
-import com.example.fanficapi.dto.simple.PreviewPublicationDto;
+import com.example.fanficapi.dto.publication.PublicationDto;
+import com.example.fanficapi.dto.publication.PreviewPublicationDto;
 import com.example.fanficapi.service.PublicationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
