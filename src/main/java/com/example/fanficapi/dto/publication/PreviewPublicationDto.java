@@ -1,9 +1,12 @@
 package com.example.fanficapi.dto.publication;
 
 import com.example.fanficapi.dto.tag.ParentTagDto;
-import com.example.fanficapi.dto.theme.SimpleThemeDto;
+import com.example.fanficapi.dto.theme.ParentThemeDto;
 import com.example.fanficapi.dto.user.UserShortInfoDto;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
 import java.util.Set;
@@ -16,11 +19,11 @@ public class PreviewPublicationDto extends PublicationParentDto { //view to main
 
     protected String description;
     protected UserShortInfoDto author;
-    protected SimpleThemeDto theme;
+    protected ParentThemeDto theme;
     protected Set<ParentTagDto> tags;
 
     public PreviewPublicationDto(Long id, String name, String description, UserShortInfoDto author,
-                                 SimpleThemeDto theme, Set<ParentTagDto> tags) {
+                                 ParentThemeDto theme, Set<ParentTagDto> tags) {
         super(id, name);
         this.description = description;
         this.author = author;

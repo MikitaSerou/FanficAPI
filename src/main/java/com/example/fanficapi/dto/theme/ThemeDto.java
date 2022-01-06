@@ -1,22 +1,29 @@
 package com.example.fanficapi.dto.theme;
 
-import com.example.fanficapi.dto.publication.PreviewPublicationDto;
-import com.example.fanficapi.dto.user.UserShortInfoDto;
+import com.example.fanficapi.dto.publication.PublicationParentDto;
+import com.example.fanficapi.dto.tag.ParentTagDto;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
 import java.util.Set;
 
-@Data
-@AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
+@Getter
+@Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ThemeDto {
+public class ThemeDto extends ParentThemeDto {
 
-    Integer id;
-    String name;
-    String imageUrl;
-    Set<PreviewPublicationDto> publications;
-    Set<UserShortInfoDto> subscribers;
+    Set<PublicationParentDto> publications;
+    Set<ParentTagDto> tags;
+
+
+    public ThemeDto(Integer id, String name, String imageUrl, Set<PublicationParentDto> publications,
+                    Long countOfSubscribers, Set<ParentTagDto> tags) {
+        super(id, name, imageUrl, countOfSubscribers);
+        this.publications = publications;
+        this.tags = tags;
+    }
 }

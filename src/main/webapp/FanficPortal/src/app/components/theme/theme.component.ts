@@ -15,9 +15,11 @@ export class ThemeComponent implements OnInit {
     name: '',
     imageUrl: '',
     publications: [],
-    subscribers: [],
+    countOfSubscribers: 0,
+    tags: [],
   };
   breakpoint: number;
+  panelOpenState = false;
 
   constructor(
     private route: ActivatedRoute,

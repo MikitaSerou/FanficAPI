@@ -2,7 +2,7 @@ package com.example.fanficapi.dto.publication;
 
 import com.example.fanficapi.dto.chapter.ParentChapterDto;
 import com.example.fanficapi.dto.tag.ParentTagDto;
-import com.example.fanficapi.dto.theme.SimpleThemeDto;
+import com.example.fanficapi.dto.theme.ParentThemeDto;
 import com.example.fanficapi.dto.user.UserShortInfoDto;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
@@ -23,7 +23,7 @@ public class PublicationDto extends PreviewPublicationDto {
     Set<UserShortInfoDto> usersWhoLiked;
 
     public PublicationDto(Long id, String name, String description,
-                          UserShortInfoDto author, SimpleThemeDto theme, Set<ParentTagDto> tags,
+                          UserShortInfoDto author, ParentThemeDto theme, Set<ParentTagDto> tags,
                           Set<ParentChapterDto> chapters,
                           Set<UserShortInfoDto> usersWhoDidBookmark,
                           Set<UserShortInfoDto> usersWhoLiked) {

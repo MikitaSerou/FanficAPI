@@ -1,8 +1,9 @@
 package com.example.fanficapi.controller;
 
 
-import com.example.fanficapi.dto.publication.PublicationDto;
 import com.example.fanficapi.dto.publication.PreviewPublicationDto;
+import com.example.fanficapi.dto.publication.PublicationDto;
+import com.example.fanficapi.mapper.Mapper;
 import com.example.fanficapi.service.PublicationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,24 +23,25 @@ import java.util.List;
 public class PublicationController {
 
     private final PublicationService publicationService;
+    private final Mapper mapper;
 
     @GetMapping("/all")
     // @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<PublicationDto>> getPublications() {
-        List<PublicationDto> publications = publicationService.getAllDto();
+        List<PublicationDto> publications = mapper.publicationsListToDto(publicationService.findAll());
         return new ResponseEntity<>(publications, HttpStatus.OK);
     }
 
     @GetMapping("/preview/{id}")
     public ResponseEntity<PreviewPublicationDto> getSimplePublicationById(@PathVariable("id") Long id) {
-        PreviewPublicationDto publication = publicationService.getSimpleDtoById(id);
+        PreviewPublicationDto publication = mapper.publicationToPreviewDto(publicationService.findById(id));
         System.err.println(publication.toString());
         return new ResponseEntity<>(publication, HttpStatus.OK);
     }
 
     @GetMapping("/page/{id}")
     public ResponseEntity<PublicationDto> getPublicationById(@PathVariable("id") Long id) {
-        PublicationDto publication = publicationService.getDtoById(id);
+        PublicationDto publication = mapper.publicationToDto(publicationService.findById(id));
         System.err.println(publication.toString());
         return new ResponseEntity<>(publication, HttpStatus.OK);
     }

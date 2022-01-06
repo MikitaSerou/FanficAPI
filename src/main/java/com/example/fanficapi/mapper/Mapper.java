@@ -1,58 +1,67 @@
 package com.example.fanficapi.mapper;
 
+import com.example.fanficapi.dto.publication.PreviewPublicationDto;
 import com.example.fanficapi.dto.publication.PublicationDto;
 import com.example.fanficapi.dto.role.ParentRoleDto;
-import com.example.fanficapi.dto.role.RoleDto;
 import com.example.fanficapi.dto.tag.ParentTagDto;
+import com.example.fanficapi.dto.theme.ParentThemeDto;
 import com.example.fanficapi.dto.theme.ThemeDto;
 import com.example.fanficapi.dto.user.UserDto;
-import com.example.fanficapi.dto.publication.PreviewPublicationDto;
-import com.example.fanficapi.dto.theme.SimpleThemeDto;
 import com.example.fanficapi.dto.user.UserShortInfoDto;
 import com.example.fanficapi.model.*;
+import com.example.fanficapi.service.TagService;
+import com.example.fanficapi.service.UserService;
 import org.mapstruct.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Set;
 
 @org.mapstruct.Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface Mapper {
+public abstract class Mapper {
+
+    @Autowired
+    protected TagService tagService;
+
+    @Autowired
+    protected UserService userService;
 
     @Named(value = "publicationToPreviewDto")
-    PreviewPublicationDto publicationToPreviewDto(Publication publication);
+    public abstract PreviewPublicationDto publicationToPreviewDto(Publication publication);
 
-    PublicationDto publicationToDto(Publication publication);
+    @Named(value = "publicationToDto")
+    public abstract PublicationDto publicationToDto(Publication publication);
 
-    List<PublicationDto> publicationsListToDto(List<Publication> publications);
+    public abstract List<PublicationDto> publicationsListToDto(List<Publication> publications);
 
-    List<PreviewPublicationDto> publicationsListPreviewToDto(List<PreviewPublicationDto> publications);
+    public abstract List<PreviewPublicationDto> publicationsListToPreviewDto(List<Publication> publications);
 
     @Named(value = "themeToSimpleDto")
-    SimpleThemeDto themeToSimpleDto(Theme theme);
+    public abstract ParentThemeDto themeToSimpleDto(Theme theme);
 
-    ThemeDto themeToDto(Theme theme);
+    @Mapping(target = "tags", expression = "java(this.tagsSetToSimpleDto(tagService.findByThemeId(theme.getId())))")
+    @Mapping(target = "countOfSubscribers", expression = "java(userService.countSubscribersByThemeId(theme.getId()))")
+    public abstract ThemeDto themeToDto(Theme theme);
 
-    List<ThemeDto> themesListToto(List<Theme> themes);
+    public abstract List<ThemeDto> themesListToDto(List<Theme> themes);
 
-    List<SimpleThemeDto> themeListToSimpleDto(List<Theme> themes);
+    @Mapping(target = "countOfSubscribers", expression = "java(userService.countSubscribersByThemeId(theme.getId()))")
+    public abstract List<ParentThemeDto> themeListToSimpleDto(List<Theme> themes);
 
     @Named(value = "tagToSimpleDto")
-    ParentTagDto tagToSimpleDto(Tag tag);
+    public abstract ParentTagDto tagToSimpleDto(Tag tag);
 
-    UserShortInfoDto userToShortInfoDto(User user);
+    public abstract Set<ParentTagDto> tagsSetToSimpleDto(Set<Tag> tags);
+
+    public abstract ParentRoleDto roleToSimpleDto(Role role);
+
+    public abstract UserShortInfoDto userToShortInfoDto(User user);
 
     @Named(value = "userToDto")
-    UserDto userToDto(User user);
+    public abstract UserDto userToDto(User user);
 
-    ParentRoleDto roleToSimpleDto(Role role);
-
-    @Named(value = "toRoleDto")
-    RoleDto toRoleDto(Role role);
-
-    User userDtoToUser(UserDto user);
+    public abstract User userDtoToUser(UserDto user);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void updateUserFromUserSimpleDto(UserShortInfoDto dto, @MappingTarget User entity);
-
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void updateUserFromUserDto(UserDto dto, @MappingTarget User entity);
+    public abstract void pertialUpdateUser(User dto, @MappingTarget User entity);
 }

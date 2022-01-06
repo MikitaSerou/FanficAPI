@@ -1,6 +1,7 @@
 package com.example.fanficapi.controller;
 
-import com.example.fanficapi.service.ChaptersService;
+import com.example.fanficapi.mapper.Mapper;
+import com.example.fanficapi.service.ChapterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Controller;
 @RequiredArgsConstructor
 public class ChapterController {
 
-    private final ChaptersService chaptersService;
-
+    private final ChapterService chapterService;
+    private final Mapper mapper;
 }
+
+

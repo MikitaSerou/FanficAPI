@@ -41,13 +41,13 @@ create table if not exists users
 );
 
 
-create table if not exists preferences
+create table if not exists users_theme
 (
     user_id  bigint  not null
         references users,
     theme_id integer not null
         references theme,
-    constraint preferences_pkey
+    constraint users_theme_pkey
         primary key (theme_id, user_id)
 );
 
@@ -165,7 +165,7 @@ VALUES (2, 1);
 INSERT INTO likes (user_id, publication_id)
 VALUES (1, 1);
 
-INSERT INTO preferences (user_id, theme_id)
+INSERT INTO users_theme (user_id, theme_id)
 VALUES (1, 1);
 
 INSERT INTO chapter (image_reference, name, text, publication_id)

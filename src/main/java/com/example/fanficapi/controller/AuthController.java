@@ -23,7 +23,7 @@ import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
-//@CrossOrigin(origins = "*", maxAge = 3600) //TODO Check in case when bean in main class wil not work
+
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/api/auth")

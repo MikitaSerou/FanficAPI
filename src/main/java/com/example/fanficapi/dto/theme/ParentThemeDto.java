@@ -7,10 +7,11 @@ import lombok.experimental.FieldDefaults;
 
 @Data
 @AllArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
-public class SimpleThemeDto {
+@FieldDefaults(level = AccessLevel.PROTECTED)
+public class ParentThemeDto {
 
     Integer id;
     String name;
     String imageUrl;
+    Long countOfSubscribers;
 }

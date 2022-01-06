@@ -2,7 +2,7 @@ package com.example.fanficapi.dto.user;
 
 import com.example.fanficapi.dto.publication.PreviewPublicationDto;
 import com.example.fanficapi.dto.role.ParentRoleDto;
-import com.example.fanficapi.dto.theme.SimpleThemeDto;
+import com.example.fanficapi.dto.theme.ParentThemeDto;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -18,12 +18,12 @@ import java.util.Set;
 public class UserDto extends UserShortInfoDto {
 
     Set<ParentRoleDto> roles;
-    Set<SimpleThemeDto> preferences;
+    Set<ParentThemeDto> preferences;
     Set<PreviewPublicationDto> publications;
     Set<PreviewPublicationDto> bookmarks;
 
     public UserDto(Long id, String username, String email, Set<ParentRoleDto> roles,
-                   Set<SimpleThemeDto> preferences,
+                   Set<ParentThemeDto> preferences,
                    Set<PreviewPublicationDto> publications,
                    Set<PreviewPublicationDto> bookmarks) {
         super(id, username, email);
