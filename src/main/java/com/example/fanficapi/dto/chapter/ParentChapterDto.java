@@ -1,4 +1,4 @@
-package com.example.fanficapi.dto.simple;
+package com.example.fanficapi.dto.chapter;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -7,8 +7,8 @@ import lombok.experimental.FieldDefaults;
 
 @Data
 @AllArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
-public class SimpleChapterDto {
+@FieldDefaults(level = AccessLevel.PROTECTED)
+public class ParentChapterDto {
 
     Long id;
     String name;

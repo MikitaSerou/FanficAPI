@@ -1,7 +1,8 @@
-package com.example.fanficapi.service;
+package com.example.fanficapi.service.impl;
 
 import com.example.fanficapi.model.User;
 import com.example.fanficapi.payload.UserDetailsImpl;
+import com.example.fanficapi.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

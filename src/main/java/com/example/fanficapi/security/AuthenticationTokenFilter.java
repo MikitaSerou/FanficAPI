@@ -1,7 +1,7 @@
 package com.example.fanficapi.security;
 
 
-import com.example.fanficapi.service.UserDetailsServiceImpl;
+import com.example.fanficapi.service.impl.UserDetailsServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

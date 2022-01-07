@@ -1,5 +1,4 @@
 <div class="main-wrapper" style="height: calc(100% - 64px)">
-
   <div class="header-card">
     <mat-card fxLayoutAlign="start center" class="mat-card-header">
       <button mat-icon-button color="accent" (click)="goBack()">
@@ -16,23 +15,45 @@
   <mat-card-content>
     <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap="16px">
       <div fxFlex.gt-sm="50%" fxFlex>
-        <mat-card class="summary-card" >
-          <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
-            <mat-card-title>Shiba Inu</mat-card-title>
-            <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-          </mat-card-header>
-          <img mat-card-image src="{{ theme.imageUrl }}" alt="Photo of a Shiba Inu">
-          <mat-card-content>
-            <p>
-              The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-              A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-              bred for hunting.
-            </p>
+        <mat-card class="summary-card">
+          <img mat-card-image src="{{ theme.imageUrl }}" alt="{{ theme.name}}"
+               style="max-height: 522px; object-fit: scale-down; padding-top: 20px">
+          <mat-divider></mat-divider>
+          <mat-card-content style="margin-top: 10px; margin-bottom: 10px;">
+            <mat-accordion>
+              <mat-expansion-panel
+                (opened)="panelOpenState = true"
+                (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    TAGS:
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    <mat-chip-list aria-label="Tags">
+                      <mat-chip color="accent" selected
+                                *ngFor="let tag of theme.tags | slice:0:2; let i=index">{{tag.name}}</mat-chip>
+                    </mat-chip-list>
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <mat-chip-list aria-label="Tags">
+                  <mat-chip color="accent" selected
+                            *ngFor="let tag of theme.tags | slice:2; let i=index">{{tag.name}}</mat-chip>
+                </mat-chip-list>
+              </mat-expansion-panel>
+            </mat-accordion>
           </mat-card-content>
+          <mat-divider></mat-divider>
           <mat-card-actions>
-            <button mat-button>LIKE</button>
-            <button mat-button>SHARE</button>
+            <div fxLayoutAlign="space-around center">
+              <button mat-flat-button color="primary" style="margin: 0">
+                <mat-icon>add</mat-icon>
+                Add publication
+              </button>
+              <button mat-flat-button color="accent">
+                <mat-icon>bookmark</mat-icon>
+                Add to bookmarks
+              </button>
+            </div>
           </mat-card-actions>
         </mat-card>
       </div>
@@ -55,55 +76,6 @@
       </div>
     </div>
   </mat-card-content>
-
-<!--  <div>-->
-<!--    <div fxFlex="60">dsgfdswgdfshbdfshds</div>-->
-<!--    <div fxFlex="40">dsfgdfsgdfsgdfsg</div>-->
-<!--  </div>-->
-
-<!--  <mat-grid-list [cols]="breakpoint"
-                 (window:resize)="onResize({ event: $event })"
-                 rowHeight="1:1">
-    <mat-grid-tile>
-      <mat-card class="card" fxFill>
-      <mat-card-header>
-        <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title>Shiba Inu</mat-card-title>
-        <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-      </mat-card-header>
-      <img mat-card-image src="{{ theme.imageUrl }}" alt="Photo of a Shiba Inu">
-      <mat-card-content>
-        <p>
-          The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-          A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-          bred for hunting.
-        </p>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-button>LIKE</button>
-        <button mat-button>SHARE</button>
-      </mat-card-actions>
-    </mat-card></mat-grid-tile>
-    <mat-grid-tile>
-      <mat-card  fxFill>
-      <div fxLayout="column" fxLayoutAlign="space-evenly stretch">
-        <h1>Publications</h1>
-        <mat-list role="list">
-          <mat-list-item role="listitem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure, libero?</mat-list-item>
-          <mat-list-item role="listitem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates.</mat-list-item>
-          <mat-list-item role="listitem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, dolorum.</mat-list-item>
-          <mat-list-item role="listitem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, dolorum.</mat-list-item>
-          <mat-list-item role="listitem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, dolorum.</mat-list-item>
-          <mat-list-item role="listitem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, dolorum.</mat-list-item>
-          <mat-list-item role="listitem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, dolorum.</mat-list-item>
-          <mat-list-item role="listitem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, dolorum.</mat-list-item>
-          <mat-list-item role="listitem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, dolorum.</mat-list-item>
-          <mat-list-item role="listitem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, dolorum.</mat-list-item>
-        </mat-list>
-      </div>
-    </mat-card></mat-grid-tile>
-  </mat-grid-list>-->
-
 </div>
 
 

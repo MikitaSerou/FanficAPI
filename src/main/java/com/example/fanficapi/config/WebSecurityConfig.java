@@ -2,7 +2,7 @@ package com.example.fanficapi.config;
 
 import com.example.fanficapi.security.AuthEntryPointJwt;
 import com.example.fanficapi.security.AuthenticationTokenFilter;
-import com.example.fanficapi.service.UserDetailsServiceImpl;
+import com.example.fanficapi.service.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

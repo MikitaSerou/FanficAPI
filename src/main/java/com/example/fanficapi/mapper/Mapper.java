@@ -1,52 +1,67 @@
 package com.example.fanficapi.mapper;
 
-import com.example.fanficapi.dto.PublicationDto;
-import com.example.fanficapi.dto.RoleDto;
-import com.example.fanficapi.dto.ThemeDto;
-import com.example.fanficapi.dto.UserDto;
-import com.example.fanficapi.dto.simple.*;
+import com.example.fanficapi.dto.publication.PreviewPublicationDto;
+import com.example.fanficapi.dto.publication.PublicationDto;
+import com.example.fanficapi.dto.role.ParentRoleDto;
+import com.example.fanficapi.dto.tag.ParentTagDto;
+import com.example.fanficapi.dto.theme.ParentThemeDto;
+import com.example.fanficapi.dto.theme.ThemeDto;
+import com.example.fanficapi.dto.user.UserDto;
+import com.example.fanficapi.dto.user.UserShortInfoDto;
 import com.example.fanficapi.model.*;
-import org.mapstruct.BeanMapping;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.NullValuePropertyMappingStrategy;
-import org.mapstruct.ReportingPolicy;
+import com.example.fanficapi.service.TagService;
+import com.example.fanficapi.service.UserService;
+import org.mapstruct.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Set;
 
 @org.mapstruct.Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface Mapper {
+public abstract class Mapper {
 
-    PreviewPublicationDto publicationToPreviewDto(Publication publication);
+    @Autowired
+    protected TagService tagService;
 
-    PublicationDto publicationToDto(Publication publication);
+    @Autowired
+    protected UserService userService;
 
-    List<PublicationDto> publicationsListToDto(List<Publication> publications);
+    @Named(value = "publicationToPreviewDto")
+    public abstract PreviewPublicationDto publicationToPreviewDto(Publication publication);
 
-    List<PreviewPublicationDto> publicationsListPreviewToDto(List<PreviewPublicationDto> publications);
+    @Named(value = "publicationToDto")
+    public abstract PublicationDto publicationToDto(Publication publication);
 
-    SimpleThemeDto themeToSimpleDto(Theme theme);
+    public abstract List<PublicationDto> publicationsListToDto(List<Publication> publications);
 
-    ThemeDto themeToDto(Theme theme);
+    public abstract List<PreviewPublicationDto> publicationsListToPreviewDto(List<Publication> publications);
 
-    List<ThemeDto> themesListToto(List<Theme> themes);
+    @Named(value = "themeToSimpleDto")
+    public abstract ParentThemeDto themeToSimpleDto(Theme theme);
 
-    List<SimpleThemeDto> themeListToSimpleDto(List<Theme> themes);
+    @Mapping(target = "tags", expression = "java(this.tagsSetToSimpleDto(tagService.findByThemeId(theme.getId())))")
+    @Mapping(target = "countOfSubscribers", expression = "java(userService.countSubscribersByThemeId(theme.getId()))")
+    public abstract ThemeDto themeToDto(Theme theme);
 
-    SimpleTagDto tagToSimpleDto(Tag tag);
+    public abstract List<ThemeDto> themesListToDto(List<Theme> themes);
 
-    UserShortInfoDto userToShortInfoDto(User user);
+    @Mapping(target = "countOfSubscribers", expression = "java(userService.countSubscribersByThemeId(theme.getId()))")
+    public abstract List<ParentThemeDto> themeListToSimpleDto(List<Theme> themes);
 
-    UserDto userToDto(User user);
+    @Named(value = "tagToSimpleDto")
+    public abstract ParentTagDto tagToSimpleDto(Tag tag);
 
-    SimpleRoleDto roleToSimpleDto(Role role);
+    public abstract Set<ParentTagDto> tagsSetToSimpleDto(Set<Tag> tags);
 
-    RoleDto toRoleDto(Role role);
+    public abstract ParentRoleDto roleToSimpleDto(Role role);
 
-    User userDtoToUser(UserDto user);
+    public abstract UserShortInfoDto userToShortInfoDto(User user);
+
+    @Named(value = "userToDto")
+    public abstract UserDto userToDto(User user);
+
+    public abstract User userDtoToUser(UserDto user);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void updateUserFromUserSimpleDto(UserShortInfoDto dto, @MappingTarget User entity);
-
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void updateUserFromUserDto(UserDto dto, @MappingTarget User entity);
+    public abstract void pertialUpdateUser(User dto, @MappingTarget User entity);
 }

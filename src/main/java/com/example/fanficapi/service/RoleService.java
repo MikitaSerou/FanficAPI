@@ -1,68 +1,23 @@
 package com.example.fanficapi.service;
 
-import com.example.fanficapi.dto.RoleDto;
 import com.example.fanficapi.enums.RoleName;
 import com.example.fanficapi.model.Role;
-import com.example.fanficapi.repository.RoleRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-@RequiredArgsConstructor
-public class RoleService extends AbstractService<Role, Short, RoleDto, RoleDto> {
+public interface RoleService {
 
-    private final RoleRepository roleRepository;
+    Role findByRoleName(RoleName roleName) throws RuntimeException;
 
+    void saveToDB(Role role);
 
-    public Role findByRoleName(RoleName roleName) throws RuntimeException {
-        return roleRepository.findByName(roleName)
-                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-    }
+    Role update(Role role);
 
-    @Override
-    public void saveToDB(Role object) {
+    void deleteById(Short id);
 
-    }
+    List<Role> findAll();
 
-    @Override
-    public Role update(Role object) {
-        return null;
-    }
+    Role findById(Short id);
 
-    @Override
-    public void deleteById(Short id) {
-
-    }
-
-    @Override
-    public List<Role> findAll() {
-        return null;
-    }
-
-    @Override
-    public Role findById(Short id) {
-        return null;
-    }
-
-    @Override
-    public List<RoleDto> getAllDto() {
-        return null;
-    }
-
-    @Override
-    public RoleDto getSimpleDtoById(Short id) {
-        return null;
-    }
-
-    @Override
-    public RoleDto getDtoById(Short id) {
-        return null;
-    }
-
-    @Override
-    public Role findByUsername(String name) {
-        return null;
-    }
+    Role findByUsername(String name);
 }
