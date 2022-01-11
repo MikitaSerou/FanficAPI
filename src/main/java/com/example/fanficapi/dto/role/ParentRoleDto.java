@@ -1,4 +1,4 @@
-package com.example.fanficapi.dto.simple;
+package com.example.fanficapi.dto.role;
 
 import com.example.fanficapi.enums.RoleName;
 import lombok.AccessLevel;
@@ -8,8 +8,8 @@ import lombok.experimental.FieldDefaults;
 
 @Data
 @AllArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
-public class SimpleRoleDto {
+@FieldDefaults(level = AccessLevel.PROTECTED)
+public class ParentRoleDto {
 
     Short id;
     RoleName name;

@@ -31,7 +31,7 @@ public class Theme {
     Set<Publication> publications;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "preferences",
+    @JoinTable(name = "users_theme",
             joinColumns = @JoinColumn(name = "theme_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     Set<User> subscribers;

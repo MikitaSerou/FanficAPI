@@ -57,7 +57,7 @@ public class User {
     Set<Role> roles = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "preferences",
+    @JoinTable(name = "users_theme",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "theme_id"))
     @ToString.Exclude

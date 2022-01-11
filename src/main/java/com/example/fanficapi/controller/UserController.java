@@ -1,6 +1,7 @@
 package com.example.fanficapi.controller;
 
-import com.example.fanficapi.dto.UserDto;
+import com.example.fanficapi.dto.user.UserDto;
+import com.example.fanficapi.mapper.Mapper;
 import com.example.fanficapi.model.User;
 import com.example.fanficapi.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,7 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final Mapper mapper;
 
     @GetMapping("/all")
     // @PreAuthorize("hasRole('ADMIN')")
@@ -32,22 +34,11 @@ public class UserController {
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/page/{id}")
     public ResponseEntity<UserDto> getUserDtoById(@PathVariable("id") Long id) {
-        UserDto user = userService.getDtoById(id);
+        UserDto user = mapper.userToDto(userService.findById(id));
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(userService.getDtoById(id), HttpStatus.OK);
-    }
-
-
-    @PutMapping("/update")
-    public ResponseEntity<?> updateUser(@RequestBody UserDto userDto) {
-        UserDto updatedUser = userService.updateUserFromDto(userDto);
-        if (updatedUser != null) {
-            return new ResponseEntity<>(userService.updateUserFromDto(userDto), HttpStatus.OK);
-        }
-        return ResponseEntity.status(HttpStatus.CONFLICT)
-                .body("Username (" + userDto.getUsername() + " or email (" + userDto.getEmail() + ") already used");
+        return new ResponseEntity<>(mapper.userToDto(userService.findById(id)), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")

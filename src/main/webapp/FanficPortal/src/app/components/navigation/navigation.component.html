@@ -2,7 +2,6 @@
   <mat-sidenav
     #drawer
     class="sidenav"
-    fixedInViewport
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="(isHandset$ | async) === false"
@@ -20,7 +19,7 @@
       <a mat-list-item routerLink="/themes" routerLinkActive="active">Themes</a>
     </mat-nav-list>
   </mat-sidenav>
-  <mat-sidenav-content>
+  <mat-sidenav-content class="main-content">
     <mat-toolbar color="primary">
       <button
         type="button"
@@ -57,7 +56,10 @@
         </div>
       </div>
     </mat-toolbar>
-    <div [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''">
+    <div
+      [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''"
+      class="router-wrapper"
+    >
       <router-outlet #o="outlet"></router-outlet>
     </div>
   </mat-sidenav-content>

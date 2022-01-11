@@ -4,6 +4,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
@@ -54,4 +55,8 @@ public class Publication {
             joinColumns = @JoinColumn(name = "publication_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
     Set<Tag> tags;
+
+    @Column(name = "creation_date", nullable = false)
+    @NonNull
+    LocalDate creationDate;
 }
