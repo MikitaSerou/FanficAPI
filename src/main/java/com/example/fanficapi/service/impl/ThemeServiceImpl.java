@@ -45,4 +45,9 @@ public class ThemeServiceImpl implements ThemeService {
     public Theme findByUsername(String name) {
         return null;
     }
+
+    @Override
+    public Long countSubscribersByThemeId(Integer themeId) {
+        return themeRepository.countOfSubscribersByThemeId(themeId);
+    }
 }

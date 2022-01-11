@@ -17,4 +17,6 @@ public interface ThemeService {
     Theme findById(Integer id);
 
     Theme findByUsername(String name);
+
+    Long countSubscribersByThemeId(Integer themeId);
 }

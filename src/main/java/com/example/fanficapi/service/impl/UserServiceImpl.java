@@ -97,9 +97,4 @@ public class UserServiceImpl implements UserService {
         user.setRoles(new HashSet<>(Collections.singleton(roleService.findByRoleName(RoleName.ROLE_USER))));
         return user;
     }
-
-    @Override
-    public Long countSubscribersByThemeId(Integer themeId) {
-        return userRepository.countOfSubscribersByThemeId(themeId);
-    }
 }

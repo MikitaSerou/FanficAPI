@@ -10,6 +10,7 @@ import com.example.fanficapi.dto.user.UserDto;
 import com.example.fanficapi.dto.user.UserShortInfoDto;
 import com.example.fanficapi.model.*;
 import com.example.fanficapi.service.TagService;
+import com.example.fanficapi.service.ThemeService;
 import com.example.fanficapi.service.UserService;
 import org.mapstruct.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public abstract class Mapper {
     @Autowired
     protected UserService userService;
 
+    @Autowired
+    protected ThemeService themeService;
+
     @Named(value = "publicationToPreviewDto")
     public abstract PreviewPublicationDto publicationToPreviewDto(Publication publication);
 
@@ -40,12 +44,12 @@ public abstract class Mapper {
     public abstract ParentThemeDto themeToSimpleDto(Theme theme);
 
     @Mapping(target = "tags", expression = "java(this.tagsSetToSimpleDto(tagService.findByThemeId(theme.getId())))")
-    @Mapping(target = "countOfSubscribers", expression = "java(userService.countSubscribersByThemeId(theme.getId()))")
+    @Mapping(target = "countOfSubscribers", expression = "java(themeService.countSubscribersByThemeId(theme.getId()))")
     public abstract ThemeDto themeToDto(Theme theme);
 
     public abstract List<ThemeDto> themesListToDto(List<Theme> themes);
 
-    @Mapping(target = "countOfSubscribers", expression = "java(userService.countSubscribersByThemeId(theme.getId()))")
+    @Mapping(target = "countOfSubscribers", expression = "java(themeService.countSubscribersByThemeId(theme.getId()))")
     public abstract List<ParentThemeDto> themeListToSimpleDto(List<Theme> themes);
 
     @Named(value = "tagToSimpleDto")

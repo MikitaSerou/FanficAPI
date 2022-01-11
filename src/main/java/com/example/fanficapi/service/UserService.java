@@ -34,6 +34,4 @@ public interface UserService {
     Boolean existsByEmail(String email);
 
     User getUserFromSignUpRequest(SignUpRequest request);
-
-    Long countSubscribersByThemeId(Integer themeId);
 }

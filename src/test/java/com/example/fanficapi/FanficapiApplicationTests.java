@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 class FanficapiApplicationTests {
 
     @Test
-    void contextLoads() {
+    void entireContextLoadsWithNoExceptions() {
     }
 
 }
