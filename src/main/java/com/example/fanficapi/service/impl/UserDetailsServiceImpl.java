@@ -20,5 +20,4 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         User user = userService.findByUsername(username);
         return UserDetailsImpl.build(user);
     }
-
 }

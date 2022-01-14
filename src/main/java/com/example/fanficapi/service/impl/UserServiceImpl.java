@@ -1,11 +1,8 @@
 package com.example.fanficapi.service.impl;
 
-import com.example.fanficapi.enums.RoleName;
 import com.example.fanficapi.exception.UserException;
 import com.example.fanficapi.model.User;
-import com.example.fanficapi.payload.SignUpRequest;
 import com.example.fanficapi.repository.UserRepository;
-import com.example.fanficapi.service.RoleService;
 import com.example.fanficapi.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,10 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,11 +18,23 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final RoleService roleService;
+
 
     @Override
+    @Transactional
     public void saveToDB(User user) {
+        if (isNewBeeTookUsernameOrEmail(user)) {
+            throw new UserException("Can not save new user with this username or email");
+        }
         userRepository.save(user);
+    }
+
+    private boolean isNewBeeTookUsernameOrEmail(User user) {
+        if (user.getId() == null) {
+            return userRepository.existsByUsername(user.getUsername()) || userRepository.existsByEmail(user.getEmail());
+        } else {
+            return false;
+        }
     }
 
     @Override
@@ -43,13 +49,6 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new UsernameNotFoundException("Can not find user with this username: " + username));
     }
 
-    @Transactional
-    @Override
-    public String getUsernameByEmail(String email) {
-        Optional<User> user = userRepository.findByEmail(email);
-        return user.map(User::getUsername).orElse(null);
-    }
-
     @Override
     public User findByEmail(String email) throws UserException {
         return userRepository.findByEmail(email)
@@ -58,22 +57,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User update(User user) {
-        return userRepository.save(user);
+        if (user.getId() == null) {
+            throw new UserException("User id is null");
+        } else if (userRepository.existsById(user.getId())) {
+            return userRepository.save(user);
+        }
+        throw new UserException("User with this id is not exist");
     }
 
-    @Override
-    public Boolean checkUserDtoForUpdate(User updatableUser, User user) {
-        if (existsByUsername(updatableUser.getUsername()) & !user.getUsername().equals(updatableUser.getUsername())
-                | existsByEmail(updatableUser.getEmail()) & !user.getEmail().equals(updatableUser.getEmail())) {
-            log.error("Username (" + updatableUser.getUsername() + " or email (" + updatableUser.getEmail() + ") already used");
-            return false;
-        }
-        return true;
-    }
 
     @Override
     public void deleteById(Long id) {
-        userRepository.deleteById(id);
+        log.info("Delete user with id: " + id);
+        userRepository.deleteById(id); //TODO don't forget cascade delete
     }
 
     @Override
@@ -83,18 +79,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Boolean existsByUsername(String username) {
-        return userRepository.existsByUsername(username);
+        if (userRepository.existsByUsername(username)) {
+            return true;
+        }
+        log.error("User with username: " + username + " is not exist");
+        return false;
     }
 
     @Override
     public Boolean existsByEmail(String email) {
-        return userRepository.existsByEmail(email);
+        if (userRepository.existsByEmail(email)) {
+            return true;
+        }
+        log.error("User with email: " + email + " is not exist");
+        return false;
     }
 
-    @Override
-    public User getUserFromSignUpRequest(SignUpRequest request) {
-        User user = new User(request.getUsername(), request.getEmail(), request.getPassword(), request.getBirthDate());
-        user.setRoles(new HashSet<>(Collections.singleton(roleService.findByRoleName(RoleName.ROLE_USER))));
-        return user;
-    }
 }

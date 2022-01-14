@@ -16,7 +16,10 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @ToString
+@EqualsAndHashCode
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
 
@@ -26,27 +29,20 @@ public class User {
 
     @Size(min = 3, max = 20)
     @Column(unique = true, nullable = false)
-    @NonNull
-
     String username;
 
     @Email
     @Column(unique = true, nullable = false)
-    @NonNull
-
     String email;
 
     @Size(min = 8)
     @Column(nullable = false)
-    @NonNull
     String password;
 
     @Column(name = "birth_date", nullable = false)
-    @NonNull
     LocalDate birthDate;
 
     @Column(name = "registration_date", nullable = false)
-    @NonNull
     LocalDate registrationDate;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -54,16 +50,20 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     Set<Role> roles = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "users_theme",
+    @JoinTable(name = "preferences",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "theme_id"))
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     Set<Theme> preferences = new HashSet<>();
 
     @OneToMany(mappedBy = "author", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REMOVE})
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     Set<Publication> publications;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -71,6 +71,7 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "publication_id"))
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     Set<Publication> likes;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -78,9 +79,13 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "publication_id"))
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     Set<Publication> bookmarks;
 
-    public User(@Size(min = 3, max = 20) @NonNull String username, @Email @NonNull String email, @Size(min = 8, max = 40) @NonNull String password, @NonNull LocalDate birthDate) {
+    public User(@Size(min = 3, max = 20) String username,
+                @Email String email,
+                @Size(min = 8, max = 40) String password,
+                LocalDate birthDate) {
         this.username = username;
         this.email = email;
         this.password = password;

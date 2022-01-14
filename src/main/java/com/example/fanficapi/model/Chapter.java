@@ -10,7 +10,10 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString(exclude = {"publication"})
+@AllArgsConstructor
+@Builder
+@ToString
+@EqualsAndHashCode
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Chapter {
 
@@ -27,5 +30,7 @@ public class Chapter {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "publication_id")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     Publication publication;
 }

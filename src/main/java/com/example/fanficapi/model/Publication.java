@@ -12,7 +12,10 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @ToString
+@EqualsAndHashCode
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Publication {
 
@@ -36,27 +39,33 @@ public class Publication {
     @OneToMany(mappedBy = "publication", fetch = FetchType.LAZY,
             cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     Set<Chapter> chapters;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(name = "bookmarks",
             joinColumns = @JoinColumn(name = "publication_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     Set<User> usersWhoDidBookmark;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(name = "likes",
             joinColumns = @JoinColumn(name = "publication_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     Set<User> usersWhoLiked;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(name = "publication_tag",
             joinColumns = @JoinColumn(name = "publication_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     Set<Tag> tags;
 
     @Column(name = "creation_date", nullable = false)
-    @NonNull
     LocalDate creationDate;
 }

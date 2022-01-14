@@ -1,7 +1,10 @@
 package com.example.fanficapi.dto.tag;
 
 import com.example.fanficapi.dto.publication.PreviewPublicationDto;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
 import java.util.Set;

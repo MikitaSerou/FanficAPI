@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ThemeRepository extends JpaRepository<Theme, Integer> {
 
-    @Query(value = "SELECT count(*) from users_theme WHERE theme_id = :themeId", nativeQuery = true)
+    @Query(value = "SELECT count(*) from preferences WHERE theme_id = :themeId", nativeQuery = true)
     Long countOfSubscribersByThemeId(@Param("themeId") Integer themeId);
 }

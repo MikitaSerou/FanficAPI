@@ -12,7 +12,9 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString(exclude = {"users"})
+@ToString
+@EqualsAndHashCode
+@RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Role {
 
@@ -22,11 +24,14 @@ public class Role {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @NonNull
     RoleName name;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     Set<User> users;
 }

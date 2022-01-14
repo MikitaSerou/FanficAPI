@@ -11,7 +11,10 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @ToString
+@EqualsAndHashCode
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Theme {
 
@@ -28,11 +31,14 @@ public class Theme {
     @OneToMany(mappedBy = "theme", fetch = FetchType.LAZY,
             cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     Set<Publication> publications;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "users_theme",
+    @JoinTable(name = "preferences",
             joinColumns = @JoinColumn(name = "theme_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     Set<User> subscribers;
 }
