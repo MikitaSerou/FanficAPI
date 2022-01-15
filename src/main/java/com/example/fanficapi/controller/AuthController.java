@@ -1,6 +1,7 @@
 package com.example.fanficapi.controller;
 
 import com.example.fanficapi.exception.TokenRefreshException;
+import com.example.fanficapi.mapper.Mapper;
 import com.example.fanficapi.model.User;
 import com.example.fanficapi.payload.*;
 import com.example.fanficapi.security.JwtResponse;
@@ -13,27 +14,27 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/auth")
 public class AuthController {
 
     private final UserService userService;
     private final AuthenticationService authenticationService;
-    private final PasswordEncoder encoder;
+
     private final JwtUtils jwtUtils;
     private final RefreshTokenService refreshTokenService;
+    public final Mapper mapper;
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody SignInRequest signInRequest) {
@@ -52,7 +53,7 @@ public class AuthController {
     private void setUsernameByEmailIfItNullInRequest(SignInRequest signInRequest) {
         String usernameOrEmail = signInRequest.getUsername();
         if (!userService.existsByUsername(usernameOrEmail)) {
-            signInRequest.setUsername(userService.getUsernameByEmail(usernameOrEmail));
+            signInRequest.setUsername(userService.findByEmail(usernameOrEmail).getUsername());
         }
     }
 
@@ -85,8 +86,7 @@ public class AuthController {
         if (signUpRequest.getBirthDate().isAfter(LocalDate.now().minusYears(16))) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new MessageResponse("You must be at least 16 years old!"));
         }
-        User userForSave = userService.getUserFromSignUpRequest(signUpRequest);
-        userForSave.setPassword(encoder.encode(signUpRequest.getPassword()));
+        User userForSave = mapper.userFromSignUpRequest(signUpRequest);
         userService.saveToDB(userForSave);
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }

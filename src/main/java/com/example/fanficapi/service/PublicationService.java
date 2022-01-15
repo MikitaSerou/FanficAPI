@@ -10,11 +10,6 @@ public interface PublicationService {
 
     Publication findById(Long id);
 
-    Publication findByUsername(String name);
+    Publication findByName(String name);
 
-    void saveToDB(Publication object);
-
-    Publication update(Publication object);
-
-    void deleteById(Long id);
 }

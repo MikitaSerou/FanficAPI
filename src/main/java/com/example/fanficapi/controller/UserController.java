@@ -16,7 +16,6 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-//@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/api/user")
 @Slf4j
 public class UserController {

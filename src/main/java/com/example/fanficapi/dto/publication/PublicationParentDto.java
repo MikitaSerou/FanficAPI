@@ -1,6 +1,8 @@
 package com.example.fanficapi.dto.publication;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
 @Data

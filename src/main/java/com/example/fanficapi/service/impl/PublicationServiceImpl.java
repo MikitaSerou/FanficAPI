@@ -31,41 +31,10 @@ public class PublicationServiceImpl implements PublicationService {
     }
 
     @Override
-    public Publication findByUsername(String name) {
+    public Publication findByName(String name) {
         return publicationRepository.findByName(name)
                 .orElseThrow(
                         () -> new PublicationException("Publication with this name (" + name + ") was not found"));
     }
-
-    @Override
-    public void saveToDB(Publication publication) {
-
-    }
-
-    @Override
-    public Publication update(Publication publication) {
-        return null;
-    }
-
-    @Override
-    public void deleteById(Long id) {
-
-    }
 }
 
-//    public List<Publication> findByAuthorId(Long authorId) {
-//        return publicationRepository.findAllByAuthor_Id(authorId);
-//    }
-//
-//    public List<Publication> findAllByThemeId(Integer themeId) {
-//        return publicationRepository.findAllByTheme_Id(themeId);
-//    }
-//
-//    public List<Publication> findAllByTagNames(Set<Tag> tags) {
-//        return publicationRepository.findAllByTagsIn(tags);
-//    }
-
-//    public List<Publication> findAllBookMarksByUserId(Long userId){  //TODO  Deal with "IN" queries in SDJ and to above
-//        Set<User> user = Collections.singleton(userService.findById(userId));
-//        return publicationRepository.findAllByUsersWhoDidBookmarkIn(user);
-//    }

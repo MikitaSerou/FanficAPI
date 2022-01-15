@@ -21,16 +21,6 @@ public class ThemeServiceImpl implements ThemeService {
     }
 
     @Override
-    public Theme update(Theme theme) {
-        return themeRepository.save(theme);
-    }
-
-    @Override
-    public void deleteById(Integer id) {
-
-    }
-
-    @Override
     public List<Theme> findAll() {
         return themeRepository.findAll();
     }
@@ -39,11 +29,6 @@ public class ThemeServiceImpl implements ThemeService {
     public Theme findById(Integer id) {
         return themeRepository.findById(id)
                 .orElseThrow(() -> new ThemeException("Can not find theme with this id: " + id));
-    }
-
-    @Override
-    public Theme findByUsername(String name) {
-        return null;
     }
 
     @Override

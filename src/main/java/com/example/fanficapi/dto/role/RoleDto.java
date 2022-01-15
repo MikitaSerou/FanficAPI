@@ -2,7 +2,10 @@ package com.example.fanficapi.dto.role;
 
 import com.example.fanficapi.enums.RoleName;
 import com.example.fanficapi.model.User;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
 import java.util.Set;
