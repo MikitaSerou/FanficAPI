@@ -1,5 +1,6 @@
 package com.example.fanficapi.service.impl;
 
+import com.example.fanficapi.config.TestConfig;
 import com.example.fanficapi.exception.PublicationException;
 import com.example.fanficapi.model.Publication;
 import com.example.fanficapi.repository.PublicationRepository;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,7 +19,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @Slf4j
-@SpringBootTest
+@ActiveProfiles("test")
+@SpringBootTest(classes = TestConfig.class)
 class PublicationServiceImplTest {
 
     @Mock

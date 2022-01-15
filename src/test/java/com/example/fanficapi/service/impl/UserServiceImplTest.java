@@ -1,5 +1,6 @@
 package com.example.fanficapi.service.impl;
 
+import com.example.fanficapi.config.TestConfig;
 import com.example.fanficapi.enums.RoleName;
 import com.example.fanficapi.exception.UserException;
 import com.example.fanficapi.model.Role;
@@ -12,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -26,7 +28,8 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest
+@ActiveProfiles("test")
+@SpringBootTest(classes = TestConfig.class)
 class UserServiceImplTest {
 
     @Mock

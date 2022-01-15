@@ -1,6 +1,5 @@
 package com.example.fanficapi.repository;
 
-import com.example.fanficapi.TestPostgreSQLContainer;
 import com.example.fanficapi.config.TestConfig;
 import com.example.fanficapi.model.Tag;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +26,8 @@ class TagRepositoryTest {
     @Autowired
     private TagRepository tagRepository;
     @Container
-    private static final PostgreSQLContainer<?> POSTGRESQL_CONTAINER = TestPostgreSQLContainer.getInstance();
+    @Autowired
+    private PostgreSQLContainer<?> POSTGRESQL_CONTAINER;
 
     @DisplayName("Container running status test in TagRepositoryTest.class")
     @Test
