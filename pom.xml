@@ -14,6 +14,7 @@
     <packaging>jar</packaging>
     <name>fanficapi</name>
     <description>REST API for fanfic project</description>
+
     <properties>
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -23,7 +24,9 @@
         <lombok.version>1.18.20</lombok.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+        <testcontainers.version>1.16.3</testcontainers.version>
     </properties>
+
     <build>
         <plugins>
             <plugin>
@@ -84,7 +87,6 @@
                             <arguments>run build</arguments>
                         </configuration>
                     </execution>
-
                 </executions>
 
             </plugin>
@@ -167,7 +169,7 @@
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>1.16.2</version>
+            <version>${testcontainers.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>junit</groupId>
@@ -182,7 +184,13 @@
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>testcontainers</artifactId>
-            <version>1.16.2</version>
+            <version>${testcontainers.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${testcontainers.version}</version>
             <scope>test</scope>
         </dependency>
         <!--######-->
@@ -214,12 +222,6 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.testcontainers</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>1.16.2</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

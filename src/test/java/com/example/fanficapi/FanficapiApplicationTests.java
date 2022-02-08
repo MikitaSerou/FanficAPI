@@ -22,7 +22,7 @@ class FanficapiApplicationTests {
         log.info("Context loaded successfully");
     }
 
-    @DisplayName("Test if application is up and running")
+    @DisplayName("Test if application is up and running ╯°□°）╯")
     @Test
     void entireContextLoadsWithNoExceptions() {
         log.info("Context loading test");

@@ -1,7 +1,7 @@
 package com.example.fanficapi.controller;
 
 import com.example.fanficapi.exception.TokenRefreshException;
-import com.example.fanficapi.mapper.Mapper;
+import com.example.fanficapi.mapper.UserMapper;
 import com.example.fanficapi.model.User;
 import com.example.fanficapi.payload.*;
 import com.example.fanficapi.security.JwtResponse;
@@ -34,7 +34,7 @@ public class AuthController {
 
     private final JwtUtils jwtUtils;
     private final RefreshTokenService refreshTokenService;
-    public final Mapper mapper;
+    public final UserMapper mapper;
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody SignInRequest signInRequest) {

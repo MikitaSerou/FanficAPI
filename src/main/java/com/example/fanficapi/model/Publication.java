@@ -32,6 +32,9 @@ public class Publication {
     @JoinColumn(name = "user_id")
     User author;
 
+    @Column(name = "image_url")
+    private String imageUrl;
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "theme_id")
     Theme theme;

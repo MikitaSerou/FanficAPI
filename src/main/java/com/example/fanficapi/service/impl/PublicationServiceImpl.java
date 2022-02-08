@@ -6,9 +6,9 @@ import com.example.fanficapi.model.Publication;
 import com.example.fanficapi.repository.PublicationRepository;
 import com.example.fanficapi.service.PublicationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -16,12 +16,10 @@ public class PublicationServiceImpl implements PublicationService {
 
     private final PublicationRepository publicationRepository;
 
-
     @Override
-    public List<Publication> findAll() {
-        return publicationRepository.findAll();
+    public Page<Publication> findAll(Pageable pageable) {
+        return publicationRepository.findAll(pageable);
     }
-
 
     @Override
     public Publication findById(Long id) {
@@ -31,10 +29,15 @@ public class PublicationServiceImpl implements PublicationService {
     }
 
     @Override
-    public Publication findByName(String name) {
+    public Publication findByName(String name) { //TODO %LIKE%
         return publicationRepository.findByName(name)
                 .orElseThrow(
                         () -> new PublicationException("Publication with this name (" + name + ") was not found"));
+    }
+
+    @Override
+    public Page<Publication> findAllByThemeId(Integer themeId, Pageable pageable) {
+        return publicationRepository.findAllByThemeId(themeId, pageable);
     }
 }
 

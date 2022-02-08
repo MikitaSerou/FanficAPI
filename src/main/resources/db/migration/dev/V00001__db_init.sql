@@ -57,6 +57,7 @@ create table if not exists publication
             primary key,
     description   varchar(255),
     name          varchar(255)              not null,
+    image_url     varchar(255),
     user_id       bigint
         references users,
     theme_id      integer
@@ -76,13 +77,13 @@ create table if not exists bookmarks
 
 create table if not exists chapter
 (
-    id              bigserial    not null
+    id             bigserial    not null
         constraint chapter_pkey
             primary key,
-    image_reference varchar(255),
-    name            varchar(255) not null,
-    text            varchar(255),
-    publication_id  bigint
+    image_url      varchar(255),
+    name           varchar(255) not null,
+    text           varchar(255),
+    publication_id bigint
         references publication
 );
 
@@ -166,9 +167,30 @@ INSERT INTO publication (name, description, creation_date, user_id, theme_id)
 VALUES ('Another one story about st.Mann', 'Small talk on the bus station', '2019-01-01', 1, 1),
        ('The Witcher 3',
         'The Witcher 3 is a story-driven, next-generation open world role-playing game set in a visually stunning fantasy' ||
-        ' universe full of meaningful choices and impactful consequences.', '2019-01-01', 1, 6);
+        ' universe full of meaningful choices and impactful consequences.', '2019-01-01', 1, 6),
+       ('Test publication 1', 'Test Publication description 1', '2022-02-04', 1, 1),
+       ('Test publication 2', 'Test Publication description 2', '2022-02-04', 1, 1),
+       ('Test publication 3', 'Test Publication description 3', '2022-02-04', 1, 1),
+       ('Test publication 4', 'Test Publication description 4', '2022-02-04', 1, 1),
+       ('Test publication 5', 'Test Publication description 5', '2022-02-04', 1, 1),
+       ('Test publication 6', 'Test Publication description 6', '2022-02-04', 1, 1),
+       ('Test publication 7', 'Test Publication description 7', '2022-02-04', 1, 1),
+       ('Test publication 8', 'Test Publication description 8', '2022-02-04', 1, 1),
+       ('Test publication 9', 'Test Publication description 9', '2022-02-04', 1, 1),
+       ('Test publication 10', 'Test Publication description 10', '2022-02-04', 1, 1),
+       ('Test publication 11', 'Test Publication description 11', '2022-02-04', 1, 1),
+       ('Test publication 12', 'Test Publication description 12', '2022-02-04', 1, 1),
+       ('Test publication 13', 'Test Publication description 13', '2022-02-04', 1, 1),
+       ('Test publication 14', 'Test Publication description 14', '2022-02-04', 1, 1),
+       ('Test publication 15', 'Test Publication description 15', '2022-02-04', 1, 1),
+       ('Test publication 16', 'Test Publication description 16', '2022-02-04', 1, 1),
+       ('Test publication 17', 'Test Publication description 17', '2022-02-04', 1, 1),
+       ('Test publication 18', 'Test Publication description 18', '2022-02-04', 1, 1),
+       ('Test publication 19', 'Test Publication description 19', '2022-02-04', 1, 1),
+       ('Test publication 20', 'Test Publication description 20', '2022-02-04', 1, 1);
+;
 
-INSERT INTO chapter (image_reference, name, text, publication_id)
+INSERT INTO chapter (image_url, name, text, publication_id)
 VALUES (null, 'Sometimes i liked to take a nap in public places',
         'Once I, passing by the diner that was next to the fair ...', 1);
 

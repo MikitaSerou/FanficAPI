@@ -25,3 +25,5 @@ hs_err_pid*
 /target/
 /fanficapi.iml
 /.jpb/
+/src/main/resources/rebel.xml
+/src/example.json

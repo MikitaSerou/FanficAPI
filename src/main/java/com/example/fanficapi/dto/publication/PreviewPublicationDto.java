@@ -21,6 +21,7 @@ public class PreviewPublicationDto extends PublicationParentDto { //view to main
     protected UserShortInfoDto author;
     protected ParentThemeDto theme;
     protected Set<ParentTagDto> tags;
+    protected String imageUrl;
 
     public PreviewPublicationDto(Long id, String name, String description, UserShortInfoDto author,
                                  ParentThemeDto theme, Set<ParentTagDto> tags) {
