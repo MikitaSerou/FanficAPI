@@ -1,7 +1,8 @@
-<div class="main-wrapper"><!--style="height: calc(100% - 64px)"-->
+<div class="main-wrapper">
+  <!--style="height: calc(100% - 64px)"-->
   <div class="header-card">
     <mat-card class="mat-card-header">
-      <button mat-icon-button color="accent" (click)="goBack()" >
+      <button mat-icon-button color="accent" (click)="goBack()">
         <mat-icon>arrow_back</mat-icon>
       </button>
       <h1 class="mat-display-2">
@@ -9,33 +10,56 @@
       </h1>
     </mat-card>
   </div>
-<div class="title-divider"><mat-divider ></mat-divider></div>
+  <div class="title-divider"><mat-divider></mat-divider></div>
   <mat-card-content>
-    <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap="16px" fxLayoutAlign="space-evenly">
+    <div
+      fxLayout.gt-sm="row"
+      fxLayout="column"
+      fxLayoutGap="16px"
+      fxLayoutAlign="space-evenly"
+    >
       <div>
         <mat-card class="summary-card">
-          <img mat-card-image src="{{ theme.imageUrl }}" alt="{{ theme.name}}"
-               style="max-height: 522px; object-fit: scale-down; padding-top: 20px">
+          <img
+            mat-card-image
+            src="{{ theme.imageUrl }}"
+            alt="{{ theme.name }}"
+            style="max-height: 522px; object-fit: scale-down; padding-top: 20px"
+          />
           <mat-divider></mat-divider>
-          <mat-card-content style="margin-top: 10px; margin-bottom: 10px;">
+          <mat-card-content style="margin-top: 10px; margin-bottom: 10px">
             <mat-accordion>
               <mat-expansion-panel
                 (opened)="panelOpenState = true"
-                (closed)="panelOpenState = false">
-                <mat-expansion-panel-header >
-                  <mat-panel-title style="margin-top: auto; margin-bottom: auto">
+                (closed)="panelOpenState = false"
+              >
+                <mat-expansion-panel-header>
+                  <mat-panel-title
+                    style="margin-top: auto; margin-bottom: auto"
+                  >
                     TAGS:
                   </mat-panel-title>
                   <mat-panel-description>
                     <mat-chip-list aria-label="Tags">
-                      <mat-chip color="accent" selected
-                                *ngFor="let tag of theme.tags | slice:0:2; let i=index">{{tag.name}}</mat-chip>
+                      <mat-chip
+                        color="accent"
+                        selected
+                        *ngFor="
+                          let tag of theme.tags | slice: 0:2;
+                          let i = index
+                        "
+                        >{{ tag.name }}</mat-chip
+                      >
                     </mat-chip-list>
                   </mat-panel-description>
                 </mat-expansion-panel-header>
                 <mat-chip-list aria-label="Tags">
-                  <mat-chip color="accent" selected
-                            *ngFor="let tag of theme.tags | slice:2; let i=index">{{tag.name}}</mat-chip>
+                  <mat-chip
+                    color="accent"
+                    selected
+                    *ngFor="let tag of theme.tags | slice: 2; let i = index"
+                    >{{ tag.name }}</mat-chip
+                  >
                 </mat-chip-list>
               </mat-expansion-panel>
             </mat-accordion>
@@ -59,7 +83,9 @@
         <mat-tab-group mat-stretch-tabs>
           <mat-tab label="Publications">
             <div *ngIf="theme.id != 0">
-            <app-publications-list [themeId]="theme.id"></app-publications-list>
+              <app-publications-list
+                [themeId]="theme.id"
+              ></app-publications-list>
             </div>
           </mat-tab>
           <mat-tab label="Authors"></mat-tab>
@@ -68,13 +94,3 @@
     </div>
   </mat-card-content>
 </div>
-
-
-
-
-
-
-
-
-
-

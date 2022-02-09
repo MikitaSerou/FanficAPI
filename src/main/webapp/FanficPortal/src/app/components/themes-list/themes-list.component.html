@@ -1,35 +1,35 @@
 <div class="main-wrapper">
-  <div  class="header-card">
-  <mat-grid-list
-    [cols]="breakpoint"
-    rowHeight="100px"
-    (window:resize)="onResize({ event: $event })"
-  >
-    <mat-grid-tile
-      [colspan]="5"
-      [rowspan]="1"
+  <div class="header-card">
+    <mat-grid-list
+      [cols]="breakpoint"
+      rowHeight="100px"
+      (window:resize)="onResize({ event: $event })"
     >
-      <mat-card style="width: 100%; min-height: 100%" fxLayoutAlign="start center">
-        <mat-icon>local_library</mat-icon>
-        <h1 class="mat-display-2">Themes</h1>
-      </mat-card>
-    </mat-grid-tile>
-    <mat-grid-tile *ngIf="breakpoint === 6" [colspan]="1" [rowspan]="1">
-      <div>
-        <span class="column-label">Columns</span>
-        <mat-slider
-          [max]="7"
-          [min]="5"
-          [(ngModel)]="gridColumns"
-          [thumbLabel]="true"
+      <mat-grid-tile [colspan]="5" [rowspan]="1">
+        <mat-card
+          style="width: 100%; min-height: 100%"
+          fxLayoutAlign="start center"
         >
-        </mat-slider>
-      </div>
-    </mat-grid-tile>
-  </mat-grid-list>
-    </div>
+          <mat-icon>local_library</mat-icon>
+          <h1 class="mat-display-2">Themes</h1>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile *ngIf="breakpoint === 6" [colspan]="1" [rowspan]="1">
+        <div>
+          <span class="column-label">Columns</span>
+          <mat-slider
+            [max]="7"
+            [min]="5"
+            [(ngModel)]="gridColumns"
+            [thumbLabel]="true"
+          >
+          </mat-slider>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
   <div class="title-divider"><mat-divider></mat-divider></div>
-  <div >
+  <div>
     <div fxLayout="row wrap" fxLayoutGap="16px grid">
       <div
         [fxFlex]="100 / gridColumns + '%'"
@@ -47,14 +47,14 @@
             <mat-icon>bookmark</mat-icon>
           </button>
           <div class="card-image">
-          <a routerLink="/themes/{{ theme.id }}">
-            <img
-              md-fab-image
-              mat-card-image
-              src="{{ theme.imageUrl }}"
-              alt="{{ theme.name }}"
-            />
-          </a>
+            <a routerLink="/themes/{{ theme.id }}">
+              <img
+                md-fab-image
+                mat-card-image
+                src="{{ theme.imageUrl }}"
+                alt="{{ theme.name }}"
+              />
+            </a>
           </div>
           <mat-card-title>{{ theme.name }} </mat-card-title>
           <mat-card-content>
@@ -73,6 +73,6 @@
         </mat-card>
       </div>
     </div>
-    <div class="title-divider"><mat-divider ></mat-divider></div>
+    <div class="title-divider"><mat-divider></mat-divider></div>
   </div>
 </div>
