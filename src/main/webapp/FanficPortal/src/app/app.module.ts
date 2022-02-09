@@ -19,6 +19,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { LayoutModule } from '@angular/cdk/layout';
 import { ThemeComponent } from './components/theme/theme.component';
 import { ExitGuard } from './guards/exit.guard';
+import { PublicationsListComponent } from './components/publications-list/publications-list.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { ExitGuard } from './guards/exit.guard';
     ThemesListComponent,
     NavigationComponent,
     ThemeComponent,
+    PublicationsListComponent,
   ],
   imports: [
     AppRoutingModule,

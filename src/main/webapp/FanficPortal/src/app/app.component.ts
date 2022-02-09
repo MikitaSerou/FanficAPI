@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IconsService } from './services/icons.service';
+import { IconService } from './services/icon.service';
 import { Router } from '@angular/router';
 import { AuthService } from './services/auth.service';
 
@@ -11,7 +11,7 @@ import { AuthService } from './services/auth.service';
 export class AppComponent implements OnInit {
   constructor(
     private authService: AuthService,
-    private iconsService: IconsService,
+    private iconsService: IconService,
     public router: Router
   ) {
     this.iconsService.registerIcons();

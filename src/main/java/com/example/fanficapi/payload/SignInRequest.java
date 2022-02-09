@@ -10,9 +10,9 @@ import javax.validation.constraints.NotBlank;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class SignInRequest {
 
-    @NotBlank
+    @NotBlank(message = "Username cannot be blank")
     String username;
 
-    @NotBlank
+    @NotBlank(message = "Password cannot be blank")
     String password;
 }

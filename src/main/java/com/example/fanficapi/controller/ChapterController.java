@@ -1,6 +1,5 @@
 package com.example.fanficapi.controller;
 
-import com.example.fanficapi.mapper.Mapper;
 import com.example.fanficapi.service.ChapterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class ChapterController {
 
     private final ChapterService chapterService;
-    private final Mapper mapper;
 }
 
 

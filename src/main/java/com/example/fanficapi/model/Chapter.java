@@ -24,9 +24,11 @@ public class Chapter {
     @Column(nullable = false)
     String name;
 
+    @Column(name = "text")
     String text;
 
-    String imageReference;
+    @Column(name = "image_url")
+    String imageUrl;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "publication_id")

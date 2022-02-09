@@ -1,6 +1,7 @@
 package com.example.fanficapi.service.impl;
 
 import com.example.fanficapi.enums.RoleName;
+import com.example.fanficapi.exception.RoleException;
 import com.example.fanficapi.model.Role;
 import com.example.fanficapi.repository.RoleRepository;
 import com.example.fanficapi.service.RoleService;
@@ -16,7 +17,6 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Role findByRoleName(RoleName roleName) throws RuntimeException {
         return roleRepository.findByName(roleName)
-                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                .orElseThrow(() -> new RoleException("Error: Role is not found."));
     }
-
 }

@@ -6,7 +6,7 @@ import { Icons } from '../enum/icons';
 @Injectable({
   providedIn: 'root',
 })
-export class IconsService {
+export class IconService {
   constructor(
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer

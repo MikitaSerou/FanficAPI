@@ -1,7 +1,7 @@
 package com.example.fanficapi.controller;
 
 import com.example.fanficapi.dto.user.UserDto;
-import com.example.fanficapi.mapper.Mapper;
+import com.example.fanficapi.mapper.UserMapper;
 import com.example.fanficapi.model.User;
 import com.example.fanficapi.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
-    private final Mapper mapper;
+    private final UserMapper mapper;
 
     @GetMapping("/all")
     // @PreAuthorize("hasRole('ADMIN')")

@@ -1,40 +1,35 @@
 <div class="main-wrapper">
-  <div  class="header-card">
-  <mat-grid-list
-    [cols]="breakpoint"
-    rowHeight="100px"
-    (window:resize)="onResize({ event: $event })"
-    style="height: 10px"
-  >
-    <mat-grid-tile
-      [colspan]="5"
-      [rowspan]="1"
-      class="subtitle-card mat-display-2"
+  <div class="header-card">
+    <mat-grid-list
+      [cols]="breakpoint"
+      rowHeight="100px"
+      (window:resize)="onResize({ event: $event })"
     >
-      <mat-card style="width: 100%" fxLayoutAlign="start center">
-        <mat-icon>local_library</mat-icon>
-        <h1 class="mat-display-2">Themes</h1>
-      </mat-card>
-    </mat-grid-tile>
-
-    <mat-grid-tile *ngIf="breakpoint === 6" [colspan]="1" [rowspan]="1">
-      <div>
-        <span class="column-label">Columns</span>
-        <mat-slider
-          [max]="7"
-          [min]="5"
-          [(ngModel)]="gridColumns"
-          [thumbLabel]="true"
+      <mat-grid-tile [colspan]="5" [rowspan]="1">
+        <mat-card
+          style="width: 100%; min-height: 100%"
+          fxLayoutAlign="start center"
         >
-        </mat-slider>
-      </div>
-    </mat-grid-tile>
-  </mat-grid-list>
-    </div>
-  <br />
-  <mat-divider></mat-divider>
-  <br />
-  <div class="content">
+          <mat-icon>local_library</mat-icon>
+          <h1 class="mat-display-2">Themes</h1>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile *ngIf="breakpoint === 6" [colspan]="1" [rowspan]="1">
+        <div>
+          <span class="column-label">Columns</span>
+          <mat-slider
+            [max]="7"
+            [min]="5"
+            [(ngModel)]="gridColumns"
+            [thumbLabel]="true"
+          >
+          </mat-slider>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+  <div class="title-divider"><mat-divider></mat-divider></div>
+  <div>
     <div fxLayout="row wrap" fxLayoutGap="16px grid">
       <div
         [fxFlex]="100 / gridColumns + '%'"
@@ -43,25 +38,25 @@
         *ngFor="let theme of themes"
       >
         <mat-card class="mat-card-wrapper">
-          <mat-card-header>
-            <mat-card-title>{{ theme.name }} </mat-card-title>
-            <button
-              mat-icon-button
-              color="accent"
-              aria-label="Example icon button with a plus one icon"
-              class="corner-button"
-            >
-              <mat-icon>bookmark</mat-icon>
-            </button>
-          </mat-card-header>
-          <a routerLink="/themes/{{ theme.id }}">
-            <img
-              md-fab-image
-              mat-card-image
-              src="{{ theme.imageUrl }}"
-              alt="{{ theme.name }}"
-            />
-          </a>
+          <button
+            mat-mini-fab
+            color="accent"
+            aria-label="Example icon button with a plus one icon"
+            class="corner-button"
+          >
+            <mat-icon>bookmark</mat-icon>
+          </button>
+          <div class="card-image">
+            <a routerLink="/themes/{{ theme.id }}">
+              <img
+                md-fab-image
+                mat-card-image
+                src="{{ theme.imageUrl }}"
+                alt="{{ theme.name }}"
+              />
+            </a>
+          </div>
+          <mat-card-title>{{ theme.name }} </mat-card-title>
           <mat-card-content>
             <!--          TODO add name of last publication-->
             Last publication
@@ -78,5 +73,6 @@
         </mat-card>
       </div>
     </div>
+    <div class="title-divider"><mat-divider></mat-divider></div>
   </div>
 </div>

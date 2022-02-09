@@ -2,7 +2,7 @@ package com.example.fanficapi.controller;
 
 import com.example.fanficapi.dto.theme.ParentThemeDto;
 import com.example.fanficapi.dto.theme.ThemeDto;
-import com.example.fanficapi.mapper.Mapper;
+import com.example.fanficapi.mapper.ThemeMapper;
 import com.example.fanficapi.service.ThemeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +22,7 @@ import java.util.List;
 public class ThemeController {
 
     private final ThemeService themeService;
-    private final Mapper mapper;
+    private final ThemeMapper mapper;
 
     @GetMapping("/preview/{id}")
     public ResponseEntity<ParentThemeDto> getSimplePublicationById(@PathVariable("id") Integer id) {
