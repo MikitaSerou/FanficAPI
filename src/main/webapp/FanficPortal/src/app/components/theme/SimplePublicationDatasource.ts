@@ -1,9 +1,9 @@
-import {CollectionViewer, DataSource} from '@angular/cdk/collections';
-import {SimplePublication} from '../../interfaces/simple/SimplePublication';
-import {BehaviorSubject, Observable, of} from 'rxjs';
-import {PublicationService} from '../../services/publication.service';
-import {catchError, finalize} from 'rxjs/operators';
-import {Page} from '../../interfaces/Page';
+import { CollectionViewer, DataSource } from '@angular/cdk/collections';
+import { SimplePublication } from '../../interfaces/simple/SimplePublication';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { PublicationService } from '../../services/publication.service';
+import { catchError, finalize } from 'rxjs/operators';
+import { Page } from '../../interfaces/Page';
 
 export class SimplePublicationDatasource
   implements DataSource<SimplePublication>

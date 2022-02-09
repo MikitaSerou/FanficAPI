@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {ThemeService} from '../../services/theme.service';
-import {Location} from '@angular/common';
-import {Theme} from '../../interfaces/Theme';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ThemeService } from '../../services/theme.service';
+import { Location } from '@angular/common';
+import { Theme } from '../../interfaces/Theme';
 
 @Component({
   selector: 'app-theme',

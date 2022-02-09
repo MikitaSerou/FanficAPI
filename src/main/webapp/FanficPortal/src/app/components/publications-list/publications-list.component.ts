@@ -1,8 +1,8 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {PublicationService} from '../../services/publication.service';
-import {MatPaginator} from '@angular/material/paginator';
-import {SimplePublicationDatasource} from '../theme/SimplePublicationDatasource';
-import {tap} from 'rxjs/operators';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { PublicationService } from '../../services/publication.service';
+import { MatPaginator } from '@angular/material/paginator';
+import { SimplePublicationDatasource } from '../theme/SimplePublicationDatasource';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-publications-list',

@@ -1,5 +1,5 @@
-import {Publication} from './Publication';
-import {SimpleChapter} from './simple/SimpleChapter';
+import { Publication } from './Publication';
+import { SimpleChapter } from './simple/SimpleChapter';
 
 export interface Chapter extends SimpleChapter {
   text: string;
