@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ThemeService } from '../../services/theme.service';
-import { SimpleTheme } from '../../interfaces/simple/simpleTheme';
+import {Component, OnInit} from '@angular/core';
+import {ThemeService} from '../../services/theme.service';
+import {SimpleTheme} from '../../interfaces/simple/SimpleTheme';
 
 @Component({
   selector: 'app-themes-list',

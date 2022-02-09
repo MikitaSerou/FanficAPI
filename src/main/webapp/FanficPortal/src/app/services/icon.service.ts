@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { MatIconRegistry } from '@angular/material/icon';
-import { Icons } from '../enum/icons';
+import {Injectable} from '@angular/core';
+import {DomSanitizer} from '@angular/platform-browser';
+import {MatIconRegistry} from '@angular/material/icon';
+import {Icons} from '../enum/icons';
 
 @Injectable({
   providedIn: 'root',
 })
-export class IconsService {
+export class IconService {
   constructor(
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer

@@ -1,35 +1,47 @@
+$main-padding: 16px
 $main-top-padding: 75px
 
 .main-wrapper
-  padding: 16px
-  height: 100%
+  padding: $main-padding
 
 .header-card
   margin-top: $main-top-padding
-
-.content
-  padding-top: 10px
-  padding-left: 0
-
-.content > mat-card
-  width: 200px
-
-.mat-card-wrapper > mat-card-header
-  padding-bottom: 20px
-
-.subtitle-card
-  text-align: start
-//width: 100%
-//height: 100%
+  height: 100px
 
 .sidenav-container
   width: 100%
 
+.mat-card-wrapper > mat-card-header
+  padding-bottom: 20px
+
+mat-card-wrapper
+  display: flex
+
+.content > mat-card
+  width: 200px
+
 mat-card
   .corner-button
     position: absolute
-    top: 1%
+    top: 3%
     right: 2%
 
 mat-card > h1
   padding-left: 10px
+
+mat-card-title
+  min-height: 60px
+  overflow: hidden
+  text-overflow: ellipsis
+  display: -webkit-box
+  -webkit-line-clamp: 2
+  -webkit-box-orient: vertical
+
+.card-image
+  display: block
+  margin: 0 auto
+  padding-top: 10px
+  object-fit: cover
+  object-position: 0 0
+
+

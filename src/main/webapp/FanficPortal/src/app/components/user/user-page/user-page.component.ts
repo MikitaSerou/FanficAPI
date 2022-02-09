@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { User } from '../../../interfaces/user';
-import { UserService } from '../../../services/user.service';
-import { HttpErrorResponse } from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {User} from '../../../interfaces/User';
+import {UserService} from '../../../services/user.service';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-user-page',

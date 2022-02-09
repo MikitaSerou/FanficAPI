@@ -1,7 +1,7 @@
-<div class="main-wrapper" style="height: calc(100% - 64px)">
+<div class="main-wrapper"><!--style="height: calc(100% - 64px)"-->
   <div class="header-card">
-    <mat-card fxLayoutAlign="start center" class="mat-card-header">
-      <button mat-icon-button color="accent" (click)="goBack()">
+    <mat-card class="mat-card-header">
+      <button mat-icon-button color="accent" (click)="goBack()" >
         <mat-icon>arrow_back</mat-icon>
       </button>
       <h1 class="mat-display-2">
@@ -9,12 +9,10 @@
       </h1>
     </mat-card>
   </div>
-  <br />
-  <mat-divider></mat-divider>
-  <br />
+<div class="title-divider"><mat-divider ></mat-divider></div>
   <mat-card-content>
-    <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap="16px">
-      <div fxFlex.gt-sm="50%" fxFlex>
+    <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap="16px" fxLayoutAlign="space-evenly">
+      <div>
         <mat-card class="summary-card">
           <img mat-card-image src="{{ theme.imageUrl }}" alt="{{ theme.name}}"
                style="max-height: 522px; object-fit: scale-down; padding-top: 20px">
@@ -24,8 +22,8 @@
               <mat-expansion-panel
                 (opened)="panelOpenState = true"
                 (closed)="panelOpenState = false">
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
+                <mat-expansion-panel-header >
+                  <mat-panel-title style="margin-top: auto; margin-bottom: auto">
                     TAGS:
                   </mat-panel-title>
                   <mat-panel-description>
@@ -57,22 +55,15 @@
           </mat-card-actions>
         </mat-card>
       </div>
-      <div fxFlex.gt-sm="50%" fxFlex>
-        <div fxLayout="column" fxLayoutAlign="space-evenly stretch">
-          <h1>Publications:</h1>
-          <mat-list role="list">
-            <mat-list-item role="listitem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure, libero?</mat-list-item>
-            <mat-list-item role="listitem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates.</mat-list-item>
-            <mat-list-item role="listitem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, dolorum.</mat-list-item>
-            <mat-list-item role="listitem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, dolorum.</mat-list-item>
-            <mat-list-item role="listitem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, dolorum.</mat-list-item>
-            <mat-list-item role="listitem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, dolorum.</mat-list-item>
-            <mat-list-item role="listitem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, dolorum.</mat-list-item>
-            <mat-list-item role="listitem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, dolorum.</mat-list-item>
-            <mat-list-item role="listitem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, dolorum.</mat-list-item>
-            <mat-list-item role="listitem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, dolorum.</mat-list-item>
-          </mat-list>
-        </div>
+      <div fxFlex.gt-sm="60%" style="width: 100%; height: 660px">
+        <mat-tab-group mat-stretch-tabs>
+          <mat-tab label="Publications">
+            <div *ngIf="theme.id != 0">
+            <app-publications-list [themeId]="theme.id"></app-publications-list>
+            </div>
+          </mat-tab>
+          <mat-tab label="Authors"></mat-tab>
+        </mat-tab-group>
       </div>
     </div>
   </mat-card-content>
