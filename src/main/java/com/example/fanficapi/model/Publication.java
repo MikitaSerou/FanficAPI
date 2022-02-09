@@ -71,4 +71,12 @@ public class Publication {
 
     @Column(name = "creation_date", nullable = false)
     LocalDate creationDate;
+
+    @Column(name = "update_date", nullable = false)
+    LocalDate updateDate;
+
+    @PreUpdate
+    public void preUpdate() {
+        updateDate = LocalDate.now();
+    }
 }

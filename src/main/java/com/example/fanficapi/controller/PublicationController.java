@@ -52,7 +52,7 @@ public class PublicationController {
         Pageable paging = PageRequest.of(page, size, setDescendingSorting(descSort));
         Page<Publication> entityPage = publicationService.findAllByThemeId(themeId, paging);
         List<PreviewPublicationDto> publicationsDtos = mapper.publicationsListToPreviewDto(entityPage.getContent());
-        return new ResponseEntity<>(new PageImpl<>(publicationsDtos), HttpStatus.OK);
+        return new ResponseEntity<>(new PageImpl<>(publicationsDtos, paging, entityPage.getTotalElements()), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
