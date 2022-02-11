@@ -2,7 +2,7 @@
   <div class="header-card">
     <mat-grid-list
       [cols]="breakpoint"
-      rowHeight="100px"
+      rowHeight="80px"
       (window:resize)="onResize({ event: $event })"
     >
       <mat-grid-tile [colspan]="5" [rowspan]="1">
@@ -49,7 +49,6 @@
           <div class="card-image">
             <a routerLink="/themes/{{ theme.id }}">
               <img
-                md-fab-image
                 mat-card-image
                 src="{{ theme.imageUrl }}"
                 alt="{{ theme.name }}"

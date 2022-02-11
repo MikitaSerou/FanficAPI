@@ -1,4 +1,10 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { PublicationService } from '../../services/publication.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { SimplePublicationDatasource } from '../theme/SimplePublicationDatasource';
@@ -10,7 +16,7 @@ import { tap } from 'rxjs/operators';
   templateUrl: './publications-list.component.html',
 })
 export class PublicationsListComponent implements OnInit {
-  @Input() themeId: number = 0;
+  @Input() themeId: number;
   displayedColumns: string[] = ['id', 'name', 'author', 'updateDate'];
   simplePublicationDatasource: SimplePublicationDatasource;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -34,6 +40,12 @@ export class PublicationsListComponent implements OnInit {
       .subscribe();
 
     this.paginator.page.pipe(tap(() => this.loadPublications())).subscribe();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['themeId']) {
+      this.simplePublicationDatasource.loadPublications(this.themeId);
+    }
   }
 
   loadPublications() {
