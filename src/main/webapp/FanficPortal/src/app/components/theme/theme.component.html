@@ -81,11 +81,7 @@
       <div fxFlex.gt-sm="60%" style="width: 100%; height: 660px">
         <mat-tab-group>
           <mat-tab label="Publications">
-            <div *ngIf="theme.id != 0">
-              <app-publications-list
-                [themeId]="theme.id"
-              ></app-publications-list>
-            </div>
+            <app-publications-list [themeId]="theme.id"></app-publications-list>
           </mat-tab>
           <mat-tab label="Authors"></mat-tab>
         </mat-tab-group>

@@ -11,8 +11,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class UserPageComponent implements OnInit {
   public user!: User;
 
-  //  public username?: string
-
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
